@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-navbar>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>MyLearningApp</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="question">
+  <ion-card>
+    <ion-card-header>
+      Neue Frage erstellen.
+    </ion-card-header>
+    <ion-card-content>
+      <form [formGroup]="createQuestionForm">
+
+        <ion-item>
+          <ion-label floating>Deine Frage</ion-label>
+          <ion-textarea formControlName="question" type="text"></ion-textarea>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Antwort A</ion-label>
+          <ion-input formControlName="answerA" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Antwort B</ion-label>
+          <ion-input formControlName="answerB" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Antwort C</ion-label>
+          <ion-input formControlName="answerC" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Antwort D</ion-label>
+          <ion-input formControlName="answerD" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Richtige Antwort</ion-label>
+          <ion-select formControlName="correctAnswer">
+            <ion-option value="1" selected>A</ion-option>
+            <ion-option value="2">B</ion-option>
+            <ion-option value="3">C</ion-option>
+            <ion-option value="4">D</ion-option>
+          </ion-select>
+        </ion-item>
+
+      </form>
+    </ion-card-content>
+  </ion-card>
+  <button (click)="createQuestion()" full>Frage erstellen!</button>
+</ion-content>
