@@ -4,7 +4,7 @@ import {Settings} from './settings.model';
 import {Observable} from 'rxjs/Observable';
 
 const settingsKey: string = 'appSettings';
-const defaultServerIp: string = 'http://localhost:8080/wwm/';
+const defaultServerIp: string = 'http://localhost:8080/wwm/';  //umstellen nach Absprache mit Fernando
 
 @Injectable()
 export class SettingsService {
