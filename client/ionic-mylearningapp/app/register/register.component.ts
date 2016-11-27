@@ -1,15 +1,17 @@
+
 import {Component} from '@angular/core';
 import { AlertController } from 'ionic-angular';
 
-
 @Component({
-  templateUrl: 'build/register/register.html'
+  templateUrl: 'build/login/register.html'
 })
 export class RegisterComponent {
+
   private alreadyRegistered : boolean = false;
   private userName : string;
   private password : string;
   private isTeacher : boolean = false;
+  private alertCtrl : AlertController;
 
   constructor(userName : string, password : string) {
     this.userName = userName;
@@ -17,7 +19,7 @@ export class RegisterComponent {
   }
 
   register () {
-    if (this.username == null) {
+    if (this.userName == null) {
       const alert = this.alertCtrl.create({
         title: '<b>Angaben überprüfen!</b>',
         subTitle: 'Um dich zu registrieren musst du deinen Namen eingeben!',
@@ -35,7 +37,7 @@ export class RegisterComponent {
       alert.present();
       return;
     }
-    if(alreadyRegistered == true)
 
   }
+
 }

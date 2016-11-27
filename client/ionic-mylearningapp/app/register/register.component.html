@@ -8,9 +8,9 @@
 </ion-header>
 
 
-<ion-content padding class="quiz">
+<ion-content padding class="register">
 
-  <div name="welcome" *ngIf="!quizStarted">
+  <div name="welcome" *ngIf="!logged in">
     <ion-card>
       <ion-card-header>
         <b>Benutzerregistrierung</b>
@@ -18,25 +18,18 @@
       <ion-card-content>
         Benutzername:
         <label class="item item-input">
-          <input type="text" [(ngModel)]="username">
+          <input type="text" [(ngModel)]="userName">
         </label>
         Passwort:
         <label class="item item-input">
           <input type="text" [(ngModel)]="password">
         </label>
+        <ion-label>Benutzerart</ion-label>
+        <ion-select [(ngModel)]="selectedUser" okText="Auswählen" cancelText="Abbrechen">
+          <ion-option value="1">Schüler</ion-option>
+          <ion-option value="2">Lehrer</ion-option>
+        </ion-select>
       </ion-card-content>
     </ion-card>
   </div>
-
-<div class="row">
-  <div class="col">
-    <ion-label>Benutzerart</ion-label>
-  </div>
-  <div class="col">
-    <ion-select [(ngModel)]="selectedUser" okText="Auswählen" cancelText="Abbrechen">
-      <ion-option value="1">Schüler</ion-option>
-      <ion-option value="2">Lehrer</ion-option>
-    </ion-select>
-  </div>
-    <button (click)="register()" full>Registrieren!</button>
-</div>
+  <button (click)="register()" full>Registrieren!</button>
