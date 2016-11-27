@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(allowCrossDomain);
 app.use('/wwm', router);
 app.listen(port);
-console.log('http://127.0.0.1:' + port + '/wwm');
+console.log('http://127.0.0.1:' + port + '/mla');
 DataSource_1.DataSource.getInstance().initDatabase();
 router.get('/', function (req, res) {
     res.json({ "message": 'WWM server is running ...' });
