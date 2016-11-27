@@ -1,0 +1,2 @@
+in case of 'error eperm operation not permitted ionic':
+use node.js command prompt as administrator
