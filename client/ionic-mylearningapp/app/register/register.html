@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>MyLearningApp</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding class="quiz">
+
+  <div name="welcome" *ngIf="!quizStarted">
+    <ion-card>
+      <ion-card-header>
+        <b>Benutzerregistrierung</b>
+      </ion-card-header>
+      <ion-card-content>
+        Benutzername:
+        <label class="item item-input">
+          <input type="text" [(ngModel)]="username">
+        </label>
+        Passwort:
+        <label class="item item-input">
+          <input type="text" [(ngModel)]="password">
+        </label>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+<div class="row">
+  <div class="col">
+    <ion-label>Benutzerart</ion-label>
+  </div>
+  <div class="col">
+    <ion-select [(ngModel)]="selectedUser" okText="Auswählen" cancelText="Abbrechen">
+      <ion-option value="1">Schüler</ion-option>
+      <ion-option value="2">Lehrer</ion-option>
+    </ion-select>
+  </div>
+    <button (click)="register()" full>Registrieren!</button>
+</div>
