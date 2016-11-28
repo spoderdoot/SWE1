@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>MyLearningApp</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="login">
+
+  <div name="welcome">
+    <ion-card>
+      <ion-card-header>
+        <b>Login</b>
+      </ion-card-header>
+      <ion-card-content>
+        Benutzername:
+        <label class="item item-input">
+          <input type="text" [(ngModel)]="userName">
+        </label>
+        Passwort:
+        <label class="item item-input">
+          <input type="text" [(ngModel)]="password">
+        </label>
+        <ion-label>Benutzerart</ion-label>
+        <ion-select [(ngModel)]="selectedUser" okText="Auswählen" cancelText="Abbrechen">
+          <ion-option value="1">Schüler</ion-option>
+          <ion-option value="2">Lehrer</ion-option>
+        </ion-select>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <button (click)="register(userName, password)" full>einloggen</button>
