@@ -26,12 +26,12 @@ class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Registrierung', icon: 'people', component: RegisterComponent},
+      //{ title: 'Login', icon: '', component: LoginComponent},
       { title: 'Spielen', icon: 'bulb', component: QuizComponent },
       { title: 'Frage erstellen', icon: 'create', component: CreateQuestionComponent },
       { title: 'Fragen anzeigen', icon: 'list', component: ListQuestionsComponent },
       { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
       { title: 'Über uns', icon: 'people', component: AboutModalComponent }
-    //  { title: 'Login', icon: '', component: LoginComponent}
 
     //  { title: 'Fragen verwalten', icon: '', component: AdminComponent}
     //  { title: 'Benutzer verwalten', icon: '', component: AdminComponent}

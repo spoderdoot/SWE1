@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 import { AlertController } from 'ionic-angular';
 
 @Component({
-  templateUrl: 'build/login/register.html'
+  templateUrl: 'build/register/register.component.html'
 })
 export class RegisterComponent {
 
@@ -11,14 +11,13 @@ export class RegisterComponent {
   private userName : string;
   private password : string;
   private isTeacher : boolean = false;
-  private alertCtrl : AlertController;
 
-  constructor(userName : string, password : string) {
-    this.userName = userName;
-    this.password = password;
+
+  constructor(private alertCtrl : AlertController) {
+
   }
 
-  register () {
+  register (userName : string, password : string) {
     if (this.userName == null) {
       const alert = this.alertCtrl.create({
         title: '<b>Angaben überprüfen!</b>',
@@ -36,8 +35,16 @@ export class RegisterComponent {
       });
       alert.present();
       return;
+    } else {
+      this.userName = userName;
+      this.password = password;
     }
 
+
+  }
+
+  loggedIn() {
+    return false;
   }
 
 }

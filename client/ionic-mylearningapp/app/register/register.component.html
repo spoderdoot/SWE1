@@ -10,7 +10,7 @@
 
 <ion-content padding class="register">
 
-  <div name="welcome" *ngIf="!logged in">
+  <div name="welcome">
     <ion-card>
       <ion-card-header>
         <b>Benutzerregistrierung</b>
@@ -32,4 +32,4 @@
       </ion-card-content>
     </ion-card>
   </div>
-  <button (click)="register()" full>Registrieren!</button>
+  <button (click)="register(userName, password)" full>Registrieren!</button>
