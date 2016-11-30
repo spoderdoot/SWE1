@@ -33,11 +33,11 @@ var allowCrossDomain = function(req, res, next) {
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(allowCrossDomain);
-app.use('/wwm', router);
+app.use('/ila', router);
 
 // start listening
 app.listen(port);
-console.log('http://127.0.0.1:' + port + '/wwm');
+console.log('http://127.0.0.1:' + port + '/ila');
 
 // initialize database
 DataSource.getInstance().initDatabase();
@@ -46,7 +46,7 @@ DataSource.getInstance().initDatabase();
 
 // test function
 router.get('/', function (req, res) {
-    res.json({"message": 'WWM server is running ...'});
+    res.json({"message": 'ILA server is running ...'});
 });
 
 // list all available questions -> callback version

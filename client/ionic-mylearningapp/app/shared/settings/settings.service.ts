@@ -4,7 +4,7 @@ import {Settings} from './settings.model';
 import {Observable} from 'rxjs/Observable';
 
 const settingsKey: string = 'appSettings';
-const defaultServerIp: string = 'http://localhost:8080/wwm/';  //umstellen nach Absprache mit Fernando
+const defaultServerIp: string = 'http://localhost:8080/ila/';  //ila = InstaLearnApp
 
 @Injectable()
 export class SettingsService {

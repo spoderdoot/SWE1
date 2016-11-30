@@ -1,9 +1,9 @@
 "use strict";
-const express = require('express');
-const bodyParser = require('body-parser');
-const Question_1 = require('./Question');
-const DataSource_1 = require('./DataSource');
-const QuestionDAO_1 = require('./QuestionDAO');
+const express = require("express");
+const bodyParser = require("body-parser");
+const Question_1 = require("./Question");
+const DataSource_1 = require("./DataSource");
+const QuestionDAO_1 = require("./QuestionDAO");
 const app = express();
 const port = process.env.PORT || 8080;
 const router = express.Router();
@@ -16,12 +16,12 @@ var allowCrossDomain = function (req, res, next) {
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(allowCrossDomain);
-app.use('/wwm', router);
+app.use('/ila', router);
 app.listen(port);
-console.log('http://127.0.0.1:' + port + '/mla');
+console.log('http://127.0.0.1:' + port + '/ila');
 DataSource_1.DataSource.getInstance().initDatabase();
 router.get('/', function (req, res) {
-    res.json({ "message": 'WWM server is running ...' });
+    res.json({ "message": 'ILA server is running ...' });
 });
 router.get('/listQuestions', function (req, res) {
     var callback = function (rows) {
