@@ -5,5 +5,12 @@ import {Component} from '@angular/core';
   templateUrl: 'build/login/login.component.html'
 })
 export class LoginComponent {
+  private userName : string;
+  private password : string;
   constructor() {}
+
+  login(userName : string, password : string) {
+
+  }
+  redirectToRegister() {}
 }

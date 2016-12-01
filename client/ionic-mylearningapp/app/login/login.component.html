@@ -23,12 +23,16 @@
         <label class="item item-input">
           <input type="text" [(ngModel)]="password">
         </label>
+        <ion-item>
         <ion-label>Benutzerart</ion-label>
         <ion-select [(ngModel)]="selectedUser" okText="Auswählen" cancelText="Abbrechen">
           <ion-option value="1">Schüler</ion-option>
           <ion-option value="2">Lehrer</ion-option>
         </ion-select>
+      </ion-item>
       </ion-card-content>
     </ion-card>
   </div>
   <button (click)="register(userName, password)" full>einloggen</button>
+  <button (click) = "redirectToRegister" full >Neu bei InstaLearn?</button>
+</ion-content>

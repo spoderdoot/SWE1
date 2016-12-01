@@ -132,8 +132,16 @@ export class QuizComponent {
     const alert = this.alertCtrl.create({
       title: '<b>Falsch!</b>',
       subTitle: 'Leider verloren.',
-      buttons: ['OK']
+      buttons: [    {
+            text: 'OK',
+            // when the user clicks ok, trigger this method
+            handler: () => {
+              this.nextQuestion();
+            }
+          }]
     });
+
+
     alert.present();
   }
 }

@@ -3,6 +3,7 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
+    Willkommen bei
     <ion-title>InstaLearn</ion-title>
   </ion-navbar>
 </ion-header>
@@ -20,15 +21,18 @@
         <label class="item item-input">
           <input type="text" [(ngModel)]="userName">
         </label>
-        Passwort:
+        Passwort(optional):
         <label class="item item-input">
           <input type="text" [(ngModel)]="password">
         </label>
-        <ion-label>Benutzerart</ion-label>
+        <label>Benutzerart
+      <ion-item>
         <ion-select [(ngModel)]="selectedUser" okText="Auswählen" cancelText="Abbrechen">
           <ion-option value="1">Schüler</ion-option>
           <ion-option value="2">Lehrer</ion-option>
         </ion-select>
+      </ion-item>
+      </label>
       </ion-card-content>
     </ion-card>
   </div>
