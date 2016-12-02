@@ -46,7 +46,7 @@ DataSource.getInstance().initDatabase();
 
 // test function
 router.get('/', function (req, res) {
-    res.json({"message": 'ILA server is running ...'});
+    res.json({"message": 'InstaLearning server is running ...'});
 });
 
 // list all available questions -> callback version
