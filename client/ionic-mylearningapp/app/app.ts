@@ -4,7 +4,7 @@ import { StatusBar } from 'ionic-native';
 
 import { AboutModalComponent } from './about/index';
 import { QuizComponent } from './quiz/index';
-import { CreateQuestionComponent, ListQuestionsComponent, DeleteQuestionComponent, EditQuestionComponent } from './question/index';
+import { CreateQuestionComponent, ListQuestionsComponent, DeleteQuestionComponent, EditQuestionComponent, ManageQuestionComponent } from './question/index';
 import { SettingsComponent } from './settings/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';
@@ -19,21 +19,42 @@ class MyApp {
 
   pages: Array<{ title: string, icon: string, component: any }>;
 
+  isTeacher : boolean = false;
+
   constructor(public platform: Platform, private modalCtrl: ModalController) {
     this.initializeApp();
 
+    /*if(this.isTeacher) {
+      this.pages = [
+        { title: 'Fragen verwalten', icon: 'game-controller-b', component: ManageQuestionComponent },
+        // {title: 'Spielauswertungen anzeigen', icon: 'statistics', component: GameResultsComponent},
+        { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
+        { title: 'Über uns', icon: 'at', component: AboutModalComponent }
+      ]
+    }
+    if(!this.isTeacher) {
+      this.pages = [
+        { title: 'Login', icon: 'person', component: LoginComponent}, //maybe I can comibne Login with Play function
+        { title: 'Spielen', icon: 'game-controller-b', component: QuizComponent },
+        { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
+        { title: 'Über uns', icon: 'at', component: AboutModalComponent }
+      ]
+    } */
+    
     //ion-icon - https://ionicframework.com/docs/v2/ionicons/
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Registrierung', icon: 'person-add', component: RegisterComponent},
       { title: 'Login', icon: 'person', component: LoginComponent}, //maybe I can comibne Login with Play function
       { title: 'Spielen', icon: 'game-controller-b', component: QuizComponent },
+      { title: 'Fragen verwalten', icon: 'game-controller-b', component: ManageQuestionComponent },
       { title: 'Frage erstellen', icon: 'create', component: CreateQuestionComponent },//Putting them all together in something like "question options" would be nice
       { title: 'Fragen anzeigen', icon: 'list', component: ListQuestionsComponent },
       { title: 'Frage ändern', icon: 'brush', component: EditQuestionComponent },
       { title: 'Frage löschen', icon: 'trash', component: DeleteQuestionComponent },
       { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
       { title: 'Über uns', icon: 'at', component: AboutModalComponent }
+
 
 
     //  { title: 'Fragen verwalten', icon: '', component: AdminComponent}

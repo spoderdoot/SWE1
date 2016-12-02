@@ -1,6 +1,30 @@
 import {Component} from '@angular/core';
+import { NavController } from 'ionic-angular';
+import { CreateQuestionComponent, ListQuestionsComponent, EditQuestionComponent, DeleteQuestionComponent} from './index';
+
 
 @Component({
-  templateUrl: 'build/quesion/manageQuestion.component.html'
+  templateUrl: 'build/question/manageQuestion.component.html'
 })
-export class ManageQuestion {}
+export class ManageQuestionComponent {
+
+  constructor(public navCtrl : NavController) {
+    this.navCtrl = navCtrl;
+  }
+
+  redirectToCreate() {
+    this.navCtrl.push(CreateQuestionComponent);
+  }
+
+  redirectToList() {
+    this.navCtrl.push(ListQuestionsComponent);
+  }
+
+  redirectToEdit() {
+    this.navCtrl.push(EditQuestionComponent);
+  }
+
+  redirectToDelete() {
+    this.navCtrl.push(DeleteQuestionComponent);
+  }
+}

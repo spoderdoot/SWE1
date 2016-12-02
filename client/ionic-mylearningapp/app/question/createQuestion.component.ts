@@ -18,6 +18,15 @@ export class CreateQuestionComponent {
   createForm() {
     // create the form group and define the validators
     this.createQuestionForm = this.formBuilder.group({
+      //subject: [],
+      /*html teil
+      <ion-item>
+        <ion-label floating >Wählen Sie Ihr Fachgebiet aus</ion-label>
+        <ion-select [(ngModel)]="selectSubject" okText="Auswählen" cancelText="Abbrechen">
+          <ion-option value="1">Mathe</ion-option>
+          <ion-option value="2">Englisch</ion-option>
+        </ion-select>
+      <ion-item> */
       question: ['', Validators.compose([Validators.required])],
       answerA: ['', Validators.compose([Validators.required])],
       answerB: ['', Validators.compose([Validators.required])],
