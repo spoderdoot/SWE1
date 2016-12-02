@@ -1,5 +1,5 @@
 "use strict";
-const sqlite3_1 = require('sqlite3');
+const sqlite3_1 = require("sqlite3");
 class DataSource {
     constructor() {
         this.createQuestionTable = "CREATE TABLE TB_QUESTIONS (" +
@@ -37,5 +37,5 @@ class DataSource {
         });
     }
 }
-DataSource._instance = new DataSource();
 exports.DataSource = DataSource;
+DataSource._instance = new DataSource();
