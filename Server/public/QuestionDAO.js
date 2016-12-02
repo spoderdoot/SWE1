@@ -1,6 +1,6 @@
 "use strict";
-const DataSource_1 = require('./DataSource');
-const Question_1 = require('./Question');
+const DataSource_1 = require("./DataSource");
+const Question_1 = require("./Question");
 class QuestionDAO {
     static getAllQuestions(callback) {
         var questions = new Array();
@@ -41,5 +41,5 @@ class QuestionDAO {
         });
     }
 }
-QuestionDAO.ds = DataSource_1.DataSource.getInstance();
 exports.QuestionDAO = QuestionDAO;
+QuestionDAO.ds = DataSource_1.DataSource.getInstance();

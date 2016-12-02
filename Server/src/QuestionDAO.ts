@@ -47,12 +47,22 @@ export class QuestionDAO {
     }
 
     public static getQuestionById(id : number, callback) {
+
       var query = "SELECT * FROM TB_QUESTIONS WHERE id='" + id +"'";
       this.ds.getDatabase().get(query, function(err, row) {
         var question = new Question(row['id'], row['question'], row['answerA'], row['answerB'], row['answerC'], row['answerD'], row['correctAnswer']);
         callback(question);
       });
     }
-
+    //public static deleteQuestion(id : number, callback) {
+    //  var query = "DELETE FROM TB_QUESTIONS WHERE id=' " + id +"'";
+    //  var isSuccessful = false;
+    //  QuestionDAO.ds.getDatabase().run(insert function(err)) {
+    //      if(!err) {
+    //        isSuccessful = true;
+    //
+    //      }
+    //  }
+    //}
 
 }

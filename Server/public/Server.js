@@ -21,7 +21,7 @@ app.listen(port);
 console.log('http://127.0.0.1:' + port + '/ila');
 DataSource_1.DataSource.getInstance().initDatabase();
 router.get('/', function (req, res) {
-    res.json({ "message": 'InstaLearning server is running ...' });
+    res.json({ "message": 'InstaLearn server is running ...' });
 });
 router.get('/listQuestions', function (req, res) {
     var callback = function (rows) {
