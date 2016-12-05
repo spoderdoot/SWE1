@@ -40,11 +40,10 @@ class MyApp {
         { title: 'Über uns', icon: 'at', component: AboutModalComponent }
       ]
     } */
-    
+
     //ion-icon - https://ionicframework.com/docs/v2/ionicons/
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Registrierung', icon: 'person-add', component: RegisterComponent},
       { title: 'Login', icon: 'person', component: LoginComponent}, //maybe I can comibne Login with Play function
       { title: 'Spielen', icon: 'game-controller-b', component: QuizComponent },
       { title: 'Fragen verwalten', icon: 'game-controller-b', component: ManageQuestionComponent },

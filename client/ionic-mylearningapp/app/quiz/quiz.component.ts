@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { AlertController } from 'ionic-angular';
+import { AlertController, NavController } from 'ionic-angular';
 import { Question, QuestionsService} from '../shared/index';
+import {ResultsComponent} from '../results/index';
 
 @Component({
   templateUrl: 'build/quiz/quiz.component.html',
@@ -23,7 +24,7 @@ export class QuizComponent {
   private username: any;
   private balance: any = 0;
 
-  constructor(private alertCtrl: AlertController, public questionsService: QuestionsService) {
+  constructor(private alertCtrl: AlertController, public questionsService: QuestionsService, public navCtrl : NavController) {
   }
 
   startQuiz() {
@@ -90,7 +91,7 @@ export class QuizComponent {
       subTitle: 'Die Antwort ' + this.selectedAnswer + ' war richtig!',
       buttons: [
         {
-          text: 'OK',
+          text: 'Weiter',
           // when the user clicks ok, trigger this method
           handler: () => {
             this.nextQuestion();
@@ -126,22 +127,33 @@ export class QuizComponent {
   }
 
   wrongAnswerSelected() {
-    this.quizStarted = false;
+    //this.quizStarted = false;
     this.selectedAnswer = '';
 
     const alert = this.alertCtrl.create({
       title: '<b>Falsch!</b>',
-      subTitle: 'Leider verloren.',
+      subTitle: 'Deine Antwort war leider falsch.',
       buttons: [    {
-            text: 'OK',
+            text: 'Weiter',
             // when the user clicks ok, trigger this method
             handler: () => {
               this.nextQuestion();
             }
           }]
     });
-
-
     alert.present();
   }
+// used to print the quiz results for the player
+  printResults() {
+
+
+    //returns player to the start of the quiz page
+    this.quizStarted = false;
+    this.redirectToResults();
+
+  }
+
+  redirectToResults() {
+    this.navCtrl.push(ResultsComponent);
+}
 }
