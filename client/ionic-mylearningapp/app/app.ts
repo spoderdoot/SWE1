@@ -4,7 +4,7 @@ import { StatusBar } from 'ionic-native';
 
 import { AboutModalComponent } from './about/index';
 import { QuizComponent } from './quiz/index';
-import { CreateQuestionComponent, ListQuestionsComponent, DeleteQuestionComponent, EditQuestionComponent, ManageQuestionComponent } from './question/index';
+import { CreateMCQComponent, CreateOQComponent, CreateQuestionComponent, ListQuestionsComponent, DeleteQuestionComponent, EditQuestionComponent, ManageQuestionComponent } from './question/index';
 import { SettingsComponent } from './settings/index';
 import { LoginComponent } from './login/index';
 import { RegisterComponent } from './register/index';

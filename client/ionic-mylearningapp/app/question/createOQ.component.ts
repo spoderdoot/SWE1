@@ -1,15 +1,15 @@
+//OQ = Open Question
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Question, QuestionsService} from '../shared/index';
+import { Question, QuestionsService, OpenQuestion} from '../shared/index';
 import { NavController } from 'ionic-angular';
-import { CreateMCQComponent, CreateOQComponent} from './index';
 
 @Component({
-  templateUrl: 'build/question/createQuestion.component.html',
+  templateUrl: 'build/question/createOQ.component.html',
   providers: [QuestionsService],
 })
-export class CreateQuestionComponent {
+export class CreateOQComponent {
   private createQuestionForm: FormGroup;
 
   constructor(private alertCtrl: AlertController, public navCtrl : NavController, private formBuilder: FormBuilder, public questionsService: QuestionsService) {
@@ -52,7 +52,7 @@ export class CreateQuestionComponent {
     }
   }
 
-/*
+  /*
   createOpenQuestion() {
     if(this.isOpenFormIsValid())  {
       var newOpenQuestion= new OpenQuestion(this.createOpenQuestionForm.value.question, this.createOpenQuestionForm.value.correctAnswer);
@@ -95,11 +95,4 @@ export class CreateQuestionComponent {
     // reset the form
     this.createForm();
   }
-
-  redirectToCreateMCQ() {
-    this.navCtrl.push(CreateMCQComponent);
-  }
-  redirectToCreateOQ() {
-    this.navCtrl.push(CreateOQComponent);
-  }
-}
+ }
