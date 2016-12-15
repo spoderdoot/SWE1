@@ -12,17 +12,26 @@
   <div name="welcome" *ngIf="!quizStarted">
     <ion-card>
       <ion-card-header>
-        <b>Benutzerregistrierung</b>
+        <b>Spielregeln</b>
       </ion-card-header>
       <ion-card-content>
-        Benutzername:
-        <label class="item item-input">
-          <input type="text" [(ngModel)]="username">
-        </label>
-        Passwort(optional):
-        <label class="item item-input">
-          <input type="text" [(ngModel)]="password">
-        </label>
+
+        <ion-label>Kategorie:</ion-label>
+        <ion-item>
+          <ion-select [(ngModel)]="selectedCategory" okText="Auswählen" cancelText="Abbrechen">
+            <ion-option value="1">Mathe</ion-option>
+            <ion-option value="2">Englisch</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-label>Anzahl der Fragen:</ion-label>
+        <ion-item>
+          <ion-select [(ngModel)]="selectedAmount" okText="Auswählen" cancelText="Abbrechen">
+            <ion-option value="1">5</ion-option>
+            <ion-option value="2">10</ion-option>
+            <ion-option value="3">15</ion-option>
+          </ion-select>
+        </ion-item>
 
       </ion-card-content>
     </ion-card>
@@ -36,7 +45,7 @@
         {{username}}
       </ion-card-header>
       <ion-card-content>
-        Kontostand: {{balance}} €
+
         Fach: {{subject}}
 
       </ion-card-content>

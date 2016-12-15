@@ -29,7 +29,7 @@ export class QuizComponent {
 
   startQuiz() {
     // user must have set his name
-    if (this.username == null) {
+  /*  if (this.username == null) {
       const alert = this.alertCtrl.create({
         title: '<b>Angaben überprüfen!</b>',
         subTitle: 'Um das Spiel zu starten musst du deinen Namen angeben!',
@@ -37,7 +37,7 @@ export class QuizComponent {
       });
       alert.present();
       return;
-    }
+    }*/
     // call service to get questions
     this.getQuestions();
   }

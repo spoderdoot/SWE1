@@ -10,30 +10,26 @@
 
 <ion-content padding class="login">
 
-  <div name="welcome">
     <ion-card>
       <ion-card-header>
         <b>Login</b>
       </ion-card-header>
       <ion-card-content>
-        Benutzername:
-        <label class="item item-input">
-          <input type="text" [(ngModel)]="userName">
-        </label>
-        Passwort:
-        <label class="item item-input">
-          <input type="text" [(ngModel)]="password">
-        </label>
-        <ion-item>
-        <ion-label>Benutzerart</ion-label>
-        <ion-select [(ngModel)]="selectedUser" okText="Auswählen" cancelText="Abbrechen">
-          <ion-option value="1">Schüler</ion-option>
-          <ion-option value="2">Lehrer</ion-option>
-        </ion-select>
-      </ion-item>
+
+        <form [formGroup]="userLoginForm">
+          <ion-item>
+            <ion-label floating>Benutzername</ion-label>
+            <ion-input formControlName ="username" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Passwort</ion-label>
+            <ion-input formController ="password" type="text"></ion-input>
+          </ion-item>
+
+        </form>
       </ion-card-content>
     </ion-card>
-  </div>
-  <button (click)="register(userName, password)" full>einloggen</button>
-  <button (click) = "redirectToRegister()" full >Neu bei InstaLearn?</button>
-</ion-content>
+    <button (click) = "redirectToQuiz()" full >Einloggen und Spielen</button>
+    <button (click) = "redirectToRegister()" full >Neu bei InstaLearn?</button>
+  </ion-content>
