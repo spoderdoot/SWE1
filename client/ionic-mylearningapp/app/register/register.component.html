@@ -10,32 +10,26 @@
 
 
 <ion-content padding class="register">
-
-  <div name="welcome">
     <ion-card>
       <ion-card-header>
         <b>Benutzerregistrierung</b>
       </ion-card-header>
       <ion-card-content>
-        Benutzername:
-        <label class="item item-input">
-          <input type="text" [(ngModel)]="userName">
-        </label>
-        Passwort(optional):
-        <label class="item item-input">
-          <input type="text" [(ngModel)]="password">
-        </label>
-        <label>Benutzerart
-      <ion-item>
-        <ion-select [(ngModel)]="selectedUser" okText="Auswählen" cancelText="Abbrechen">
-          <ion-option value="1">Schüler</ion-option>
-          <ion-option value="2">Lehrer</ion-option>
-        </ion-select>
-      </ion-item>
-      </label>
+
+        <form [formGroup]="createUserForm">
+
+          <ion-item>
+            <ion-label floating>Benutzername</ion-label>
+            <ion-input formControlName ="username" type="text"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label floating>Passwort</ion-label>
+            <ion-input formControlName ="password" type="text"></ion-input>
+          </ion-item>
+
+        </form>
       </ion-card-content>
     </ion-card>
-  </div>
-  <button (click)="register(userName, password)" full>Registrieren!</button>
-
-</ion-content>
+    <button (click) ="createUserAndRedirectToLogin()" full>Registrieren</button>
+  </ion-content>

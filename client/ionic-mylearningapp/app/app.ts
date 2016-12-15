@@ -52,9 +52,8 @@ class MyApp {
       { title: 'Frage ändern', icon: 'brush', component: EditQuestionComponent },
       { title: 'Frage löschen', icon: 'trash', component: DeleteQuestionComponent },
       { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
-      { title: 'Über uns', icon: 'at', component: AboutModalComponent }
-
-
+      { title: 'Über uns', icon: 'at', component: AboutModalComponent },
+      { title: 'registertest', icon: '',component: RegisterComponent}
 
     //  { title: 'Fragen verwalten', icon: '', component: AdminComponent}
     //  { title: 'Benutzer verwalten', icon: '', component: AdminComponent}
