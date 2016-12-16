@@ -29,6 +29,8 @@
         }
         DataSource._instance = this;
         this._db = new Database(':memory:');
+        //this.db1 = new Database('Questions.db');
+        //this.db2 = new Database('Subjects.db');
     }
 
     public static getInstance() : DataSource {
