@@ -22,6 +22,7 @@ export class QuizComponent {
 
   // user data
   private username: any;
+  private category : any;
   private balance: any = 0;
 
   constructor(private alertCtrl: AlertController, public questionsService: QuestionsService, public navCtrl : NavController) {

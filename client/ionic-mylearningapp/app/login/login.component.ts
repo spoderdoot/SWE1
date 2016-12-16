@@ -20,6 +20,9 @@ private userLoginForm : FormGroup;
     /*menuCrtl.disable(); *///damit man nicht das Menu aufrufen kann bevor man sich eingeloggt hat.
   }
 
+//static setPages(app : any) {
+
+//}
 createForm() {
   this.userLoginForm = this.formBuilder.group({
 
@@ -34,7 +37,7 @@ isFormValid() : boolean {
   if(!isValid) {
     const alert = this.alertCtrl.create({
       title: '<b>Angaben überprüfen!</b>',
-      subTitle: 'Um dich zu einzuloggen musst du deinen Namen und Passwort eingeben!',
+      subTitle: 'Um dich einzuloggen musst du deinen Namen und Passwort eingeben!',
       buttons: ['OK']
     });
     alert.present();
@@ -42,6 +45,17 @@ isFormValid() : boolean {
   return isValid;
 }
 
+
+checkIfUserIsRegistered() {
+
+  if(this.isFormValid()) {
+    this.loginService.checkUser(this.userLoginForm.value.username).subscribe(response => {
+      this.showSuccessMessage(response);
+
+    })
+  }
+
+}
 showSuccessMessage(response : any) {
   console.log("success - user with id " + response + " successfully logged in.");
 

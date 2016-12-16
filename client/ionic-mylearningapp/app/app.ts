@@ -15,10 +15,10 @@ import { RegisterComponent } from './register/index';
 class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = QuizComponent;
+  rootPage: any = LoginComponent;
 
   pages: Array<{ title: string, icon: string, component: any }>;
-
+  //loginPage
   isTeacher : boolean = false;
 
   constructor(public platform: Platform, private modalCtrl: ModalController) {
@@ -47,13 +47,13 @@ class MyApp {
       { title: 'Login', icon: 'person', component: LoginComponent}, //maybe I can comibne Login with Play function
       { title: 'Spielen', icon: 'game-controller-b', component: QuizComponent },
       { title: 'Fragen verwalten', icon: 'game-controller-b', component: ManageQuestionComponent },
-      { title: 'Frage erstellen', icon: 'create', component: CreateQuestionComponent },//Putting them all together in something like "question options" would be nice
-      { title: 'Fragen anzeigen', icon: 'list', component: ListQuestionsComponent },
-      { title: 'Frage ändern', icon: 'brush', component: EditQuestionComponent },
-      { title: 'Frage löschen', icon: 'trash', component: DeleteQuestionComponent },
+    //  { title: 'Frage erstellen', icon: 'create', component: CreateQuestionComponent },//Putting them all together in something like "question options" would be nice
+      //{ title: 'Fragen anzeigen', icon: 'list', component: ListQuestionsComponent },
+      //{ title: 'Frage ändern', icon: 'brush', component: EditQuestionComponent },
+      //{ title: 'Frage löschen', icon: 'trash', component: DeleteQuestionComponent },
       { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
       { title: 'Über uns', icon: 'at', component: AboutModalComponent },
-      { title: 'registertest', icon: '',component: RegisterComponent}
+    //  { title: 'registertest', icon: '',component: RegisterComponent}
 
     //  { title: 'Fragen verwalten', icon: '', component: AdminComponent}
     //  { title: 'Benutzer verwalten', icon: '', component: AdminComponent}

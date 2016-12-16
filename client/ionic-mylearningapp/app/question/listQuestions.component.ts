@@ -12,6 +12,7 @@ export class ListQuestionsComponent {
   }
 
   listQuestions() {
+    //debugger;
     this.questionsService.getQuestions().subscribe(questions => {
       this.questions = questions;
     });
