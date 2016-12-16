@@ -18,7 +18,6 @@ export class QuestionDAO {
          callback(questions);
       });
     }
-
     public static createQuestion(newQuestion : Question) : Promise<number> {
       var insert : string = "INSERT INTO TB_QUESTIONS VALUES (NULL, '" + newQuestion.getQuestion
                              + "', '" + newQuestion.getAnswerA
