@@ -41,5 +41,5 @@ class QuestionDAO {
         });
     }
 }
-exports.QuestionDAO = QuestionDAO;
 QuestionDAO.ds = DataSource_1.DataSource.getInstance();
+exports.QuestionDAO = QuestionDAO;

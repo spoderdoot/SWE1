@@ -34,8 +34,39 @@ class DataSource {
             db.run(table);
             db.run(q1);
             db.run(q2);
+            var fs = require("fs");
+            var file1 = "Questions.db";
+            var exists1 = fs.existsSync(file1);
+            var file2 = "Subjects.db";
+            var exists2 = fs.existsSync(file2);
+            var sqlite3 = require("sqlite3");
+            var db1 = new sqlite3.Database(file1);
+            var db2 = new sqlite3.Database(file2);
+            db1.serialize(function () {
+                if (!exists1) {
+                    db1.run("CREATE TABLE multQuestions(questionID INTEGER PRIMARY KEY, " +
+                        "subject VARCHAR NOT NULL, " +
+                        "question VARCHAR NOT NULL, " +
+                        "ANSWERA VARCHAR NOT NULL, " +
+                        "ANSWERB VARCHAR NOT NULL, " +
+                        "ANSWERC VARCHAR NOT NULL, " +
+                        "ANSWERD VARCHAR NOT NULL, " +
+                        "CORRECTANSWER INTEGER NOT NULL, " +
+                        "ISOPENQUESTION VARCHAR NOT NULL");
+                    db1.run("INSERT INTO multQuestions VALUES (1,'test Subject', 'In which town are you taken by GNR?', 'Sin City', 'Salt Lake City', 'Paradise City', 'Munich City', 3)");
+                    db1.run("INSERT INTO multQuestions VALUES (2,'English', 'Where is Munich?', 'Texas','France','Spain','Germany',4)");
+                }
+            });
+            db2.serialize(function () {
+                if (!exists2) {
+                    db2 = db2.run("CREATE TABLE subjects (subjectID INTEGER PRIMARY KEY, subjectName VARCHAR NOT NULL)");
+                    db2.run("INSERT INTO subjects VALUES (1, 'Mathe')");
+                    db2.run("INSERT INTO subjects VALUES (2, 'Englisch')");
+                    db2.run("INSERT INTO subjects VALUES (3, 'Latein')");
+                }
+            });
         });
     }
 }
-exports.DataSource = DataSource;
 DataSource._instance = new DataSource();
+exports.DataSource = DataSource;

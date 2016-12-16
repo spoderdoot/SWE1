@@ -33,11 +33,11 @@ var allowCrossDomain = function(req, res, next) {
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(allowCrossDomain);
-app.use('/ila', router);
+app.use('/wwm', router);
 
 // start listening
 app.listen(port);
-console.log('http://127.0.0.1:' + port + '/ila');
+console.log('http://127.0.0.1:' + port + '/wwm');
 
 // initialize database
 DataSource.getInstance().initDatabase();
@@ -46,7 +46,7 @@ DataSource.getInstance().initDatabase();
 
 // test function
 router.get('/', function (req, res) {
-    res.json({"message": 'InstaLearn server is running ...'});
+    res.json({"message": 'WWM server is running ...'});
 });
 
 // list all available questions -> callback version
