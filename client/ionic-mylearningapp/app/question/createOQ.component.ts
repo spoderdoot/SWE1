@@ -27,7 +27,7 @@ export class CreateOQComponent {
     });
   }
 
-  createQuestion() {
+  createOpenQuestion() {
     if (this.isFormIsValid()) {
 
       // create new question object with the form data

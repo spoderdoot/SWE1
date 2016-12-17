@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
-import { Question, QuestionsService} from '../shared/index';
-import { NavController } from 'ionic-angular';
-import { ListMCQComponent, ListOQComponent} from './index';
-
+import { Question, MultipleChoiceQuestion, QuestionsService} from '../shared/index';
 
 @Component({
-  templateUrl: 'build/question/listQuestions.component.html',
+  templateUrl: 'build/question/listMCQ.component.html',
   providers: [QuestionsService],
 })
-export class ListQuestionsComponent {
+export class ListMCQComponent {
   private questions: Question[] = [];
 
   constructor(public questionsService: QuestionsService) {
@@ -19,8 +16,5 @@ export class ListQuestionsComponent {
     this.questionsService.getQuestions().subscribe(questions => {
       this.questions = questions;
     });
-  }
-  redirectToListMCQ() {
-
   }
 }

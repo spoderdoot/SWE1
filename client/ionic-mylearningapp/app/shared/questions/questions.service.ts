@@ -30,6 +30,15 @@ export class QuestionsService {
       .map((res: Response) => res.json());
   }
 
+  getOpenQuestions(): Observable<OpenQuestion[]> {
+
+    console.log("getOpenQuestions - ServerIp: " + this.settings.serverIp);
+
+    return this.http
+      .get(this.settings.serverIp + 'listOpenQuestions')
+      .map((res: Response) => res.json());
+  }
+  
   getQuestionWithId(id: number): Observable<Question> {
     return this.http
       .get(this.settings.serverIp + 'question/' + id)
@@ -55,7 +64,7 @@ export class QuestionsService {
     .put(this.settings.serverIp + 'openquestion/create', JSON.stringify(openQuestion), {headers : headers})
     .map((res : Response) => res.json());
   }
-  
+
   createMultipleChoiceQuestion(multipleChoiceQuestion : MultipleChoiceQuestion) : Observable<any> {
     console.log(JSON.stringify(multipleChoiceQuestion));
     let headers = new Headers();
@@ -65,4 +74,5 @@ export class QuestionsService {
     .put(this.settings.serverIp + 'multiplechoicequestion/create', JSON.stringify(multipleChoiceQuestion), {headers : headers})
     .map((res : Response) => res.json());
   }
+
 }
