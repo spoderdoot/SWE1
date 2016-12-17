@@ -1,12 +1,14 @@
 "use strict";
 const DataSource_1 = require("./DataSource");
 const Question_1 = require("./Question");
+const OpenDataSource_1 = require("./OpenDataSource");
+const OpenQuestion_1 = require("./OpenQuestion");
 class QuestionDAO {
     static getAllQuestions(callback) {
         var questions = new Array();
-        this.ds.getDatabase().all("SELECT * FROM TB_QUESTIONS", function (err, rows) {
+        this.opends.getOpenDatabase().all("SELECT * FROM openQuestions", function (err, rows) {
             for (var row of rows) {
-                var q1 = new Question_1.Question(row['id'], row['question'], row['answerA'], row['answerB'], row['answerC'], row['answerD'], row['correctAnswer']);
+                var q1 = new OpenQuestion_1.OpenQuestion(row['questionID'], row['SUBJECT'], row['QUESTION'], row['CORRECTANSWER']);
                 questions.push(q1);
             }
             callback(questions);
@@ -42,4 +44,5 @@ class QuestionDAO {
     }
 }
 QuestionDAO.ds = DataSource_1.DataSource.getInstance();
+QuestionDAO.opends = OpenDataSource_1.OpenDataSource.getInstance();
 exports.QuestionDAO = QuestionDAO;

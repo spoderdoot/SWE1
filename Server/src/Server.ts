@@ -2,12 +2,14 @@
 /// <reference path="../typings/body-parser/body-parser.d.ts" />
 /// <reference path="Question.ts" />
 /// <reference path="DataSource.ts"/>
+/// <reference path="OpenDataSource.ts"/>
 /// <reference path="QuestionDAO.ts" />
 
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import { Question } from './Question';
 import { DataSource } from './DataSource';
+import { OpenDataSource } from './OpenDataSource';
 import { QuestionDAO } from './QuestionDAO';
 
 // create server app
@@ -33,9 +35,10 @@ app.use('/ila', router);
 app.listen(port);
 console.log('http://127.0.0.1:' + port + '/ila');
 
-// initialize database
+// initialize databases
 DataSource.getInstance().initDatabase();
-DataSource.getInstance().initRest();
+//DataSource.getInstance().initRest();
+OpenDataSource.getInstance().initOpenDataBase();
 
 /** REST API **/
 
@@ -44,7 +47,7 @@ router.get('/', function (req, res) {
     res.json({"message": 'ILA server is running ...'});
 });
 
-// list all available questions -> callback version
+// list all available open questions -> callback version
 router.get('/listQuestions', function (req, res) {
     var callback = function(rows) {
       var response = JSON.stringify(rows);

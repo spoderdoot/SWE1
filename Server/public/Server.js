@@ -3,6 +3,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const Question_1 = require("./Question");
 const DataSource_1 = require("./DataSource");
+const OpenDataSource_1 = require("./OpenDataSource");
 const QuestionDAO_1 = require("./QuestionDAO");
 const app = express();
 const port = process.env.PORT || 8080;
@@ -20,7 +21,7 @@ app.use('/ila', router);
 app.listen(port);
 console.log('http://127.0.0.1:' + port + '/ila');
 DataSource_1.DataSource.getInstance().initDatabase();
-DataSource_1.DataSource.getInstance().initRest();
+OpenDataSource_1.OpenDataSource.getInstance().initOpenDataBase();
 router.get('/', function (req, res) {
     res.json({ "message": 'ILA server is running ...' });
 });
