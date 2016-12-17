@@ -10,7 +10,7 @@ import { NavController } from 'ionic-angular';
   providers: [QuestionsService],
 })
 export class CreateOQComponent {
-  private createQuestionForm: FormGroup;
+  private createOpenQuestionForm: FormGroup;
 
   constructor(private alertCtrl: AlertController, public navCtrl : NavController, private formBuilder: FormBuilder, public questionsService: QuestionsService) {
     // init the form
@@ -19,22 +19,11 @@ export class CreateOQComponent {
 
   createForm() {
     // create the form group and define the validators
-    this.createQuestionForm = this.formBuilder.group({
-      //subject: [],
-      /*html teil
-      <ion-item>
-        <ion-label floating >Wählen Sie Ihr Fachgebiet aus</ion-label>
-        <ion-select [(ngModel)]="selectSubject" okText="Auswählen" cancelText="Abbrechen">
-          <ion-option value="1">Mathe</ion-option>
-          <ion-option value="2">Englisch</ion-option>
-        </ion-select>
-      <ion-item> */
+    this.createOpenQuestionForm = this.formBuilder.group({
+
+      category: ['1', Validators.compose([Validators.required])],
       question: ['', Validators.compose([Validators.required])],
-      answerA: ['', Validators.compose([Validators.required])],
-      answerB: ['', Validators.compose([Validators.required])],
-      answerC: ['', Validators.compose([Validators.required])],
-      answerD: ['', Validators.compose([Validators.required])],
-      correctAnswer: ['1', Validators.compose([Validators.required])]
+      correctAnswer: ['', Validators.compose([Validators.required])]
     });
   }
 
@@ -42,11 +31,10 @@ export class CreateOQComponent {
     if (this.isFormIsValid()) {
 
       // create new question object with the form data
-      var newQuestion = new Question(-1, this.createQuestionForm.value.question, this.createQuestionForm.value.answerA, this.createQuestionForm.value.answerB,
-        this.createQuestionForm.value.answerC, this.createQuestionForm.value.answerD, this.createQuestionForm.value.correctAnswer);
+      var newOpenQuestion = new OpenQuestion(-1, this.createOpenQuestionForm.value.category, this.createOpenQuestionForm.value.question, this.createOpenQuestionForm.value.correctAnswer);
 
       // call service to create the question and wait for an answer
-      this.questionsService.createQuestion(newQuestion).subscribe(response => {
+      this.questionsService.createOpenQuestion(newOpenQuestion).subscribe(response => {
         this.showSuccesMessageAndResetForm(response);
       });;
     }
@@ -65,7 +53,7 @@ export class CreateOQComponent {
 
   isFormIsValid(): boolean {
     // check if form input is valid (are all defined validators ok?)
-    let isValid: boolean = this.createQuestionForm.valid;
+    let isValid: boolean = this.createOpenQuestionForm.valid;
 
     if (!isValid) {
       // create a pop-up message

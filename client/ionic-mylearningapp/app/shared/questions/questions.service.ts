@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {Headers, Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import {Question} from './question.model';
+import {Question, OpenQuestion, MultipleChoiceQuestion} from './index';
+
 import {Settings, SettingsService} from '../settings/index';
 
 @Injectable()
@@ -43,5 +44,25 @@ export class QuestionsService {
     return this.http
       .put(this.settings.serverIp + 'question/create', JSON.stringify(question), { headers: headers })
       .map((res: Response) => res.json());
+  }
+
+  createOpenQuestion(openQuestion : OpenQuestion) : Observable<any> {
+    console.log(JSON.stringify(openQuestion));
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http
+    .put(this.settings.serverIp + 'openquestion/create', JSON.stringify(openQuestion), {headers : headers})
+    .map((res : Response) => res.json());
+  }
+  
+  createMultipleChoiceQuestion(multipleChoiceQuestion : MultipleChoiceQuestion) : Observable<any> {
+    console.log(JSON.stringify(multipleChoiceQuestion));
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http
+    .put(this.settings.serverIp + 'multiplechoicequestion/create', JSON.stringify(multipleChoiceQuestion), {headers : headers})
+    .map((res : Response) => res.json());
   }
 }

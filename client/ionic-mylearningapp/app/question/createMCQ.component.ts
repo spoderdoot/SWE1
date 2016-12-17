@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Question, QuestionsService} from '../shared/index';
+import { MultipleChoiceQuestion, QuestionsService} from '../shared/index';
 
 
 @Component({
@@ -20,24 +20,28 @@ export class CreateMCQComponent {
 createForm() {
 
   this.createMCQForm = this.formBuilder.group({
-    subject : [, Validators.compose([Validators.required])],
+    category : ['1', Validators.compose([Validators.required])],
     question: ['', Validators.compose([Validators.required])],
-    correctAnswer : ['', Validators.compose([Validators.required])]
+    answerA: ['', Validators.compose([Validators.required])],
+    answerB: ['', Validators.compose([Validators.required])],
+    answerC: ['', Validators.compose([Validators.required])],
+    answerD: ['', Validators.compose([Validators.required])],
+    correctAnswer : ['1', Validators.compose([Validators.required])]
   })
 }
-/*
+
 createMCQ() {
   if (this.isFormValid()) {
 //ID, subject, question, correctAnswer
-    var newMCQ = new MCQ(ID, this.createMCQForm.value.subject, this.createMCQForm.value.question, this.createMCQForm.value.correctAnswer);
-    this.questionsService.createQuestion(newMCQ).subscribe(response => {
+    var newMCQ = new MultipleChoiceQuestion(-1, this.createMCQForm.value.category, this.createMCQForm.value.question, this.createMCQForm.value.answerA, this.createMCQForm.value.answerB, this.createMCQForm.value.answerC, this.createMCQForm.value.answerD, this.createMCQForm.value.correctAnswer);
+    this.questionsService.createMultipleChoiceQuestion(newMCQ).subscribe(response => {
       this.showSuccessMessageAndResetForm(response);
   })
   }
 }
-*/
 
-isFormIsValid() : boolean {
+
+isFormValid() : boolean {
   let isValid: boolean = this.createMCQForm.valid;
 
   if(!isValid) {

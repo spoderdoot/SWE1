@@ -10,11 +10,19 @@
 <ion-content padding class="question">
   <ion-card>
     <ion-card-header>
-      Neue Frage erstellen.
+      Neue offene Frage erstellen
     </ion-card-header>
     <ion-card-content>
 
-      <form [formGroup]="createQuestionForm">
+      <form [formGroup]="createOpenQuestionForm">
+
+        <ion-item>
+          <ion-label floating>Kategorie</ion-label>
+            <ion-select formControlName="category">
+              <ion-option value="1" selected>Mathe</ion-option>
+              <ion-option value="2">Englisch</ion-option>
+            </ion-select>
+          </ion-item>
 
         <ion-item>
           <ion-label floating>Deine Frage</ion-label>
@@ -22,37 +30,12 @@
         </ion-item>
 
         <ion-item>
-          <ion-label floating>Antwort A</ion-label>
-          <ion-input formControlName="answerA" type="text"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label floating>Antwort B</ion-label>
-          <ion-input formControlName="answerB" type="text"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label floating>Antwort C</ion-label>
-          <ion-input formControlName="answerC" type="text"></ion-input>
-        </ion-item>
-
-        <ion-item>
-          <ion-label floating>Antwort D</ion-label>
-          <ion-input formControlName="answerD" type="text"></ion-input>
-        </ion-item>
-
-        <ion-item>
           <ion-label floating>Richtige Antwort</ion-label>
-          <ion-select formControlName="correctAnswer">
-            <ion-option value="1" selected>A</ion-option>
-            <ion-option value="2">B</ion-option>
-            <ion-option value="3">C</ion-option>
-            <ion-option value="4">D</ion-option>
-          </ion-select>
+          <ion-input formControlName="correctAnswer" type="text"></ion-input>
         </ion-item>
 
       </form>
     </ion-card-content>
   </ion-card>
-  <button (click)="createQuestion()" full>Frage erstellen!</button>
+  <button (click)="createOpenQuestion()" full>Offene Frage erstellen!</button>
 </ion-content>
