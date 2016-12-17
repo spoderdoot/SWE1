@@ -20,6 +20,7 @@ app.use('/ila', router);
 app.listen(port);
 console.log('http://127.0.0.1:' + port + '/ila');
 DataSource_1.DataSource.getInstance().initDatabase();
+DataSource_1.DataSource.getInstance().initRest();
 router.get('/', function (req, res) {
     res.json({ "message": 'ILA server is running ...' });
 });

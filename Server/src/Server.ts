@@ -35,6 +35,7 @@ console.log('http://127.0.0.1:' + port + '/ila');
 
 // initialize database
 DataSource.getInstance().initDatabase();
+DataSource.getInstance().initRest();
 
 /** REST API **/
 

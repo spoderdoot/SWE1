@@ -1,10 +1,3 @@
-/**
- * Demo application WWM - Software Engineering 1 - WS 2016/17
- * University of Applied Sciences Munich
- * author: SCS
- *
- * Model class for WWM questions.
- **/
 export class Question {
 
     constructor(private id: number, private question: string, private answerA: string, private answerB: string,

@@ -38,34 +38,47 @@ class DataSource {
     }
     initRest() {
         var fs = require("fs");
-        var file1 = "Questions.db";
+        var file1 = "multQuestions.db";
         var exists1 = fs.existsSync(file1);
-        var file2 = "Subjects.db";
+        var file2 = "openQuestions.db";
         var exists2 = fs.existsSync(file2);
+        var file3 = "Subjects.db";
+        var exists3 = fs.existsSync(file3);
         var sqlite3 = require("sqlite3");
         var db1 = new sqlite3.Database(file1);
         var db2 = new sqlite3.Database(file2);
+        var db3 = new sqlite3.Database(file3);
         db1.serialize(function () {
             if (!exists1) {
-                db1 = db1.run("CREATE TABLE Questions(questionID INTEGER PRIMARY KEY, " +
-                    "subject VARCHAR NOT NULL, " +
-                    "question VARCHAR NOT NULL, " +
-                    "ANSWERA VARCHAR NOT NULL, " +
-                    "ANSWERB VARCHAR NOT NULL, " +
-                    "ANSWERC VARCHAR NOT NULL, " +
-                    "ANSWERD VARCHAR NOT NULL, " +
-                    "CORRECTANSWER INTEGER NOT NULL, " +
-                    "ISOPENQUESTION VARCHAR NOT NULL;");
-                db1.run("INSERT INTO multQuestions VALUES (1,'test Subject', 'In which town are you taken by GNR?', 'Sin City', 'Salt Lake City', 'Paradise City', 'Munich City', 3, 'N')");
-                db1.run("INSERT INTO multQuestions VALUES (2,'English', 'Where is Munich?', 'Texas','France','Spain','Germany', 4, 'N')");
+                db1.run("CREATE TABLE multQuestions(questionID INTEGER PRIMARY KEY, " +
+                    "SUBJECT INTEGER, " +
+                    "QUESTION TEXT, " +
+                    "ANSWERA TEXT, " +
+                    "ANSWERB TEXT, " +
+                    "ANSWERC TEXT, " +
+                    "ANSWERD TEXT, " +
+                    "CORRECTANSWER INTEGER)");
+                db1.run("INSERT INTO multQuestions VALUES(1, 2, 'Wie schreibt man Klempner auf englisch?', 'plummer', 'plumber','plumer', 'plumba', 2)");
+                db1.run("INSERT INTO multQuestions VALUES(2, 1, 'Was ist 2+2*2+2 ?','16', '10', '8', '12', 3)");
             }
         });
         db2.serialize(function () {
             if (!exists2) {
-                db2 = db2.run("CREATE TABLE Subjects (subjectID INTEGER PRIMARY KEY, subjectName VARCHAR NOT NULL)");
-                db2.run("INSERT INTO subjects VALUES (1, 'Mathe')");
-                db2.run("INSERT INTO subjects VALUES (2, 'Englisch')");
-                db2.run("INSERT INTO subjects VALUES (3, 'Latein')");
+                db2.run("CREATE TABLE openQuestions(questionID INTEGER PRIMARY KEY, " +
+                    "SUBJECT INTEGER, " +
+                    "QUESTION TEXT, " +
+                    "CORRECTANSWER TEXT)");
+                db2.run("INSERT INTO openQuestions VALUES (1,1, 'Was ist 1+1', '2')");
+                db2.run("INSERT INTO openQuestions VALUES (2,2, 'Was ist Schule auf englisch?','school')");
+                db2.run("INSERT INTO openQuestions VALUES (3,1, 'Was ist 3*3', '9')");
+            }
+        });
+        db3.serialize(function () {
+            if (!exists3) {
+                db3.run("CREATE TABLE subjects (subjectID INTEGER PRIMARY KEY, subjectName TEXT)");
+                db3.run("INSERT INTO subjects VALUES (1, 'Mathe')");
+                db3.run("INSERT INTO subjects VALUES (2, 'Englisch')");
+                db3.run("INSERT INTO subjects VALUES (3, 'Latein')");
             }
         });
     }
