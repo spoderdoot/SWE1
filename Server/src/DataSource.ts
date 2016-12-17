@@ -7,8 +7,6 @@ export class DataSource {
     private _db: Database;
 
     private db1: Database; //multiple choice questions
-    private db2: Database; //open choice questions
-    private db3: Database; //Subjects
 
     private static _instance: DataSource = new DataSource();
 
@@ -59,12 +57,9 @@ export class DataSource {
         var fs = require("fs");
         var file1 = "multQuestions.db";
         var exists1 = fs.existsSync(file1);
-        var file3 = "Subjects.db";
-        var exists3 = fs.existsSync(file3);
 
         var sqlite3 = require("sqlite3");
         var db1 = new sqlite3.Database(file1);
-        var db3 = new sqlite3.Database(file3);
 
         db1.serialize(function() {
             if (!exists1) {
@@ -79,14 +74,6 @@ export class DataSource {
                 );
                 db1.run("INSERT INTO multQuestions VALUES(1, 2, 'Wie schreibt man Klempner auf englisch?', 'plummer', 'plumber','plumer', 'plumba', 2)");
                 db1.run("INSERT INTO multQuestions VALUES(2, 1, 'Was ist 2+2*2+2 ?','16', '10', '8', '12', 3)");
-            }
-        });
-        db3.serialize(function() {
-            if (!exists3) {
-                db3.run("CREATE TABLE subjects (subjectID INTEGER PRIMARY KEY, subjectName TEXT)");
-                db3.run("INSERT INTO subjects VALUES (1, 'Mathe')");
-                db3.run("INSERT INTO subjects VALUES (2, 'Englisch')");
-                db3.run("INSERT INTO subjects VALUES (3, 'Latein')");
             }
         });
     }
