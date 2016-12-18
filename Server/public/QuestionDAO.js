@@ -2,13 +2,12 @@
 const DataSource_1 = require("./DataSource");
 const Question_1 = require("./Question");
 const OpenDataSource_1 = require("./OpenDataSource");
-const OpenQuestion_1 = require("./OpenQuestion");
 class QuestionDAO {
     static getAllQuestions(callback) {
         var questions = new Array();
-        this.opends.getOpenDatabase().all("SELECT * FROM openQuestions", function (err, rows) {
+        this.ds.getDatabase().all("SELECT * FROM TB_QUESTIONS", function (err, rows) {
             for (var row of rows) {
-                var q1 = new OpenQuestion_1.OpenQuestion(row['questionID'], row['SUBJECT'], row['QUESTION'], row['CORRECTANSWER']);
+                var q1 = new Question_1.Question(row['questionID'], row['QUESTION'], row['answerA'], row['answerB'], row['answerC'], row['answerD'], row['CORRECTANSWER']);
                 questions.push(q1);
             }
             callback(questions);

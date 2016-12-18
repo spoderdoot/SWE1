@@ -6,8 +6,6 @@ export class DataSource {
 
     private _db: Database;
 
-    private db1: Database; //multiple choice questions
-
     private static _instance: DataSource = new DataSource();
 
     private createQuestionTable: string = "CREATE TABLE TB_QUESTIONS (" +
@@ -52,29 +50,5 @@ export class DataSource {
             db.run(q1);
             db.run(q2);
         })
-    }
-    public initRest() {
-        var fs = require("fs");
-        var file1 = "multQuestions.db";
-        var exists1 = fs.existsSync(file1);
-
-        var sqlite3 = require("sqlite3");
-        var db1 = new sqlite3.Database(file1);
-
-        db1.serialize(function() {
-            if (!exists1) {
-                db1.run("CREATE TABLE multQuestions(questionID INTEGER PRIMARY KEY, " + //ID of the question, also primary key
-                    "SUBJECT INTEGER, " +        //subjectID of the question
-                    "QUESTION TEXT, " +       //the question itself
-                    "ANSWERA TEXT, " +        //first answer
-                    "ANSWERB TEXT, " +        //second answer
-                    "ANSWERC TEXT, " +        //third answer
-                    "ANSWERD TEXT, " +        //fourth answer
-                    "CORRECTANSWER INTEGER)"  //the right answer
-                );
-                db1.run("INSERT INTO multQuestions VALUES(1, 2, 'Wie schreibt man Klempner auf englisch?', 'plummer', 'plumber','plumer', 'plumba', 2)");
-                db1.run("INSERT INTO multQuestions VALUES(2, 1, 'Was ist 2+2*2+2 ?','16', '10', '8', '12', 3)");
-            }
-        });
     }
 }

@@ -3,6 +3,9 @@
 /// <reference path="Question.ts" />
 /// <reference path="DataSource.ts"/>
 /// <reference path="OpenDataSource.ts"/>
+/// <reference path="OpenQuestion.ts"/>
+/// <reference path="SubjectDataSource.ts"/>
+/// <reference path="Subject.ts"/>
 /// <reference path="QuestionDAO.ts" />
 
 import * as express from 'express';
@@ -46,7 +49,7 @@ console.log('http://127.0.0.1:' + port + '/ila');
 DataSource.getInstance().initDatabase();
 // initialize database for open questions
 OpenDataSource.getInstance().initOpenDataBase();
-//initialize database for subjects
+// initialize database for subjects
 SubjectDataSource.getInstance().initSubjectDataBase();
 
 /** REST API **/

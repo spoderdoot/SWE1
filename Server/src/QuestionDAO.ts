@@ -14,10 +14,10 @@ export class QuestionDAO {
     private static opends : OpenDataSource = OpenDataSource.getInstance();
 
     public static getAllQuestions(callback) {
-      var questions : Array<OpenQuestion> = new Array<OpenQuestion>();
-      this.opends.getOpenDatabase().all("SELECT * FROM openQuestions", function (err, rows) {
+      var questions : Array<Question> = new Array<Question>();
+      this.ds.getDatabase().all("SELECT * FROM TB_QUESTIONS", function (err, rows) {
          for (var row of rows) {
-           var q1 = new OpenQuestion(row['questionID'], row['SUBJECT'], row['QUESTION'], row['CORRECTANSWER']);
+           var q1 = new Question(row['questionID'], row['QUESTION'],row['answerA'],row['answerB'], row['answerC'], row['answerD'], row['CORRECTANSWER']);
            questions.push(q1);
          }
          callback(questions);
