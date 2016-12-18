@@ -1,31 +1,24 @@
 import { Component } from '@angular/core';
 import { OpenQuestion, QuestionsService} from '../shared/index';
 import { NavController } from 'ionic-angular';
-import { ListMCQComponent} from './index';
+
 
 
 @Component({
-  templateUrl: 'build/question/listQuestions.component.html',
+  templateUrl: 'build/question/listOQ.component.html',
   providers: [QuestionsService],
 })
 export class ListOQComponent {
-  private questions: OpenQuestion[] = [];
+  private openquestions: OpenQuestion[] = [];
 
   constructor(public questionsService: QuestionsService, public navCtrl : NavController) {
     this.navCtrl = navCtrl;
   }
 
-  listQuestions() {
+  listOpenQuestions() {
     //debugger;
     this.questionsService.getOpenQuestions().subscribe(questions => {
-      this.questions = questions;
+      this.openquestions = questions;
     });
-  }
-  redirectToListMCQ() {
-    this.navCtrl.push(ListMCQComponent);
-  }
-
-  redirectToListOQ() {
-      this.navCtrl.push(ListOQComponent);
   }
 }

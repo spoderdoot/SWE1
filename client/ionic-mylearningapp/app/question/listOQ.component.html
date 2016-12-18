@@ -7,22 +7,17 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="listQuestions">
-  <button (click)="listQuestions()" full>Fragen anzeigen!</button>
-  <button (click) = "redirectToListMCQ()" full >Multiple-Choice-Fragen anzeigen</button>
-  <button (click) = "redirectToListOQ()" full >Offene Fragen anzeigen</button>
+<ion-content padding class="listOpenQuestions">
+  <button (click)="listOpenQuestions()" full>Fragen anzeigen!</button>
 
-  <ion-card *ngFor="let question of questions">
+  <ion-card *ngFor="let openquestion of openquestions">
     <ion-card-header>
-      {{question.id}}. Frage
+      {{openquestion.id}}. Frage
     </ion-card-header>
     <ion-card-content>
-      <h2>{{question.question}}</h2>
-      <h3>A: {{question.answerA}}</h3>
-      <h3>B: {{question.answerB}}</h3>
-      <h3>C: {{question.answerC}}</h3>
-      <h3>D: {{question.answerD}}</h3>
-      <p> Richtige Antwort: {{question.correctAnswer}}
+      <h2>Kategorie: {{openquestion.category}}</h2>
+      <h2>{{openquestion.question}}</h2>
+      <p> Richtige Antwort: {{openquestion.correctAnswer}}
       </p>
     </ion-card-content>
   </ion-card>

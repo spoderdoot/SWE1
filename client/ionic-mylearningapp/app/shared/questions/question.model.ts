@@ -1,3 +1,4 @@
+//was given to work with - model of a question
 export class Question {
   constructor(public id: number,
     public question: string,
@@ -7,12 +8,4 @@ export class Question {
     public answerD: string,
     public correctAnswer: number) {
   }
-
-  //Multiple constructors are NOT allowed! =( 
-/*  constructor(public id:number,
-    public question : string,
-    public inputField : string,
-    public correctAnswer : number,
-  ) {
-  } */
 }

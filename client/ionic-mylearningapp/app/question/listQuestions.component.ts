@@ -11,7 +11,8 @@ import { ListMCQComponent, ListOQComponent} from './index';
 export class ListQuestionsComponent {
   private questions: Question[] = [];
 
-  constructor(public questionsService: QuestionsService) {
+  constructor(public questionsService: QuestionsService, public navCtrl : NavController) {
+    this.navCtrl = navCtrl;
   }
 
   listQuestions() {
@@ -21,6 +22,10 @@ export class ListQuestionsComponent {
     });
   }
   redirectToListMCQ() {
+    this.navCtrl.push(ListMCQComponent);
+  }
 
+  redirectToListOQ() {
+      this.navCtrl.push(ListOQComponent);
   }
 }
