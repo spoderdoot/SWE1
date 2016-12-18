@@ -14,16 +14,16 @@ class SubjectDataSource {
     }
     initSubjectDataBase() {
         var fs = require("fs");
-        var file = 'subjects.db';
+        var file = 'Subjects.db';
         var exists = fs.existsSync(file);
         var sqlite3 = require("sqlite3");
         var subdb = new sqlite3.Database(file);
         subdb.serialize(function () {
             if (!exists) {
-                subdb.run("CREATE TABLE subjects(subjectID INTEGER PRIMARY KEY, SUBJECT TEXT);");
-                subdb.run("INSERT INTO subjects VALUES (1, 'Mathe');");
-                subdb.run("INSERT INTO subjects VALUES (2, 'Englisch');");
-                subdb.run("INSERT INTO subjects VALUES (3, 'Latein');");
+                subdb.run("CREATE TABLE Subjects(subjectID INTEGER PRIMARY KEY, SUBJECT TEXT);");
+                subdb.run("INSERT INTO Subjects VALUES (1, 'Mathe');");
+                subdb.run("INSERT INTO Subjects VALUES (2, 'Englisch');");
+                subdb.run("INSERT INTO Subjects VALUES (3, 'Latein');");
             }
         });
     }

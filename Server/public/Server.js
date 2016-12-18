@@ -1,9 +1,10 @@
 "use strict";
 const express = require("express");
 const bodyParser = require("body-parser");
-const Question_1 = require("./Question");
 const DataSource_1 = require("./DataSource");
+const Question_1 = require("./Question");
 const OpenDataSource_1 = require("./OpenDataSource");
+const MultipleDataSource_1 = require("./MultipleDataSource");
 const SubjectDataSource_1 = require("./SubjectDataSource");
 const QuestionDAO_1 = require("./QuestionDAO");
 const app = express();
@@ -23,6 +24,7 @@ app.listen(port);
 console.log('http://127.0.0.1:' + port + '/ila');
 DataSource_1.DataSource.getInstance().initDatabase();
 OpenDataSource_1.OpenDataSource.getInstance().initOpenDataBase();
+MultipleDataSource_1.MultipleDataSource.getInstance().initMultipleDataBase();
 SubjectDataSource_1.SubjectDataSource.getInstance().initSubjectDataBase();
 router.get('/', function (req, res) {
     res.json({ "message": 'ILA server is running ...' });

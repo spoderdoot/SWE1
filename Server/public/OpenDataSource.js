@@ -20,7 +20,10 @@ class OpenDataSource {
         var opendb = new sqlite3.Database(file);
         opendb.serialize(function () {
             if (!exists) {
-                opendb.run("CREATE TABLE openQuestions(questionID INTEGER PRIMARY KEY, subjectID INTEGER, question TEXT, correctAnswer TEXT);");
+                opendb.run("CREATE TABLE OpenQuestions(questionID INTEGER PRIMARY KEY," +
+                    "subjectID INTEGER, " +
+                    "question TEXT, " +
+                    "correctAnswer TEXT);");
                 opendb.run("INSERT INTO openQuestions VALUES (1,1, 'Was ist 1+1', '2');");
                 opendb.run("INSERT INTO openQuestions VALUES (2,2, 'Was ist Schule auf englisch?','school');");
                 opendb.run("INSERT INTO openQuestions VALUES (3,1, 'Was ist 3*3', '9');");
@@ -28,5 +31,5 @@ class OpenDataSource {
         });
     }
 }
-exports.OpenDataSource = OpenDataSource;
 OpenDataSource.instance = new OpenDataSource();
+exports.OpenDataSource = OpenDataSource;

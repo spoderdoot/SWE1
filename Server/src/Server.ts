@@ -1,24 +1,34 @@
 /// <reference path="../typings/express/express.d.ts" />
 /// <reference path="../typings/body-parser/body-parser.d.ts" />
+
 /// <reference path="Question.ts" />
 /// <reference path="DataSource.ts"/>
+
 /// <reference path="OpenDataSource.ts"/>
 /// <reference path="OpenQuestion.ts"/>
+
+/// <reference path="MultipleDataSource.ts"/>
+/// <reference path="MultipleQuestion.ts"/>
+
 /// <reference path="SubjectDataSource.ts"/>
 /// <reference path="Subject.ts"/>
+
 /// <reference path="QuestionDAO.ts" />
 
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 
-import { Question } from './Question';
 import { DataSource } from './DataSource';
+import { Question } from './Question';
 
-import { OpenQuestion } from './OpenQuestion';
 import { OpenDataSource } from './OpenDataSource';
+import { OpenQuestion } from './OpenQuestion';
 
-import { Subject } from './Subject'
+import { MultipleDataSource } from './MultipleDataSource';
+import { MultipleQuestion } from './MultipleQuestion';
+
 import { SubjectDataSource } from './SubjectDataSource'
+import { Subject } from './Subject'
 
 import { QuestionDAO } from './QuestionDAO';
 
@@ -47,8 +57,13 @@ console.log('http://127.0.0.1:' + port + '/ila');
 
 // initialize databases
 DataSource.getInstance().initDatabase();
+
 // initialize database for open questions
 OpenDataSource.getInstance().initOpenDataBase();
+
+// initialize database for multiple choice questions
+MultipleDataSource.getInstance().initMultipleDataBase();
+
 // initialize database for subjects
 SubjectDataSource.getInstance().initSubjectDataBase();
 
