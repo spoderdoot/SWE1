@@ -7,20 +7,21 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="listQuestions">
-  <button (click)="listQuestions()" full>Fragen anzeigen!</button>
+<ion-content padding class="listMultipleChoiceQuestions">
+  <button (click)="listMultipleChoiceQuestions()" full>Fragen anzeigen!</button>
 
-  <ion-card *ngFor="let question of questions">
+  <ion-card *ngFor="let multiplechoicequestion of multiplechoicequestions">
     <ion-card-header>
-      {{question.id}}. Frage
+      {{multiplechoicequestion.id}}. Frage
     </ion-card-header>
     <ion-card-content>
-      <h2>{{question.question}}</h2>
-      <h3>A: {{question.answerA}}</h3>
-      <h3>B: {{question.answerB}}</h3>
-      <h3>C: {{question.answerC}}</h3>
-      <h3>D: {{question.answerD}}</h3>
-      <p> Richtige Antwort: {{question.correctAnswer}}
+      <h2>{{multiplechoicequestion.category}}</h2>
+      <h2>{{multiplechoicequestion.question}}</h2>
+      <h3>A: {{multiplechoicequestion.answerA}}</h3>
+      <h3>B: {{multiplechoicequestion.answerB}}</h3>
+      <h3>C: {{multiplechoicequestion.answerC}}</h3>
+      <h3>D: {{multiplechoicequestion.answerD}}</h3>
+      <p> Richtige Antwort: {{multiplechoicequestion.correctAnswer}}
       </p>
     </ion-card-content>
   </ion-card>

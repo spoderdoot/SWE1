@@ -6,6 +6,7 @@ import {Question, OpenQuestion, MultipleChoiceQuestion} from './index';
 
 import {Settings, SettingsService} from '../settings/index';
 
+//question service provides the connection between server and client through REST
 @Injectable()
 export class QuestionsService {
   private static settingsService: SettingsService = SettingsService.getInstance();
@@ -38,7 +39,16 @@ export class QuestionsService {
       .get(this.settings.serverIp + 'listOpenQuestions')
       .map((res: Response) => res.json());
   }
-  
+
+  getMultipleChoiceQuestions(): Observable<MultipleChoiceQuestion[]> {
+
+    console.log("getMultipleQuestions - ServerIp: " + this.settings.serverIp);
+
+    return this.http
+      .get(this.settings.serverIp + 'listMultipleChoiceQuestions')
+      .map((res: Response) => res.json());
+  }
+
   getQuestionWithId(id: number): Observable<Question> {
     return this.http
       .get(this.settings.serverIp + 'question/' + id)

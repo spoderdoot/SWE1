@@ -26,5 +26,6 @@ export class ManageQuestionComponent {
 
   redirectToDelete() {
     this.navCtrl.push(DeleteQuestionComponent);
+    //  <button (click) = "redirectToDelete()" full >Frage löschen</button>
   }
 }

@@ -9,6 +9,8 @@
 
 <ion-content padding class="listQuestions">
   <button (click)="listQuestions()" full>Fragen anzeigen!</button>
+  <button (click) = "redirectToListMCQ()" full >Multiple-Choice-Fragen anzeigen</button>
+  <button (click) = "redirectToListOQ()" full >Offene Fragen anzeigen</button>
 
   <ion-card *ngFor="let question of questions">
     <ion-card-header>

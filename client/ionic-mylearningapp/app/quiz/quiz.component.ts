@@ -20,6 +20,9 @@ export class QuizComponent {
   private currentQuestionCounter: number;
   private selectedAnswer: any;
 
+  //variables for evaluation of answers
+  private correctAnswerCount : number;
+  private totalNumberOfQuestions : number;
   // user data
   private username: any;
   private category : any;

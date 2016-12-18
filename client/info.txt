@@ -1,2 +1,7 @@
+1, 
 in case of 'error eperm operation not permitted ionic':
 use node.js command prompt as administrator
+
+
+2,
+Another case might be to execute ionic serve --lab before opening the project with ATOM

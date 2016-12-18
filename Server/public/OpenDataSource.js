@@ -28,5 +28,5 @@ class OpenDataSource {
         });
     }
 }
-OpenDataSource.instance = new OpenDataSource();
 exports.OpenDataSource = OpenDataSource;
+OpenDataSource.instance = new OpenDataSource();

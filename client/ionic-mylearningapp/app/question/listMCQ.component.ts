@@ -6,15 +6,15 @@ import { Question, MultipleChoiceQuestion, QuestionsService} from '../shared/ind
   providers: [QuestionsService],
 })
 export class ListMCQComponent {
-  private questions: Question[] = [];
+  private multipleChoiceQuestions: MultipleChoiceQuestion[] = [];
 
   constructor(public questionsService: QuestionsService) {
   }
 
-  listQuestions() {
+  listMultipleChoiceQuestions() {
     //debugger;
-    this.questionsService.getQuestions().subscribe(questions => {
-      this.questions = questions;
+    this.questionsService.getMultipleChoiceQuestions().subscribe(questions => {
+      this.multipleChoiceQuestions = questions;
     });
   }
 }
