@@ -7,7 +7,7 @@ class QuestionDAO {
         var questions = new Array();
         this.ds.getDatabase().all("SELECT * FROM TB_QUESTIONS", function (err, rows) {
             for (var row of rows) {
-                var q1 = new Question_1.Question(row['questionID'], row['QUESTION'], row['answerA'], row['answerB'], row['answerC'], row['answerD'], row['CORRECTANSWER']);
+                var q1 = new Question_1.Question(row['id'], row['question'], row['answerA'], row['answerB'], row['answerC'], row['answerD'], row['correctAnswer']);
                 questions.push(q1);
             }
             callback(questions);
