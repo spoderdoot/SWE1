@@ -1,7 +1,7 @@
 export class Question {
 
     constructor(private id: number, private question: string, private answerA: string, private answerB: string,
-                private answerC: string, private answerD: string, private correctAnswer: number) {
+        private answerC: string, private answerD: string, private correctAnswer: number) {
     }
 
     public get getQuestion() {

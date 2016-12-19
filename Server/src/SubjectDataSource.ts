@@ -14,6 +14,7 @@ export class SubjectDataSource {
         }
         SubjectDataSource.instance = this;
     }
+
     public static getInstance(): SubjectDataSource {
         return SubjectDataSource.instance;
     }
@@ -30,7 +31,7 @@ export class SubjectDataSource {
 
         subdb.serialize(function() {
             if (!exists) {
-                subdb.run("CREATE TABLE Subjects(subjectID INTEGER PRIMARY KEY, SUBJECT TEXT);");
+                subdb.run("CREATE TABLE Subjects(subjectID INTEGER PRIMARY KEY, subject TEXT);");
                 subdb.run("INSERT INTO Subjects VALUES (1, 'Mathe');");
                 subdb.run("INSERT INTO Subjects VALUES (2, 'Englisch');");
                 subdb.run("INSERT INTO Subjects VALUES (3, 'Latein');");

@@ -20,14 +20,16 @@ class MultipleDataSource {
         var multdb = new sqlite3.Database(file);
         multdb.serialize(function () {
             if (!exists) {
-                multdb.run("CREATE TABLE MultipleQuestions (questionID INTEGER PRIMARY KEY, " +
-                    "subjectID INTEGER," +
+                multdb.run("CREATE TABLE MultipleQuestions (" +
+                    "questionID INTEGER PRIMARY KEY, " +
+                    "subjectID INTEGER" +
                     "question TEXT, " +
                     "answerA TEXT, " +
                     "answerB TEXT, " +
                     "answerC TEXT, " +
                     "answerD TEXT, " +
-                    "correctAnswer INTEGER);");
+                    "correctAnswer INTEGER " +
+                    ");");
                 multdb.run("INSERT INTO MultipleQuestions VALUES (1, 1, 'Wie berechnet man die Nullstellen einer Parabel?', 'Mitternachstformel'," +
                     "'Mittagsformel', 'Morgenformel', 'gar nicht', 1)");
                 multdb.run("INSERT INTO MultipleQuestions VALUES (2, 2, 'Wie schreibt man Klempner auf englisch?', 'plummer', 'plumer', 'plumber'," +
