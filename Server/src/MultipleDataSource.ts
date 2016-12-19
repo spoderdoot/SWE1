@@ -14,7 +14,7 @@ export class MultipleDataSource {
         }
         MultipleDataSource.instance = this;
     }
-    
+
     public static getInstance(): MultipleDataSource {
         return MultipleDataSource.instance;
     }
@@ -33,7 +33,7 @@ export class MultipleDataSource {
             if (!exists) {
                 multdb.run("CREATE TABLE MultipleQuestions (" +
                     "questionID INTEGER PRIMARY KEY, " +
-                    "subjectID INTEGER" +
+                    "subjectID INTEGER," +
                     "question TEXT, " +
                     "answerA TEXT, " +
                     "answerB TEXT, " +
