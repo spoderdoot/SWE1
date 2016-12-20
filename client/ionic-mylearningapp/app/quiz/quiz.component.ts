@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController, NavController } from 'ionic-angular';
-import { Question, QuestionsService} from '../shared/index';
+import { OpenQuestion, MultipleChoiceQuestion, Question, QuestionsService} from '../shared/index';
 import {ResultsComponent} from '../results/index';
 
 @Component({
@@ -156,6 +156,15 @@ export class QuizComponent {
     this.redirectToResults();
 
   }
+/*
+  decideWhatQuestion(){
+    if(this.currentQuestion instanceof MultipleChoiceQuestion) {
+
+    } else if (this.currentQuestion instanceof OpenQuestion) {
+
+    }
+
+  }*/
 
   redirectToResults() {
     this.navCtrl.push(ResultsComponent);
