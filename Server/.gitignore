@@ -6,3 +6,5 @@ node_modules/
 OpenQuestions.db
 MultipleQuestions.db
 Subjects.db
+Teachers.db
+Users.db

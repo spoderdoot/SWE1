@@ -13,6 +13,12 @@
 /// <reference path="SubjectDataSource.ts"/>
 /// <reference path="Subject.ts"/>
 
+/// <reference path="UserDataSource.ts"/>
+/// <reference path="User.ts"/>
+
+/// <reference path="TeacherDataSource.ts"/>
+/// <reference path="Teacher.ts"/>
+
 /// <reference path="QuestionDAO.ts" />
 
 import * as express from 'express';
@@ -29,6 +35,12 @@ import { MultipleQuestion } from './MultipleQuestion';
 
 import { SubjectDataSource } from './SubjectDataSource'
 import { Subject } from './Subject'
+
+import { UserDataSource } from './UserDataSource';
+import { User } from './User';
+
+import { TeacherDataSource } from './TeacherDataSource';
+import { Teacher } from './Teacher';
 
 import { QuestionDAO } from './QuestionDAO';
 
@@ -66,6 +78,12 @@ MultipleDataSource.getInstance().initMultipleDataBase();
 
 // initialize database for subjects
 SubjectDataSource.getInstance().initSubjectDataBase();
+
+// initialize database for users
+UserDataSource.getInstance().initUserDataBase();
+
+// initialize database for teachers
+TeacherDataSource.getInstance().initTeacherDatabase();
 
 /** REST API **/
 

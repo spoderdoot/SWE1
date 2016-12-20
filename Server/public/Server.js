@@ -6,6 +6,8 @@ const Question_1 = require("./Question");
 const OpenDataSource_1 = require("./OpenDataSource");
 const MultipleDataSource_1 = require("./MultipleDataSource");
 const SubjectDataSource_1 = require("./SubjectDataSource");
+const UserDataSource_1 = require("./UserDataSource");
+const TeacherDataSource_1 = require("./TeacherDataSource");
 const QuestionDAO_1 = require("./QuestionDAO");
 const app = express();
 const port = process.env.PORT || 8080;
@@ -26,6 +28,8 @@ DataSource_1.DataSource.getInstance().initDatabase();
 OpenDataSource_1.OpenDataSource.getInstance().initOpenDataBase();
 MultipleDataSource_1.MultipleDataSource.getInstance().initMultipleDataBase();
 SubjectDataSource_1.SubjectDataSource.getInstance().initSubjectDataBase();
+UserDataSource_1.UserDataSource.getInstance().initUserDataBase();
+TeacherDataSource_1.TeacherDataSource.getInstance().initTeacherDatabase();
 router.get('/', function (req, res) {
     res.json({ "message": 'ILA server is running ...' });
 });
