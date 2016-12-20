@@ -1,10 +1,12 @@
 "use strict";
+const sqlite3_1 = require("sqlite3");
 class MultipleDataSource {
     constructor() {
         if (MultipleDataSource.instance) {
             throw new Error("Not available for singletons!");
         }
         MultipleDataSource.instance = this;
+        this.db = new sqlite3_1.Database('./MultipleQuestions.db');
     }
     static getInstance() {
         return MultipleDataSource.instance;
@@ -21,8 +23,8 @@ class MultipleDataSource {
         multdb.serialize(function () {
             if (!exists) {
                 multdb.run("CREATE TABLE MultipleQuestions (" +
-                    "questionID INTEGER PRIMARY KEY, " +
-                    "subjectID INTEGER," +
+                    "id INTEGER PRIMARY KEY, " +
+                    "category TEXT," +
                     "question TEXT, " +
                     "answerA TEXT, " +
                     "answerB TEXT, " +
@@ -30,9 +32,9 @@ class MultipleDataSource {
                     "answerD TEXT, " +
                     "correctAnswer INTEGER " +
                     ");");
-                multdb.run("INSERT INTO MultipleQuestions VALUES (1, 1, 'Wie berechnet man die Nullstellen einer Parabel?', 'Mitternachstformel'," +
+                multdb.run("INSERT INTO MultipleQuestions VALUES (1, 'Mathe', 'Wie berechnet man die Nullstellen einer Parabel?', 'Mitternachstformel'," +
                     "'Mittagsformel', 'Morgenformel', 'gar nicht', 1)");
-                multdb.run("INSERT INTO MultipleQuestions VALUES (2, 2, 'Wie schreibt man Klempner auf englisch?', 'plummer', 'plumer', 'plumber'," +
+                multdb.run("INSERT INTO MultipleQuestions VALUES (2, 'Englisch', 'Wie schreibt man Klempner auf englisch?', 'plummer', 'plumer', 'plumber'," +
                     "'plumma', 3)");
             }
         });

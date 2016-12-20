@@ -1,9 +1,9 @@
 export class OpenQuestion {
 
-    constructor(private questionID: number, private subject: number,
+    constructor(private questionID: number, private subject: string,
         private question: string, private correctOpenAnswer: string) {
     }
-    
+
     public get getQuestion() {
         return this.question;
     }

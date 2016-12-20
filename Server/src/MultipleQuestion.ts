@@ -1,10 +1,10 @@
 export class MultipleQuestion {
 
-    constructor(private questionID: number, private subject: number,
+    constructor(private questionID: number, private subject: string,
         private question: string, private answerA: string, private answerB: string,
         private answerC: string, private answerD: string, private correctMultAnswer: string) {
     };
-    
+
     public get getQuestionID() {
         return this.questionID;
     }

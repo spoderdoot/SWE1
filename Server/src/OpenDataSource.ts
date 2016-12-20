@@ -5,7 +5,7 @@ import { Database } from 'sqlite3';
 export class OpenDataSource {
 
     private db: Database;
-
+    
     private static instance: OpenDataSource = new OpenDataSource();
 
     constructor() {
@@ -13,8 +13,9 @@ export class OpenDataSource {
             throw new Error("Not available for singletons!");
         }
         OpenDataSource.instance = this;
+        this.db = new Database('./OpenQuestions.db');
     }
-    
+
     public static getInstance(): OpenDataSource {
         return OpenDataSource.instance;
     }
@@ -31,13 +32,13 @@ export class OpenDataSource {
 
         opendb.serialize(function() {
             if (!exists) {
-                opendb.run("CREATE TABLE OpenQuestions(questionID INTEGER PRIMARY KEY," +
-                    "subjectID INTEGER, " +
+                opendb.run("CREATE TABLE OpenQuestions(id INTEGER PRIMARY KEY," +
+                    "category TEXT, " +
                     "question TEXT, " +
                     "correctAnswer TEXT);");
-                opendb.run("INSERT INTO openQuestions VALUES (1,1, 'Was ist 1+1', '2');");
-                opendb.run("INSERT INTO openQuestions VALUES (2,2, 'Was ist Schule auf englisch?','school');");
-                opendb.run("INSERT INTO openQuestions VALUES (3,1, 'Was ist 3*3', '9');");
+                opendb.run("INSERT INTO openQuestions VALUES (1, 'Mathe', 'Was ist 1+1', '2');");
+                opendb.run("INSERT INTO openQuestions VALUES (2, 'Englisch', 'Was ist Schule auf englisch?','school');");
+                opendb.run("INSERT INTO openQuestions VALUES (3, 'Mathe', 'Was ist 3*3', '9');");
             }
         });
     }

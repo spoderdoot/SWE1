@@ -2,6 +2,8 @@
 const DataSource_1 = require("./DataSource");
 const Question_1 = require("./Question");
 const OpenDataSource_1 = require("./OpenDataSource");
+const OpenQuestion_1 = require("./OpenQuestion");
+const MultipleDataSource_1 = require("./MultipleDataSource");
 class QuestionDAO {
     static getAllQuestions(callback) {
         var questions = new Array();
@@ -11,6 +13,16 @@ class QuestionDAO {
                 questions.push(q1);
             }
             callback(questions);
+        });
+    }
+    static getOpenQuestions(callback) {
+        var openQs = new Array();
+        this.opends.getOpenDatabase().all("SELECT * FROM OpenQuestions;", function (err, rows) {
+            for (var row of rows) {
+                var q1 = new OpenQuestion_1.OpenQuestion(row['id'], row['category'], row['question'], row['correctAnswer']);
+                openQs.push(q1);
+            }
+            callback(openQs);
         });
     }
     static createQuestion(newQuestion) {
@@ -44,4 +56,5 @@ class QuestionDAO {
 }
 QuestionDAO.ds = DataSource_1.DataSource.getInstance();
 QuestionDAO.opends = OpenDataSource_1.OpenDataSource.getInstance();
+QuestionDAO.multds = MultipleDataSource_1.MultipleDataSource.getInstance();
 exports.QuestionDAO = QuestionDAO;

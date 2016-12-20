@@ -2,16 +2,21 @@
 /// <reference path="Question.ts" />
 /// <reference path="OpenQuestion.ts" />
 /// <reference path="OpenDataSource.ts" />
+/// <reference path="MultipleQuestion.ts" />
+/// <reference path="MultipleDataSource.ts" />
 
 import { DataSource } from './DataSource';
 import { Question } from './Question';
 import { OpenDataSource } from './OpenDataSource';
 import { OpenQuestion } from './OpenQuestion';
+import { MultipleDataSource } from './MultipleDataSource';
+import { MultipleQuestion } from './MultipleQuestion';
 
 export class QuestionDAO {
 
     private static ds: DataSource = DataSource.getInstance();
     private static opends: OpenDataSource = OpenDataSource.getInstance();
+    private static multds: MultipleDataSource = MultipleDataSource.getInstance();
 
     public static getAllQuestions(callback) {
         var questions: Array<Question> = new Array<Question>();
@@ -21,6 +26,16 @@ export class QuestionDAO {
                 questions.push(q1);
             }
             callback(questions);
+        });
+    }
+    public static getOpenQuestions(callback) {
+        var openQs: Array<OpenQuestion> = new Array<OpenQuestion>();
+        this.opends.getOpenDatabase().all("SELECT * FROM OpenQuestions;", function(err, rows) {
+            for (var row of rows) {
+                var q1 = new OpenQuestion(row['id'], row['category'], row['question'], row['correctAnswer']);
+                openQs.push(q1);
+            }
+            callback(openQs);
         });
     }
     public static createQuestion(newQuestion: Question): Promise<number> {

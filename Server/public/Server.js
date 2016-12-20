@@ -5,7 +5,6 @@ const DataSource_1 = require("./DataSource");
 const Question_1 = require("./Question");
 const OpenDataSource_1 = require("./OpenDataSource");
 const MultipleDataSource_1 = require("./MultipleDataSource");
-const SubjectDataSource_1 = require("./SubjectDataSource");
 const UserDataSource_1 = require("./UserDataSource");
 const TeacherDataSource_1 = require("./TeacherDataSource");
 const QuestionDAO_1 = require("./QuestionDAO");
@@ -27,7 +26,6 @@ console.log('http://127.0.0.1:' + port + '/ila');
 DataSource_1.DataSource.getInstance().initDatabase();
 OpenDataSource_1.OpenDataSource.getInstance().initOpenDataBase();
 MultipleDataSource_1.MultipleDataSource.getInstance().initMultipleDataBase();
-SubjectDataSource_1.SubjectDataSource.getInstance().initSubjectDataBase();
 UserDataSource_1.UserDataSource.getInstance().initUserDataBase();
 TeacherDataSource_1.TeacherDataSource.getInstance().initTeacherDatabase();
 router.get('/', function (req, res) {
@@ -40,6 +38,14 @@ router.get('/listQuestions', function (req, res) {
         res.json(JSON.parse(response));
     };
     QuestionDAO_1.QuestionDAO.getAllQuestions(callback);
+});
+router.get('/listOpQuestions', function (req, res) {
+    var callback = function (rows) {
+        var response = JSON.stringify(rows);
+        console.log("callback executed" + rows);
+        res.json(JSON.parse(response));
+    };
+    QuestionDAO_1.QuestionDAO.getOpenQuestions(callback);
 });
 router.get('/question/:id', function (req, res) {
     var id = req.params.id;
