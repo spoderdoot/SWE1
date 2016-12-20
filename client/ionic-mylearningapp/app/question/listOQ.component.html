@@ -11,6 +11,7 @@
   <button (click)="listOpenQuestions()" full>Fragen anzeigen!</button>
 
   <ion-card *ngFor="let openquestion of openquestions">
+
     <ion-card-header>
       {{openquestion.id}}. Frage
     </ion-card-header>
