@@ -1,13 +1,13 @@
 "use strict";
 class Teacher {
-    constructor(teacherID, tName, tPassword) {
-        this.teacherID = teacherID;
+    constructor(id, tName, tPassword) {
+        this.id = id;
         this.tName = tName;
         this.tPassword = tPassword;
     }
     ;
     get getTeacherID() {
-        return this.teacherID;
+        return this.id;
     }
     get getTeacherName() {
         return this.tName;

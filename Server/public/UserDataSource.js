@@ -1,10 +1,12 @@
 "use strict";
+const sqlite3_1 = require("sqlite3");
 class UserDataSource {
     constructor() {
         if (UserDataSource.instance) {
             throw new Error("Not available for singletons!");
         }
         UserDataSource.instance = this;
+        this.db = new sqlite3_1.Database('./Users.db');
     }
     static getInstance() {
         return UserDataSource.instance;

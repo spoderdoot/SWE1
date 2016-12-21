@@ -1,13 +1,13 @@
 "use strict";
 class User {
-    constructor(userID, uName, uPassword) {
-        this.userID = userID;
+    constructor(id, uName, uPassword) {
+        this.id = id;
         this.uName = uName;
         this.uPassword = uPassword;
     }
     ;
     get getUserID() {
-        return this.userID;
+        return this.id;
     }
     get getUserName() {
         return this.uName;

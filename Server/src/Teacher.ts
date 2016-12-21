@@ -1,9 +1,9 @@
 export class Teacher {
 
-    constructor(private teacherID: number, private tName: string, private tPassword) { };
+    constructor(private id: number, private tName: string, private tPassword) { };
 
     public get getTeacherID() {
-        return this.teacherID;
+        return this.id;
     }
     public get getTeacherName() {
         return this.tName;

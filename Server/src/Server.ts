@@ -11,6 +11,7 @@
 /// <reference path="TeacherDataSource.ts"/>
 /// <reference path="Teacher.ts"/>
 /// <reference path="QuestionDAO.ts" />
+/// <reference path="UserDAO.ts" />
 
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
@@ -25,6 +26,7 @@ import { User } from './User';
 import { TeacherDataSource } from './TeacherDataSource';
 import { Teacher } from './Teacher';
 import { QuestionDAO } from './QuestionDAO';
+import { UserDAO } from './UserDAO';
 
 // create server app
 const app = express();
@@ -105,4 +107,14 @@ router.put('/question/create', function(req, res) {
     QuestionDAO.createQuestion(question).then((resolve) => {
         res.json(JSON.parse(resolve.toString()));
     });
+});
+
+router.get('/user/listUsers', function(req,res) {
+  var id = req.params.id;
+  var callback = function(rows) {
+    var response = JSON.stringify(rows);
+    console.log("callback executed" + rows);
+    res.json(JSON.parse(response));
+  }
+  UserDAO.getUsers(callback);
 });

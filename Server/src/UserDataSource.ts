@@ -13,6 +13,7 @@ export class UserDataSource {
             throw new Error("Not available for singletons!");
         }
         UserDataSource.instance = this;
+        this.db = new Database('./Users.db');
     }
 
     public static getInstance(): UserDataSource {

@@ -8,6 +8,7 @@ const MultipleDataSource_1 = require("./MultipleDataSource");
 const UserDataSource_1 = require("./UserDataSource");
 const TeacherDataSource_1 = require("./TeacherDataSource");
 const QuestionDAO_1 = require("./QuestionDAO");
+const UserDAO_1 = require("./UserDAO");
 const app = express();
 const port = process.env.PORT || 8080;
 const router = express.Router();
@@ -61,4 +62,13 @@ router.put('/question/create', function (req, res) {
     QuestionDAO_1.QuestionDAO.createQuestion(question).then((resolve) => {
         res.json(JSON.parse(resolve.toString()));
     });
+});
+router.get('/user/listUsers', function (req, res) {
+    var id = req.params.id;
+    var callback = function (rows) {
+        var response = JSON.stringify(rows);
+        console.log("callback executed" + rows);
+        res.json(JSON.parse(response));
+    };
+    UserDAO_1.UserDAO.getUsers(callback);
 });

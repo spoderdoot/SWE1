@@ -1,6 +1,6 @@
 export class OpenQuestion {
 
-    constructor(private questionID: number, private subject: string,
+    constructor(private id: number, private category: string,
         private question: string, private correctOpenAnswer: string) {
     }
 
@@ -8,10 +8,10 @@ export class OpenQuestion {
         return this.question;
     }
     public get getID() {
-        return this.questionID;
+        return this.id;
     }
     public get getSubject() {
-        return this.subject;
+        return this.category;
     }
     public get correctAnswer() {
         return this.correctAnswer;

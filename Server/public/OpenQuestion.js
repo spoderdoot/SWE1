@@ -1,8 +1,8 @@
 "use strict";
 class OpenQuestion {
-    constructor(questionID, subject, question, correctOpenAnswer) {
-        this.questionID = questionID;
-        this.subject = subject;
+    constructor(id, category, question, correctOpenAnswer) {
+        this.id = id;
+        this.category = category;
         this.question = question;
         this.correctOpenAnswer = correctOpenAnswer;
     }
@@ -10,10 +10,10 @@ class OpenQuestion {
         return this.question;
     }
     get getID() {
-        return this.questionID;
+        return this.id;
     }
     get getSubject() {
-        return this.subject;
+        return this.category;
     }
     get correctAnswer() {
         return this.correctAnswer;

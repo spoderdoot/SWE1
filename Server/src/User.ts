@@ -1,9 +1,9 @@
 export class User {
 
-    constructor(private userID: number, private uName: string, private uPassword: string) { };
+    constructor(private id: number, private uName: string, private uPassword: string) { };
 
     public get getUserID() {
-        return this.userID;
+        return this.id;
     }
     public get getUserName() {
         return this.uName;

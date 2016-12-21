@@ -1,8 +1,8 @@
 "use strict";
 class MultipleQuestion {
-    constructor(questionID, subject, question, answerA, answerB, answerC, answerD, correctMultAnswer) {
-        this.questionID = questionID;
-        this.subject = subject;
+    constructor(id, category, question, answerA, answerB, answerC, answerD, correctMultAnswer) {
+        this.id = id;
+        this.category = category;
         this.question = question;
         this.answerA = answerA;
         this.answerB = answerB;
@@ -12,13 +12,13 @@ class MultipleQuestion {
     }
     ;
     get getQuestionID() {
-        return this.questionID;
+        return this.id;
     }
     get getQuestion() {
         return this.question;
     }
     get getSubject() {
-        return this.subject;
+        return this.category;
     }
     get getAnswerA() {
         return this.answerA;

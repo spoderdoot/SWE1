@@ -13,6 +13,7 @@ export class TeacherDataSource {
             throw new Error("Not available for singletons!");
         }
         TeacherDataSource.instance = this;
+        this.db = new Database('./Teachers.db');
     }
 
     public static getInstance(): TeacherDataSource {
