@@ -6,7 +6,7 @@ const Question_1 = require("./Question");
 const OpenDataSource_1 = require("./OpenDataSource");
 const MultipleDataSource_1 = require("./MultipleDataSource");
 const UserDataSource_1 = require("./UserDataSource");
-const TeacherDataSource_1 = require("./TeacherDataSource");
+const User_1 = require("./User");
 const QuestionDAO_1 = require("./QuestionDAO");
 const UserDAO_1 = require("./UserDAO");
 const app = express();
@@ -28,7 +28,6 @@ DataSource_1.DataSource.getInstance().initDatabase();
 OpenDataSource_1.OpenDataSource.getInstance().initOpenDataBase();
 MultipleDataSource_1.MultipleDataSource.getInstance().initMultipleDataBase();
 UserDataSource_1.UserDataSource.getInstance().initUserDataBase();
-TeacherDataSource_1.TeacherDataSource.getInstance().initTeacherDatabase();
 router.get('/', function (req, res) {
     res.json({ "message": 'ILA server is running ...' });
 });
@@ -40,13 +39,21 @@ router.get('/listQuestions', function (req, res) {
     };
     QuestionDAO_1.QuestionDAO.getAllQuestions(callback);
 });
-router.get('/listOpQuestions', function (req, res) {
+router.get('/listOpenQuestions', function (req, res) {
     var callback = function (rows) {
         var response = JSON.stringify(rows);
         console.log("callback executed" + rows);
         res.json(JSON.parse(response));
     };
     QuestionDAO_1.QuestionDAO.getOpenQuestions(callback);
+});
+router.get('/listMultipleChoiceQuestions', function (req, res) {
+    var callback = function (rows) {
+        var response = JSON.stringify(rows);
+        console.log("callback executed" + rows);
+        res.json(JSON.parse(response));
+    };
+    QuestionDAO_1.QuestionDAO.getMultQuestions(callback);
 });
 router.get('/question/:id', function (req, res) {
     var id = req.params.id;
@@ -63,12 +70,28 @@ router.put('/question/create', function (req, res) {
         res.json(JSON.parse(resolve.toString()));
     });
 });
+router.put('/user/create', function (req, res) {
+    var jsonUser = JSON.parse(JSON.stringify(req.body));
+    var user = new User_1.User(jsonUser['id'], jsonUser['userName'], jsonUser['password'], jsonUser['isTeacher']);
+    UserDAO_1.UserDAO.createUser(user).then((resolve) => {
+        res.json(JSON.parse(resolve.toString()));
+    });
+});
 router.get('/user/listUsers', function (req, res) {
-    var id = req.params.id;
     var callback = function (rows) {
         var response = JSON.stringify(rows);
         console.log("callback executed" + rows);
         res.json(JSON.parse(response));
     };
     UserDAO_1.UserDAO.getUsers(callback);
+});
+router.get('/login', function (req, res) {
+    var uName = req.params.username;
+    var pw = req.params.password;
+    var callback = function (rows) {
+        var response = JSON.stringify(rows);
+        console.log("console executed" + rows);
+        res.json(JSON.parse(response));
+    };
+    UserDAO_1.UserDAO.loginUser(uName, pw, callback);
 });

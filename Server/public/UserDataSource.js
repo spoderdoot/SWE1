@@ -22,8 +22,9 @@ class UserDataSource {
         var userdb = new sqlite3.Database(file);
         userdb.serialize(function () {
             if (!exists) {
-                userdb.run("CREATE TABLE Users(userID INTEGER PRIMARY KEY, userName TEXT UNIQUE, userPassword TEXT);");
-                userdb.run("INSERT INTO Users VALUES (1, 'Emil', 'passwort1');");
+                userdb.run("CREATE TABLE Users(userID INTEGER PRIMARY KEY, userName TEXT UNIQUE, userPassword TEXT, isTeacher TEXT);");
+                userdb.run("INSERT INTO Users VALUES (1, 'Emil', 'passwort1', 'false');");
+                userdb.run("INSERT INTO Users VALUES (2, 'Timo', 'admin123', 'true');");
             }
         });
     }

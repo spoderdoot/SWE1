@@ -1,9 +1,10 @@
 "use strict";
 class User {
-    constructor(id, uName, uPassword) {
+    constructor(id, uName, uPassword, isTeacher) {
         this.id = id;
         this.uName = uName;
         this.uPassword = uPassword;
+        this.isTeacher = isTeacher;
     }
     ;
     get getUserID() {
@@ -14,6 +15,9 @@ class User {
     }
     get getUserPassword() {
         return this.uPassword;
+    }
+    get getIsTeacher() {
+        return this.isTeacher;
     }
 }
 exports.User = User;

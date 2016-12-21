@@ -23,7 +23,6 @@ class TeacherDataSource {
         teachdb.serialize(function () {
             if (!exists) {
                 teachdb.run("CREATE TABLE Teachers(teacherID INTEGER PRIMARY KEY, tName TEXT UNIQUE, tPassword TEXT);");
-                teachdb.run("INSERT INTO Teachers VALUES (1, 'Timo', 'admin123');");
             }
         });
     }

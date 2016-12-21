@@ -5,7 +5,7 @@ import { Database } from 'sqlite3';
 export class OpenDataSource {
 
     private db: Database;
-    
+
     private static instance: OpenDataSource = new OpenDataSource();
 
     constructor() {

@@ -1,6 +1,6 @@
 "use strict";
 class MultipleQuestion {
-    constructor(id, category, question, answerA, answerB, answerC, answerD, correctMultAnswer) {
+    constructor(id, category, question, answerA, answerB, answerC, answerD, correctAnswer) {
         this.id = id;
         this.category = category;
         this.question = question;
@@ -8,7 +8,7 @@ class MultipleQuestion {
         this.answerB = answerB;
         this.answerC = answerC;
         this.answerD = answerD;
-        this.correctMultAnswer = correctMultAnswer;
+        this.correctAnswer = correctAnswer;
     }
     ;
     get getQuestionID() {
@@ -33,7 +33,7 @@ class MultipleQuestion {
         return this.answerD;
     }
     get getCorrectAnswer() {
-        return this.correctMultAnswer;
+        return this.correctAnswer;
     }
 }
 exports.MultipleQuestion = MultipleQuestion;

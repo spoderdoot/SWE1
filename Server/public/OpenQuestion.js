@@ -15,8 +15,8 @@ class OpenQuestion {
     get getSubject() {
         return this.category;
     }
-    get correctAnswer() {
-        return this.correctAnswer;
+    get getCorrectAnswer() {
+        return this.correctOpenAnswer;
     }
 }
 exports.OpenQuestion = OpenQuestion;

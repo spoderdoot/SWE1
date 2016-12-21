@@ -38,6 +38,17 @@ export class QuestionDAO {
             callback(openQs);
         });
     }
+    public static getMultQuestions(callback) {
+        var multQs: Array<MultipleQuestion> = new Array<MultipleQuestion>();
+        this.multds.getMultipleDatabase().all("SELECT * FROM MultipleQuestions", function(err, rows) {
+            for (var row of rows) {
+                var q1 = new MultipleQuestion(row['id'], row['category'], row['question'], row['answerA'],
+                    row['answerB'], row['answerC'], row['answerD'], row['correctAnswer']);
+                multQs.push(q1);
+            }
+            callback(multQs);
+        })
+    }
     public static createQuestion(newQuestion: Question): Promise<number> {
         var insert: string = "INSERT INTO TB_QUESTIONS VALUES (NULL, '" + newQuestion.getQuestion
             + "', '" + newQuestion.getAnswerA
@@ -65,6 +76,4 @@ export class QuestionDAO {
             callback(question);
         });
     }
-
-
 }
