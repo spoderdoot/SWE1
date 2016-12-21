@@ -22,7 +22,7 @@ export class ListOQOverviewComponent {
       this.openquestions = questions;
     });
   }
-  redirectToDetails() {
+  showDetails() {
     this.navCtrl.push(ListOQComponent);
   }
 }
