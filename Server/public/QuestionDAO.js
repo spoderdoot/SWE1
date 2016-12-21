@@ -4,6 +4,7 @@ const Question_1 = require("./Question");
 const OpenDataSource_1 = require("./OpenDataSource");
 const OpenQuestion_1 = require("./OpenQuestion");
 const MultipleDataSource_1 = require("./MultipleDataSource");
+const MultipleQuestion_1 = require("./MultipleQuestion");
 class QuestionDAO {
     static getAllQuestions(callback) {
         var questions = new Array();
@@ -23,6 +24,16 @@ class QuestionDAO {
                 openQs.push(q1);
             }
             callback(openQs);
+        });
+    }
+    static getMultQuestions(callback) {
+        var multQs = new Array();
+        this.multds.getMultipleDatabase().all("SELECT * FROM MultipleQuestions", function (err, rows) {
+            for (var row of rows) {
+                var q1 = new MultipleQuestion_1.MultipleQuestion(row['id'], row['category'], row['question'], row['answerA'], row['answerB'], row['answerC'], row['answerD'], row['correctAnswer']);
+                multQs.push(q1);
+            }
+            callback(multQs);
         });
     }
     static createQuestion(newQuestion) {

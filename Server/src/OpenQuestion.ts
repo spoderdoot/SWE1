@@ -13,7 +13,7 @@ export class OpenQuestion {
     public get getSubject() {
         return this.category;
     }
-    public get correctAnswer() {
-        return this.correctAnswer;
+    public get getCorrectAnswer() {
+        return this.correctOpenAnswer;
     }
 }

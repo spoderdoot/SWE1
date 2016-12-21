@@ -8,8 +8,6 @@
 /// <reference path="MultipleQuestion.ts"/>
 /// <reference path="UserDataSource.ts"/>
 /// <reference path="User.ts"/>
-/// <reference path="TeacherDataSource.ts"/>
-/// <reference path="Teacher.ts"/>
 /// <reference path="QuestionDAO.ts" />
 /// <reference path="UserDAO.ts" />
 
@@ -23,8 +21,6 @@ import { MultipleDataSource } from './MultipleDataSource';
 import { MultipleQuestion } from './MultipleQuestion';
 import { UserDataSource } from './UserDataSource';
 import { User } from './User';
-import { TeacherDataSource } from './TeacherDataSource';
-import { Teacher } from './Teacher';
 import { QuestionDAO } from './QuestionDAO';
 import { UserDAO } from './UserDAO';
 
@@ -59,8 +55,6 @@ OpenDataSource.getInstance().initOpenDataBase();
 MultipleDataSource.getInstance().initMultipleDataBase();
 // initialize database for users
 UserDataSource.getInstance().initUserDataBase();
-// initialize database for teachers
-TeacherDataSource.getInstance().initTeacherDatabase();
 
 /** REST API **/
 
@@ -80,7 +74,7 @@ router.get('/listQuestions', function(req, res) {
 });
 
 // list all available questions alternative -> callback version
-router.get('/listOpQuestions', function(req, res) {
+router.get('/listOpenQuestions', function(req, res) {
   var callback = function(rows) {
     var response = JSON.stringify(rows);
     console.log("callback executed" + rows);
@@ -88,7 +82,15 @@ router.get('/listOpQuestions', function(req, res) {
   }
   QuestionDAO.getOpenQuestions(callback);
 });
-
+// list all available multiple choice questions -> callback version
+router.get('/listMultipleChoiceQuestions', function(req, res){
+  var callback = function (rows) {
+    var response = JSON.stringify(rows);
+    console.log("callback executed" + rows);
+    res.json(JSON.parse(response));
+  }
+  QuestionDAO.getMultQuestions(callback);
+})
 // get question by id -> callback version
 router.get('/question/:id', function(req, res) {
     var id = req.params.id;
@@ -108,9 +110,15 @@ router.put('/question/create', function(req, res) {
         res.json(JSON.parse(resolve.toString()));
     });
 });
-
+// create a new user
+router.put('/user/create', function(req, res) {
+  var jsonUser = JSON.parse(JSON.stringify(req.body));
+  var user = new User(jsonUser['id'],jsonUser['userName'],jsonUser['password'], jsonUser['isTeacher']);
+  UserDAO.createUser(user).then((resolve) => {
+    res.json(JSON.parse(resolve.toString()));
+  })
+})
 router.get('/user/listUsers', function(req,res) {
-  var id = req.params.id;
   var callback = function(rows) {
     var response = JSON.stringify(rows);
     console.log("callback executed" + rows);
@@ -118,3 +126,13 @@ router.get('/user/listUsers', function(req,res) {
   }
   UserDAO.getUsers(callback);
 });
+router.get('/login', function(req,res) {
+  var uName = req.params.username;
+  var pw = req.params.password;
+  var callback = function(rows) {
+    var response = JSON.stringify(rows);
+    console.log("console executed" + rows);
+    res.json(JSON.parse(response));
+  }
+  UserDAO.loginUser(uName,pw,callback);
+})
