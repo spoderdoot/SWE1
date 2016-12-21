@@ -72,7 +72,7 @@ router.put('/question/create', function (req, res) {
 });
 router.put('/user/create', function (req, res) {
     var jsonUser = JSON.parse(JSON.stringify(req.body));
-    var user = new User_1.User(jsonUser['id'], jsonUser['userName'], jsonUser['password'], jsonUser['isTeacher']);
+    var user = new User_1.User(jsonUser['id'], jsonUser['username'], jsonUser['password'], jsonUser['isTeacher']);
     UserDAO_1.UserDAO.createUser(user).then((resolve) => {
         res.json(JSON.parse(resolve.toString()));
     });

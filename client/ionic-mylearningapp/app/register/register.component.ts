@@ -67,37 +67,7 @@ showSuccessMessage(response : any) {
 }
 
 redirectToLogin() {
-  this.navCtrl.push(LoginComponent);
+  this.navCtrl.setRoot(LoginComponent);
 }
-/*
-  register (userName : string, password : string) {
-    if (this.userName == null) {
-      const alert = this.alertCtrl.create({
-        title: '<b>Angaben überprüfen!</b>',
-        subTitle: 'Um dich zu registrieren musst du deinen Namen eingeben!',
-        buttons: ['OK']
-      });
-      alert.present();
-      return;
-    }
-    if (this.password == null) {
-      const alert = this.alertCtrl.create({
-        title: '<b>Angaben überprüfen!</b>',
-        subTitle: 'Um dich zu registrieren musst du dein Passwort eingeben!',
-        buttons: ['OK']
-      });
-      alert.present();
-      return;
-    } else {
-      this.userName = userName;
-      this.password = password;
-    }
 
-
-  }
-
-  loggedIn() {
-    return false;
-  }
-*/
 }

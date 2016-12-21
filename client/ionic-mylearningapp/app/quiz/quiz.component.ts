@@ -33,17 +33,6 @@ export class QuizComponent {
   }
 
   startQuiz() {
-    // user must have set his name
-  /*  if (this.username == null) {
-      const alert = this.alertCtrl.create({
-        title: '<b>Angaben überprüfen!</b>',
-        subTitle: 'Um das Spiel zu starten musst du deinen Namen angeben!',
-        buttons: ['OK']
-      });
-      alert.present();
-      return;
-    }*/
-    // call service to get questions
     this.getQuestions();
   }
 
@@ -68,6 +57,7 @@ export class QuizComponent {
       // check if the answer is correct
       if (this.selectedAnswer == this.currentQuestion.correctAnswer) {
         this.correctAnswerSelected();
+        this.correctAnswerCount++;
       } else {
         this.wrongAnswerSelected();
       }
@@ -114,7 +104,7 @@ export class QuizComponent {
     if (this.currentQuestionCounter == this.questions.length) {
       this.quizStarted = false;
       this.selectedAnswer = '';
-      return;
+      this.redirectToResults();
     }
 
     // next question
@@ -148,6 +138,14 @@ export class QuizComponent {
     });
     alert.present();
   }
+  saveQuizResults(){
+    window.localStorage.setItem("correctAnswerCount",  this.correctAnswerCount.toString());
+    console.log(window.localStorage.getItem("correctAnswerCount"));
+    /*window.localStorage.setItem("username", this.username);
+    console.log(window.localStorage.getItem("username"));
+    window.localStorage.setItem("totalNumberOfQuestions",  this.totalNumberOfQuestions.toString());
+    console.log(window.localStorage.getItem("totalNumberOfQuestions"));*/
+  }
 // used to print the quiz results for the player
   printResults() {
 
@@ -157,17 +155,17 @@ export class QuizComponent {
     this.redirectToResults();
 
   }
-/*
-  decideWhatQuestion(){
+
+  decideWhatQuestionType(){
     if(this.currentQuestion instanceof MultipleChoiceQuestion) {
 
     } else if (this.currentQuestion instanceof OpenQuestion) {
 
-    }
+    } else {}
 
-  }*/
+  }
 
   redirectToResults() {
-    this.navCtrl.push(ResultsComponent);
+    this.navCtrl.setRoot(ResultsComponent, this.saveQuizResults());
 }
 }

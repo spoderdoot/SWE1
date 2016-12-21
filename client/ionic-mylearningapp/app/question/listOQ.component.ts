@@ -21,4 +21,10 @@ export class ListOQComponent {
       this.openquestions = questions;
     });
   }
+  getOpenQuestion(id : number) {
+    this.questionsService.getOpenQuestionWithId(id).subscribe( questions => {
+      var openquestion = questions;
+    }
+    )
+  }
 }

@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import { AlertController, NavController } from 'ionic-angular';
+import { AlertController, NavController, MenuController} from 'ionic-angular';
 import {RegisterComponent} from '../register/index';
 import { User, LoginService} from '../shared/index';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -17,7 +17,7 @@ private userLoginForm : FormGroup;
   constructor(private alertCtrl : AlertController, public navCtrl : NavController, private formBuilder : FormBuilder, public loginService : LoginService) {
     this.navCtrl = navCtrl;
     this.createForm();
-    /*menuCrtl.disable(); *///damit man nicht das Menu aufrufen kann bevor man sich eingeloggt hat.
+    //his.menuCtrl.disable(); ///damit man nicht das Menu aufrufen kann bevor man sich eingeloggt hat.
   }
 
 //static setPages(app : any) {
@@ -32,35 +32,40 @@ createForm() {
 }
 
 isFormValid() : boolean {
-  let isValid : boolean = this.userLoginForm.valid;
+  let isValid: boolean = this.userLoginForm.valid;
 
   if(!isValid) {
-    const alert = this.alertCtrl.create({
+     const alert = this.alertCtrl.create( {
       title: '<b>Angaben überprüfen!</b>',
       subTitle: 'Um dich einzuloggen musst du deinen Namen und Passwort eingeben!',
       buttons: ['OK']
     });
+
     alert.present();
   }
   return isValid;
 }
 
 
-checkIfUserIsRegistered() {
+checkIfUserIsRegistered() : boolean {
 
   if(this.isFormValid()) {
     this.loginService.checkUser(this.userLoginForm.value.username).subscribe(response => {
       this.showSuccessMessage(response);
+      return true;
       //this.userID = response.userID;
     })
-  }
+  } else
+  return;
 }
+
+
 saveUserName(){
   console.log(this.userLoginForm.value.username);
   window.localStorage.setItem("username",  this.userLoginForm.value.username);
   console.log(window.localStorage.getItem("username"));
-
 }
+
 showSuccessMessage(response : any) {
   console.log("success - user with id " + response + " successfully logged in.");
 
@@ -78,33 +83,34 @@ getUser() {
     this.user = user;
   })
 }
+login() {
+  if(this.checkIfUserIsRegistered()) {
+    this.saveUserName();
+    this.redirectToQuiz();
+  } /*else {
+    const alert = this.alertCtrl.create({
+      title: '<b>Oops! Wir konnten keinen Benutzer mit deinem Namen finden!</b>',
+      subTitle: 'Vor Benutzung der App musst du dich registrieren',
+      buttons: ['Ok!']
+    });
+    alert.present();
+  }*/
+}
   /*
-  login(userName : string, password : string) {
-    if (this.username == null) {
-      const alert = this.alertCtrl.create({
-        title: '<b>Angaben überprüfen!</b>',
-        subTitle: 'Um dich zu registrieren musst du deinen Namen eingeben!',
-        buttons: ['OK']
-      });
-      alert.present();
-      return;
+  login() {
+  var loginuser = new User (-1, this.userLoginForm.value.username, this.userLoginForm.value.password, false);
+       this.usersService.login(loginuser).subscribe(response => {
+         if (response ['status']) {
+           if (this.isTeacher) {
+              QuizComponent.app.pages = QuizComponent.app.pagesTeacher;
+           } else {
+            QuizComponent.app.pages = QuizComponent.app.pagesStudent;
+             }
+           this.loggedIn = true;
+         }
+       })
     }
-    if (this.password == null) {
-      const alert = this.alertCtrl.create({
-        title: '<b>Angaben überprüfen!</b>',
-        subTitle: 'Um dich zu registrieren musst du dein Passwort eingeben!',
-        buttons: ['OK']
-      });
-      alert.present();
-      return;
-    } else {
-      this.username = userName;
-      this.password = password;
-    }
-  }
-  loggedIn() : boolean {
-    return
-  }
+
   */
   redirectToRegister() {
     this.navCtrl.push(RegisterComponent);
@@ -113,7 +119,8 @@ getUser() {
     }
 
   redirectToQuiz() {
+    
     this.saveUserName();
-    this.navCtrl.push(QuizComponent);
+    this.navCtrl.setRoot(QuizComponent, this.saveUserName());
   }
 }

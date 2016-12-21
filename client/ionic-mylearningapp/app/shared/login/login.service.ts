@@ -44,7 +44,7 @@ export class LoginService {
     .put(this.settings.serverIp + 'user/create', JSON.stringify(user), {headers : headers})
     .map((res : Response) => res.json());
   }
-  
+
   checkUser(username : string) : Observable<any> { //vlt kein observable
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
@@ -52,7 +52,12 @@ export class LoginService {
     .post(this.settings.serverIp + 'login/', JSON.stringify(username), {headers : headers})
     .map((res: Response) => res.json());
 
-
-
+  }
+  login(user : User) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+    return this.http
+      .post(this.settings.serverIp + 'login/asd', JSON.stringify(user), { headers: headers })
+      .map((res: Response) => res.json());
   }
 }
