@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Question, QuestionsService} from '../shared/index';
 import { NavController } from 'ionic-angular';
-import { ListMCQComponent, ListOQComponent} from './index';
+import { ListMCQComponent, ListOQComponent, ListOQOverviewComponent} from './index';
 
 
 @Component({
@@ -26,6 +26,6 @@ export class ListQuestionsComponent {
   }
 
   redirectToListOQ() {
-      this.navCtrl.push(ListOQComponent);
+      this.navCtrl.push(ListOQOverviewComponent);
   }
 }

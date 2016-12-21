@@ -12,14 +12,11 @@
 
   <ion-card *ngFor="let openquestion of openquestions">
 
-    <ion-card-header>
-      {{openquestion.id}}. Frage
-    </ion-card-header>
+  
     <ion-card-content>
-      <h2>Kategorie: {{openquestion.category}}</h2>
-      <h2>{{openquestion.question}}</h2>
-      <p> Richtige Antwort: {{openquestion.correctOpenAnswer}}
-      </p>
+
+      <h2>{{openquestion.question}}</h2> <button (click) = "redirectToDetails()" full ></button>
+
     </ion-card-content>
   </ion-card>
 
