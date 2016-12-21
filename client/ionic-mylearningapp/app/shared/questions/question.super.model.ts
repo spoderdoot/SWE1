@@ -1,4 +1,4 @@
-/*
+
 export abstract class QuestionSuperClass {
   constructor(public id: number,
     public category : any, //each question must have a category
@@ -6,4 +6,3 @@ export abstract class QuestionSuperClass {
     public correctAnswer: any) {
 }
 }
-*/

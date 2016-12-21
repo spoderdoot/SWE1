@@ -29,6 +29,7 @@ export class QuizComponent {
   private balance: any = 0;
 
   constructor(private alertCtrl: AlertController, public questionsService: QuestionsService, public navCtrl : NavController) {
+    this.username = window.localStorage.getItem("username");
   }
 
   startQuiz() {
@@ -107,7 +108,7 @@ export class QuizComponent {
   }
 
   nextQuestion() {
-    this.increaseBalance();
+    //this.increaseBalance();
 
     // is last question reached
     if (this.currentQuestionCounter == this.questions.length) {

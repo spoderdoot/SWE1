@@ -1,14 +1,14 @@
 
-//mport {QuestionSuperClass} from './index';
+import {QuestionSuperClass} from './question.super.model'; //doesnt work with index WTH
 //model of an open question
-export class OpenQuestion {//extends QuestionSuperClass {
+export class OpenQuestion extends QuestionSuperClass {
   constructor(
-    public id: number,
-      public category : any, //each question must have a category
-      public question: string,
-      public correctAnswer: string) {
+       id: number,
+       category : any, //each question must have a category
+       question: string,
+       correctOpenAnswer: string) {
 
-  //super(id, category, question, correctAnswer);
+  super(id, category, question, correctOpenAnswer);
   }
 
 }

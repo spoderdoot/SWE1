@@ -4,6 +4,7 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>InstaLearn</ion-title>
+    Eingeloggt als {{username}}
   </ion-navbar>
 </ion-header>
 
@@ -41,12 +42,9 @@
   <div name="mainQuiz" *ngIf="quizStarted">
 
     <ion-card>
-      <ion-card-header>
-        {{username}}
-      </ion-card-header>
       <ion-card-content>
 
-        Fach: {{category}}
+        Kategorie: {{category}}
 
       </ion-card-content>
     </ion-card>

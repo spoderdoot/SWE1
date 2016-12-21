@@ -51,9 +51,14 @@ checkIfUserIsRegistered() {
   if(this.isFormValid()) {
     this.loginService.checkUser(this.userLoginForm.value.username).subscribe(response => {
       this.showSuccessMessage(response);
-
+      //this.userID = response.userID;
     })
   }
+}
+saveUserName(){
+  console.log(this.userLoginForm.value.username);
+  window.localStorage.setItem("username",  this.userLoginForm.value.username);
+  console.log(window.localStorage.getItem("username"));
 
 }
 showSuccessMessage(response : any) {
@@ -108,6 +113,7 @@ getUser() {
     }
 
   redirectToQuiz() {
+    this.saveUserName();
     this.navCtrl.push(QuizComponent);
   }
 }
