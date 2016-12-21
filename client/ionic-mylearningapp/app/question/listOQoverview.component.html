@@ -11,7 +11,7 @@
   <button (click)="listOpenQuestions()" full>Fragen anzeigen!</button>
 
 
-Klicke auf deine Frage, um sie zu bearbeiten!
+<b>Klicken Sie auf eine Frage, um Details über sie anzeigen zu lassen!</b>
   <ion-list>
     <ion-button ion-item *ngFor="let openquestion of openquestions" (click)="showDetails()">
       {{openquestion.question}}
