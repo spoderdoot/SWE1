@@ -34,6 +34,7 @@ createUserAndRedirectToLogin() {
 
     this.loginService.createUser(newUser).subscribe(response => {
       this.showSuccessMessage(response);
+
     })
     this.redirectToLogin();
   }
@@ -42,7 +43,7 @@ createUserAndRedirectToLogin() {
 
 isFormValid() : boolean {
   let isValid : boolean = this.createUserForm.valid;
-
+  console.log(this.createUserForm);
   if(!isValid) {
     const alert = this.alertCtrl.create({
       title: '<b>Angaben überprüfen!</b>',

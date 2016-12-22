@@ -32,15 +32,17 @@ createForm() {
 }
 
 isFormValid() : boolean {
-  let isValid: boolean = this.userLoginForm.valid;
 
+  let isValid: boolean = this.userLoginForm.valid;
+  console.log(this.userLoginForm.value.username);
+  console.log(this.userLoginForm.value.password);
+  console.log(this.userLoginForm.valid); //is false dunno why
   if(!isValid) {
-     const alert = this.alertCtrl.create( {
+     const alert = this.alertCtrl.create({
       title: '<b>Angaben überprüfen!</b>',
       subTitle: 'Um dich einzuloggen musst du deinen Namen und Passwort eingeben!',
       buttons: ['OK']
     });
-
     alert.present();
   }
   return isValid;
@@ -119,8 +121,9 @@ login() {
     }
 
   redirectToQuiz() {
-    
-    this.saveUserName();
-    this.navCtrl.setRoot(QuizComponent, this.saveUserName());
+    if(this.isFormValid()) {
+      this.saveUserName();
+      this.navCtrl.setRoot(QuizComponent, this.saveUserName());
+  }
   }
 }

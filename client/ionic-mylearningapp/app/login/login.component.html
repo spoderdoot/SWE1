@@ -17,6 +17,7 @@
       <ion-card-content>
 
         <form [formGroup]="userLoginForm">
+
           <ion-item>
             <ion-label floating>Benutzername</ion-label>
             <ion-input formControlName ="username" type="text"></ion-input>
@@ -24,7 +25,7 @@
 
           <ion-item>
             <ion-label floating>Passwort</ion-label>
-            <ion-input formController ="password" type="text"></ion-input>
+            <ion-input formControlName ="password" type="password"></ion-input>
           </ion-item>
 
         </form>
