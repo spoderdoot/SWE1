@@ -54,7 +54,8 @@ checkIfUserIsRegistered() : boolean {
   if(this.isFormValid()) {
     this.loginService.checkUser(this.userLoginForm.value.username).subscribe(response => {
       this.showSuccessMessage(response);
-      return true;
+      console.log(response);
+      //return true;
       //this.userID = response.userID;
     })
   } else
