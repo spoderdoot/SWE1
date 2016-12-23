@@ -4,6 +4,3 @@
 .gitignore
 node_modules/
 .DS_Store
-Users.db
-MultipleQuestions.db
-OpenQuestions.db
