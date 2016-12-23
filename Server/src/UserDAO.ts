@@ -19,7 +19,7 @@ export class UserDAO {
         });
     }
     public static createUser(newUser: User): Promise<boolean> {
-      var isOk: boolean = false;
+      var isUserNameOk: boolean = false;
       var insert: string = "INSERT INTO Users VALUES(NULL,'"+newUser.getUserName+"', '"
                                                         +newUser.getUserPassword+"', 'false');";
       console.log(insert);
@@ -28,27 +28,38 @@ export class UserDAO {
           if (err) {
             console.log("Failed");
             console.log(err);
-            resolve(isOk);
+            resolve(this.isUserNameOk);
           } else {
             console.log("Success " + this.lastID);
             this.isOk = true;
-            resolve(this.isOk);
+            resolve(this.isUserNameOk);
           }
         });
       });
     }
-    private static checkUser(username: string){
-      var isEmpty: boolean;
+    private static checkUser(username: string): boolean{
+      var isEmpty: boolean = true;
       var user: Array<User> = new Array<User>();
-      var json = this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE userName = '"+username+"'; ", function(err, rows){
+      this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE userName = '"+username+"'; ", function(err, rows){
         for (var row of rows) {
           var u1 = new User(row['id'], row['username'],row['password'],row['isTeacher']);
           user.push(u1);
         }
       });
+      if(user.length != 0){
+        isEmpty = false;
+      }
+      return isEmpty;
+    }
+    private static checkPassword(username: string, password: string): boolean {
+      var isEmpty: boolean = true;
+      var user: Array<User> = new Array<User>("SELECT userName FROM Users WHERE userName = '"+username+"' AND ; "){
+        this.uds.getUserDataBase().all()
+      }
     }
     public static loginUser(username: string, password: string, callback) {
         var query = "SELECT * FROM Users WHERE username = '"+username +"';";
+        var userExists: boolean = this.checkUser(username);
         this.uds.getUserDataBase().get(query, function(err, row) {
             var userLogin = new Array(row['isUserNameOk'], row['isPassWordOk'], row['isTeacher']);
             callback(userLogin);

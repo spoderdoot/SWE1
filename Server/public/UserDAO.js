@@ -13,7 +13,7 @@ class UserDAO {
         });
     }
     static createUser(newUser) {
-        var isOk = false;
+        var isUserNameOk = false;
         var insert = "INSERT INTO Users VALUES(NULL,'" + newUser.getUserName + "', '"
             + newUser.getUserPassword + "', 'false');";
         console.log(insert);
@@ -22,28 +22,37 @@ class UserDAO {
                 if (err) {
                     console.log("Failed");
                     console.log(err);
-                    resolve(isOk);
+                    resolve(this.isUserNameOk);
                 }
                 else {
                     console.log("Success " + this.lastID);
                     this.isOk = true;
-                    resolve(this.isOk);
+                    resolve(this.isUserNameOk);
                 }
             });
         });
     }
     static checkUser(username) {
-        var isEmpty;
+        var isEmpty = true;
         var user = new Array();
-        var json = this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE userName = '" + username + "'; ", function (err, rows) {
+        this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE userName = '" + username + "'; ", function (err, rows) {
             for (var row of rows) {
                 var u1 = new User_1.User(row['id'], row['username'], row['password'], row['isTeacher']);
                 user.push(u1);
             }
         });
+        if (user.length != 0) {
+            isEmpty = false;
+        }
+        return isEmpty;
+    }
+    static checkPassword(username, password) {
+        var isEmpty = true;
+        var user = new Array("SELECT userName FROM Users WHERE userName = '" + username + "' AND ; "), { this: , uds, getUserDataBase = ().all() };
     }
     static loginUser(username, password, callback) {
         var query = "SELECT * FROM Users WHERE username = '" + username + "';";
+        var userExists = this.checkUser(username);
         this.uds.getUserDataBase().get(query, function (err, row) {
             var userLogin = new Array(row['isUserNameOk'], row['isPassWordOk'], row['isTeacher']);
             callback(userLogin);
