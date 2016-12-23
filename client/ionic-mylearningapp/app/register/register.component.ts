@@ -4,6 +4,7 @@ import { AlertController, NavController } from 'ionic-angular';
 import { User, LoginService} from '../shared/index';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { LoginComponent} from '../login/index';
+import { AboutModalComponent} from '../about/index';
 
 @Component({
   templateUrl: 'build/register/register.component.html',
@@ -33,8 +34,8 @@ createUserAndRedirectToLogin() {
     var newUser = new User(-1, this.createUserForm.value.username, this.createUserForm.value.password, false);
 
     this.loginService.createUser(newUser).subscribe(response => {
-      console.log(response.isUserNameOk);
-      if(response.isUserNameOk == false) {
+      console.log("register response from server: " + response.isUserNameOk);
+      if(response.isUserNameOk == "false") {
         const alert = this.alertCtrl.create({
           title: '<b>Benutzername bereits in Verwendung</b>',
           subTitle: 'Bitte verwende einen anderen Benutzernamen.',
@@ -79,6 +80,10 @@ showSuccessMessage(response : any) {
 
 redirectToLogin() {
   this.navCtrl.setRoot(LoginComponent);
+}
+
+redirectToAbout() {
+  this.navCtrl.push(AboutModalComponent);
 }
 
 }
