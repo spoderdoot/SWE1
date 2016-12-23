@@ -33,10 +33,12 @@ class UserDAO {
     }
     static checkUser(username) {
         var user = new Array();
-        this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE userName = '" + username + "'; ");
-        for (var row of rows) {
-            var u1 = new User_1.User(row['id'], row['username'], row['password'], row['isTeacher']);
-        }
+        this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE userName = '" + username + "'; ", function (err, rows) {
+            for (var row of rows) {
+                var u1 = new User_1.User(row['id'], row['username'], row['password'], row['isTeacher']);
+                user.push(u1);
+            }
+        });
     }
     static loginUser(username, password, callback) {
         var query = "SELECT * FROM Users WHERE username = '" + username + "';";

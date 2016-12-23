@@ -36,12 +36,14 @@ export class UserDAO {
         });
       });
     }
-    private static checkUser(username: string){
+    private static checkUser(username: string): boolean{
       var user: Array<User> = new Array<User>();
-      this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE userName = '"+username+"'; ");
-      for (var row of rows) {
-        var u1 = new User(row['id'], row['username'],row['password'],row['isTeacher'])
-      }
+      this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE userName = '"+username+"'; ", function(err, rows){
+        for (var row of rows) {
+          var u1 = new User(row['id'], row['username'],row['password'],row['isTeacher']);
+          user.push(u1);
+        }
+      });
     }
     public static loginUser(username: string, password: string, callback) {
         var query = "SELECT * FROM Users WHERE username = '"+username +"';";
