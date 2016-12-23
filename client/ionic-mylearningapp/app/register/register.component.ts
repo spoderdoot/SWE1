@@ -33,7 +33,7 @@ createUserAndRedirectToLogin() {
     var newUser = new User(-1, this.createUserForm.value.username, this.createUserForm.value.password, false);
 
     this.loginService.createUser(newUser).subscribe(response => {
-      this.showSuccessMessage(response);
+
       if(response.isUserNameOk == false) {
         const alert = this.alertCtrl.create({
           title: '<b>Benutzer gibts schon!</b>',
@@ -42,6 +42,8 @@ createUserAndRedirectToLogin() {
         });
         alert.present();
           return false;
+      } else {
+              this.showSuccessMessage(this.createUserForm.value.uername);
       }
     })
     this.redirectToLogin();
@@ -64,11 +66,11 @@ isFormValid() : boolean {
 }
 
 showSuccessMessage(response : any) {
-  console.log("success - user was successfully sotred with id " + response);
+  console.log("success - user wurde unter dem Namen " + response + " gespeichert.");
 
   const alert = this.alertCtrl.create({
-    title: '<b>Benutzer registriert!</b>',
-    subTitle: 'Der Schüler wurde unter der Id ' + response + ' gespeichert.',
+    title: '<b>Als Schüler registriert!</b>',
+    subTitle: 'Der Schüler wurde unter dem Namen ' + response + ' gespeichert.',
     buttons: ['OK']
   });
   alert.present();
