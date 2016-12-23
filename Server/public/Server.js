@@ -73,6 +73,11 @@ router.put('/question/create', function (req, res) {
 router.put('/user/create', function (req, res) {
     var jsonUser = JSON.parse(JSON.stringify(req.body));
     var user = new User_1.User(jsonUser['id'], jsonUser['username'], jsonUser['password'], jsonUser['isTeacher']);
+    var callback = function (rows) {
+        var response = JSON.stringify(rows);
+        console.log("callback executed" + rows);
+        res.json(JSON.parse(response));
+    };
     UserDAO_1.UserDAO.createUser(user).then((resolve) => {
         res.json(JSON.parse(resolve.toString()));
     });
@@ -90,7 +95,7 @@ router.post('/user/login/', function (req, res) {
     var pw = req.params.password;
     var callback = function (rows) {
         var response = JSON.stringify(rows);
-        console.log("console executed" + rows);
+        console.log("callback executed" + rows);
         res.json(JSON.parse(response));
     };
     UserDAO_1.UserDAO.loginUser(uName, pw, callback);

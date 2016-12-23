@@ -1,11 +1,11 @@
 export class User {
 
-    constructor(private id: number, private username: string, private uPassword: string, private isTeacher: string) { };
+    constructor(private id: string, private username: string, private uPassword: string, private isTeacher: string) { };
 
     public get getUserID() {
         return this.id;
     }
-    public set setUserID(newID: number) {
+    public set setUserID(newID: string) {
         this.id = newID;
     }
     public get getUserName() {

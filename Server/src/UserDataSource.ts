@@ -32,7 +32,7 @@ export class UserDataSource {
 
         userdb.serialize(function() {
             if (!exists) {
-                userdb.run("CREATE TABLE Users(userID INTEGER PRIMARY KEY, userName TEXT UNIQUE, userPassword TEXT, isTeacher TEXT);");
+                userdb.run("CREATE TABLE Users(id INTEGER PRIMARY KEY, username TEXT UNIQUE, userpassword TEXT, isTeacher TEXT);");
                 userdb.run("INSERT INTO Users VALUES (1, 'Emil', 'passwort1', 'false');");
                 userdb.run("INSERT INTO Users VALUES (2, 'Timo', 'admin123', 'true');");
             }

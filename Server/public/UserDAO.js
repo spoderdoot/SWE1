@@ -4,7 +4,7 @@ const User_1 = require("./User");
 class UserDAO {
     static getUsers(callback) {
         var users = new Array();
-        this.uds.getUserDataBase().all("SELECT id, userName FROM Users;", function (err, rows) {
+        this.uds.getUserDataBase().all("SELECT username,isTeacher FROM Users;", function (err, rows) {
             for (var row of rows) {
                 var u1 = new User_1.User(row['id'], row['username'], row['password'], row['isTeacher']);
                 users.push(u1);
@@ -18,22 +18,23 @@ class UserDAO {
         console.log(insert);
         return new Promise(function (resolve, reject) {
             UserDAO.uds.getUserDataBase().run(insert, function (err) {
-                var isUserNameOk = "false";
+                var isUserNameOk;
                 if (err) {
                     console.log("Failed");
                     console.log(err);
-                    resolve(isUserNameOk);
+                    this.isUserNameOk = "false";
+                    resolve(this.isUserNameOk);
                 }
                 else {
                     console.log("Success " + this.lastID);
-                    this.isUserNameOk = true;
-                    resolve(isUserNameOk);
+                    this.isUserNameOk = "true";
+                    resolve(this.isUserNameOk);
                 }
             });
         });
     }
     static checkUser(username) {
-        var isEmpty = true;
+        var isEmpty = "true";
         var user = new Array();
         this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE userName = '" + username + "'; ", function (err, rows) {
             for (var row of rows) {
@@ -42,15 +43,19 @@ class UserDAO {
             }
         });
         if (user.length != 0) {
-            isEmpty = false;
+            isEmpty = "false";
         }
         return isEmpty;
     }
+    static checkPassword(username, password) {
+        var is;
+    }
     static loginUser(username, password, callback) {
         var query = "SELECT * FROM Users WHERE username = '" + username + "' AND password = '" + password + "';";
-        var userExists = this.checkUser(username);
         this.uds.getUserDataBase().get(query, function (err, row) {
-            var userLogin = new Array(row['isUserNameOk'], row['isPassWordOk'], row['isTeacher']);
+            var userLogin = [
+                { "isUserNameOk": this.checkUser(username), "isPassWordOk": this.checkPassword(username, password), "isTeacher": "false" }
+            ];
             callback(userLogin);
             console.log(err);
         });
