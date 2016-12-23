@@ -31,7 +31,7 @@ export class UserDAO {
             resolve(this.isUserNameOk);
           } else {
             console.log("Success " + this.lastID);
-            this.isOk = true;
+            this.isUserNameOk = true;
             resolve(this.isUserNameOk);
           }
         });
@@ -51,7 +51,7 @@ export class UserDAO {
       }
       return isEmpty;
     }
-    
+
     public static loginUser(username: string, password: string, callback) {
         var query = "SELECT * FROM Users WHERE username = '"+username +"';";
         var userExists: boolean = this.checkUser(username);

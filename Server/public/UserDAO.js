@@ -26,7 +26,7 @@ class UserDAO {
                 }
                 else {
                     console.log("Success " + this.lastID);
-                    this.isOk = true;
+                    this.isUserNameOk = true;
                     resolve(this.isUserNameOk);
                 }
             });
@@ -56,5 +56,5 @@ class UserDAO {
         });
     }
 }
-UserDAO.uds = UserDataSource_1.UserDataSource.getInstance();
 exports.UserDAO = UserDAO;
+UserDAO.uds = UserDataSource_1.UserDataSource.getInstance();
