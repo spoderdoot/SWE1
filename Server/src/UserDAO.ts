@@ -16,10 +16,10 @@ export class UserDAO {
                 users.push(u1);
             }
             callback(users);
-        })
+        });
     }
-    public static createUser(newUser: User): Promise<number> {
-      var isUserNameOk : boolean = false;
+    public static createUser(newUser: User): Promise<boolean> {
+      var isOk: boolean = false;
       var insert: string = "INSERT INTO Users VALUES(NULL,'"+newUser.getUserName+"', '"
                                                         +newUser.getUserPassword+"', 'false');";
       console.log(insert);
@@ -28,17 +28,19 @@ export class UserDAO {
           if (err) {
             console.log("Failed");
             console.log(err);
-            resolve(this.isUserNameOk);
+            resolve(isOk);
           } else {
             console.log("Success " + this.lastID);
-            resolve(this.lastID);
+            this.isOk = true;
+            resolve(this.isOk);
           }
         });
       });
     }
-    private static checkUser(username: string): boolean{
+    private static checkUser(username: string){
+      var isEmpty: boolean;
       var user: Array<User> = new Array<User>();
-      this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE userName = '"+username+"'; ", function(err, rows){
+      var json = this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE userName = '"+username+"'; ", function(err, rows){
         for (var row of rows) {
           var u1 = new User(row['id'], row['username'],row['password'],row['isTeacher']);
           user.push(u1);
