@@ -46,10 +46,6 @@ class UserDAO {
         }
         return isEmpty;
     }
-    static checkPassword(username, password) {
-        var isEmpty = true;
-        var user = new Array("SELECT userName FROM Users WHERE userName = '" + username + "' AND ; "), { this: , uds, getUserDataBase = ().all() };
-    }
     static loginUser(username, password, callback) {
         var query = "SELECT * FROM Users WHERE username = '" + username + "';";
         var userExists = this.checkUser(username);

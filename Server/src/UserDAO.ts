@@ -51,12 +51,7 @@ export class UserDAO {
       }
       return isEmpty;
     }
-    private static checkPassword(username: string, password: string): boolean {
-      var isEmpty: boolean = true;
-      var user: Array<User> = new Array<User>("SELECT userName FROM Users WHERE userName = '"+username+"' AND ; "){
-        this.uds.getUserDataBase().all()
-      }
-    }
+    
     public static loginUser(username: string, password: string, callback) {
         var query = "SELECT * FROM Users WHERE username = '"+username +"';";
         var userExists: boolean = this.checkUser(username);
