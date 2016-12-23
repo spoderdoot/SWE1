@@ -60,6 +60,7 @@ class MyApp {
     //  { title: 'Spielauswertungen', icon: '', component: ResultsComponent}
     //für statistiken icon: 'stats' 'trophy'
     //vlt school für "spielen"
+
     ];
   }
 

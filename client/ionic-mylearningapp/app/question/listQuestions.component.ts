@@ -13,6 +13,7 @@ export class ListQuestionsComponent {
 
   constructor(public questionsService: QuestionsService, public navCtrl: NavController) {
     this.navCtrl = navCtrl;
+    //this.listQuestions();
   }
 
   listQuestions() {

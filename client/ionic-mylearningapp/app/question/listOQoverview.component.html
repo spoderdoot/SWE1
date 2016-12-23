@@ -11,11 +11,14 @@
 
 <b>Klicken Sie auf eine Frage, um Details über sie anzeigen zu lassen!</b>
   <button (click)="listOpenQuestions()" full>Offene Fragen anzeigen!</button>
+
   <ion-list>
-    <ion-button ion-item *ngFor="let openquestion of openquestions" (click)="showDetails()">
+    <button ion-item *ngFor="let openquestion of openquestions" (click)="showDetails()">
       {{openquestion.question}}
-    </ion-button>
+
+    </button>
   </ion-list>
+
 
 
 </ion-content>

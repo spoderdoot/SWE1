@@ -14,6 +14,7 @@ export class ListOQOverviewComponent {
 
   constructor(public questionsService: QuestionsService, public navCtrl : NavController) {
     this.navCtrl = navCtrl;
+    this.listOpenQuestions();
   }
 
   listOpenQuestions() {
