@@ -10,9 +10,9 @@ export class UserDAO {
 
     public static getUsers(callback) {
         var users: Array<User> = new Array<User>();
-        this.uds.getUserDataBase().all("SELECT userID, userName FROM Users;", function(err, rows) {
+        this.uds.getUserDataBase().all("SELECT id, userName FROM Users;", function(err, rows) {
             for (var row of rows) {
-                var u1 = new User(row['userID'], row['username'], row['password'], row['isTeacher']);
+                var u1 = new User(row['id'], row['username'], row['password'], row['isTeacher']);
                 users.push(u1);
             }
             callback(users);
@@ -27,7 +27,7 @@ export class UserDAO {
           if (err) {
             console.log("Failed");
             console.log(err);
-            resolve(false);
+            resolve(-1);
           } else {
             console.log("Success " + this.lastID);
             resolve(this.lastID);
@@ -35,12 +35,18 @@ export class UserDAO {
         });
       });
     }
+    private static checkUser(username: string){
+      var user: Array<User> = new Array<User>();
+      this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE userName = '"+username+"'; ");
+      for (var row of rows) {
+        var u1 = new User(row['id'], row['username'],row['pass'])
+      }
+    }
     public static loginUser(username: string, password: string, callback) {
-        var query = "SELECT * FROM Users WHERE userName = '"+username +"'"+
-            "AND userPassword = '"+password+"';";
+        var query = "SELECT * FROM Users WHERE username = '"+username +"';";
         this.uds.getUserDataBase().get(query, function(err, row) {
-            var user = new User(row['id'], row['username'], row['password'], row['isTeacher']);
-            callback(user);
+            var userLogin = new Array(row['isUserNameOk'], row['isPassWordOk'], row['isTeacher']);
+            callback(userLogin);
             console.log(err);
         });
     }
