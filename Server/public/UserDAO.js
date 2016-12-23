@@ -13,21 +13,21 @@ class UserDAO {
         });
     }
     static createUser(newUser) {
-        var isUserNameOk = false;
         var insert = "INSERT INTO Users VALUES(NULL,'" + newUser.getUserName + "', '"
             + newUser.getUserPassword + "', 'false');";
         console.log(insert);
         return new Promise(function (resolve, reject) {
             UserDAO.uds.getUserDataBase().run(insert, function (err) {
+                var isUserNameOk = "false";
                 if (err) {
                     console.log("Failed");
                     console.log(err);
-                    resolve(this.isUserNameOk);
+                    resolve(isUserNameOk);
                 }
                 else {
                     console.log("Success " + this.lastID);
                     this.isUserNameOk = true;
-                    resolve(this.isUserNameOk);
+                    resolve(isUserNameOk);
                 }
             });
         });
@@ -47,7 +47,7 @@ class UserDAO {
         return isEmpty;
     }
     static loginUser(username, password, callback) {
-        var query = "SELECT * FROM Users WHERE username = '" + username + "';";
+        var query = "SELECT * FROM Users WHERE username = '" + username + "' AND password = '" + password + "';";
         var userExists = this.checkUser(username);
         this.uds.getUserDataBase().get(query, function (err, row) {
             var userLogin = new Array(row['isUserNameOk'], row['isPassWordOk'], row['isTeacher']);
@@ -56,5 +56,5 @@ class UserDAO {
         });
     }
 }
-exports.UserDAO = UserDAO;
 UserDAO.uds = UserDataSource_1.UserDataSource.getInstance();
+exports.UserDAO = UserDAO;

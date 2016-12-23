@@ -29,5 +29,5 @@ class UserDataSource {
         });
     }
 }
-exports.UserDataSource = UserDataSource;
 UserDataSource.instance = new UserDataSource();
+exports.UserDataSource = UserDataSource;

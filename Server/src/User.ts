@@ -6,7 +6,7 @@ export class User {
         return this.id;
     }
     public set setUserID(newID: number) {
-      this.id = newID;
+        this.id = newID;
     }
     public get getUserName() {
         return this.username;
@@ -15,6 +15,6 @@ export class User {
         return this.uPassword;
     }
     public get getIsTeacher() {
-      return this.isTeacher;
+        return this.isTeacher;
     }
 }
