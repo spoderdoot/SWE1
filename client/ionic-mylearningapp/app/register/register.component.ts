@@ -43,7 +43,7 @@ createUserAndRedirectToLogin() {
         alert.present();
           return false;
       } else {
-              this.showSuccessMessage(this.createUserForm.value.uername);
+              this.showSuccessMessage(this.createUserForm.value.username);
       }
     })
     this.redirectToLogin();
