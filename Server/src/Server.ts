@@ -126,7 +126,7 @@ router.get('/user/listUsers', function(req, res) {
     }
     UserDAO.getUsers(callback);
 });
-router.get('/login', function(req, res) {
+router.post('/login', function(req, res) {
     var uName = req.params.username;
     var pw = req.params.password;
     var callback = function(rows) {

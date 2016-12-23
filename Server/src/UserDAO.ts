@@ -27,7 +27,7 @@ export class UserDAO {
           if (err) {
             console.log("Failed");
             console.log(err);
-            resolve(-1);
+            resolve(false);
           } else {
             console.log("Success " + this.lastID);
             resolve(this.lastID);
@@ -36,11 +36,12 @@ export class UserDAO {
       });
     }
     public static loginUser(username: string, password: string, callback) {
-        var query = "SELECT userName FROM Users WHERE '"+username + "' = Users." + username +
-            " \nAND '" + password + "' = Users." + password;
+        var query = "SELECT * FROM Users WHERE userName = '"+username +"'"+
+            "AND userPassword = '"+password+"';";
         this.uds.getUserDataBase().get(query, function(err, row) {
-            var user = new User(row['id'], row['userName'], row['password'], row['isTeacher']);
+            var user = new User(row['id'], row['username'], row['password'], row['isTeacher']);
             callback(user);
+            console.log(err);
         });
     }
 }

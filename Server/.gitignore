@@ -3,8 +3,3 @@
 
 node_modules/
 .DS_Store
-OpenQuestions.db
-MultipleQuestions.db
-Subjects.db
-Teachers.db
-Users.db
