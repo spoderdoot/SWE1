@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { CreateQuestionComponent, ListQuestionsComponent, EditQuestionComponent, DeleteQuestionComponent} from './index';
+import { CreateQuestionComponent, ListQuestionsComponent, EditQuestionComponent} from './index';
 
 
 @Component({
@@ -24,8 +24,5 @@ export class ManageQuestionComponent {
     this.navCtrl.push(EditQuestionComponent);
   }
 
-  redirectToDelete() {
-    this.navCtrl.push(DeleteQuestionComponent);
-    //  <button (click) = "redirectToDelete()" full >Frage löschen</button>
-  }
+
 }
