@@ -49,13 +49,26 @@ isFormValid() : boolean {
 }
 
 
-checkIfUserIsRegistered() : boolean {
+userLogin() : boolean{
 
   if(this.isFormValid()) {
-    this.loginService.checkUser(this.userLoginForm.value.username).subscribe(response => {
+    var loginUser = new User(-1, this.userLoginForm.value.username, this.userLoginForm.value.password, false);
+
+    this.loginService.login(loginUser).subscribe(response => {
       this.showSuccessMessage(response);
       console.log(response);
-      //return true;
+      if(response.isUserNameOk == false || response.isPasswordOk == false) {
+        const alert = this.alertCtrl.create({
+          title: '<b>Falscher Name oder falsches Passwort!</b>',
+          subTitle: 'Bitte überprüfe deine Angaben.',
+          buttons: ['Verstanden!']
+        });
+        alert.present();
+          return false;
+      }
+      this.saveUserData(this.userLoginForm.value.username, response.isTeacher);
+      this.redirectToQuiz();
+      return true;
       //this.userID = response.userID;
     })
   } else
@@ -63,10 +76,11 @@ checkIfUserIsRegistered() : boolean {
 }
 
 
-saveUserName(){
-  console.log(this.userLoginForm.value.username);
-  window.localStorage.setItem("username",  this.userLoginForm.value.username);
+saveUserData(username : string, isTeacher : string){
+
+  window.localStorage.setItem("username",  username);
   console.log(window.localStorage.getItem("username"));
+  window.localStorage.setItem("isTeacher", isTeacher);
 }
 
 showSuccessMessage(response : any) {
@@ -86,11 +100,11 @@ getUser() {
     this.user = user;
   })
 }
-login() {
-  if(this.checkIfUserIsRegistered()) {
-    this.saveUserName();
+/*login() {
+  if(this.userLogin()) {
+    this.saveUserData();
     this.redirectToQuiz();
-  } /*else {
+  } *//*else {
     const alert = this.alertCtrl.create({
       title: '<b>Oops! Wir konnten keinen Benutzer mit deinem Namen finden!</b>',
       subTitle: 'Vor Benutzung der App musst du dich registrieren',
@@ -98,7 +112,7 @@ login() {
     });
     alert.present();
   }*/
-}
+
   /*
   login() {
   var loginuser = new User (-1, this.userLoginForm.value.username, this.userLoginForm.value.password, false);
@@ -115,16 +129,15 @@ login() {
     }
 
   */
-  redirectToRegister() {
+  redirectToRegister(){
     this.navCtrl.push(RegisterComponent);
     //  this.viewCtrl.dismiss();
       //this.appCtrl.getRootNav().push(RegisterComponent)
     }
 
   redirectToQuiz() {
-    if(this.isFormValid()) {
-      this.saveUserName();
-      this.navCtrl.setRoot(QuizComponent, this.saveUserName());
-  }
+      //this.saveUserName();
+      this.navCtrl.setRoot(QuizComponent);
+
   }
 }

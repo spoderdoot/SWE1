@@ -34,7 +34,15 @@ createUserAndRedirectToLogin() {
 
     this.loginService.createUser(newUser).subscribe(response => {
       this.showSuccessMessage(response);
-
+      if(response.isUserNameOk == false) {
+        const alert = this.alertCtrl.create({
+          title: '<b>Benutzer gibts schon!</b>',
+          subTitle: 'Bitte verwende einen anderen Benutzernamen.',
+          buttons: ['Verstanden!']
+        });
+        alert.present();
+          return false;
+      }
     })
     this.redirectToLogin();
   }

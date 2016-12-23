@@ -49,15 +49,15 @@ export class LoginService {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http
-    .post(this.settings.serverIp + 'login/', JSON.stringify(username), {headers : headers})
+    .post(this.settings.serverIp + 'login/asd', JSON.stringify(username), {headers : headers})
     .map((res: Response) => res.json());
-
   }
-  login(user : User) {
+
+  login(user : User) : Observable<any> {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
     return this.http
-      .post(this.settings.serverIp + 'login/asd', JSON.stringify(user), { headers: headers })
+      .post(this.settings.serverIp + 'user/login', JSON.stringify(user), { headers: headers })
       .map((res: Response) => res.json());
   }
 }
