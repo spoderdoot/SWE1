@@ -3,3 +3,6 @@
 
 node_modules/
 .DS_Store
+MultipleQuestions.db
+OpenQuesitons.db
+Users.db

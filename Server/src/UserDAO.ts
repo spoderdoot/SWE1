@@ -19,6 +19,7 @@ export class UserDAO {
         })
     }
     public static createUser(newUser: User): Promise<number> {
+      var isUserNameOk : boolean = false;
       var insert: string = "INSERT INTO Users VALUES(NULL,'"+newUser.getUserName+"', '"
                                                         +newUser.getUserPassword+"', 'false');";
       console.log(insert);
@@ -27,7 +28,7 @@ export class UserDAO {
           if (err) {
             console.log("Failed");
             console.log(err);
-            resolve(-1);
+            resolve(this.isUserNameOk);
           } else {
             console.log("Success " + this.lastID);
             resolve(this.lastID);
@@ -39,7 +40,7 @@ export class UserDAO {
       var user: Array<User> = new Array<User>();
       this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE userName = '"+username+"'; ");
       for (var row of rows) {
-        var u1 = new User(row['id'], row['username'],row['pass'])
+        var u1 = new User(row['id'], row['username'],row['password'],row['isTeacher'])
       }
     }
     public static loginUser(username: string, password: string, callback) {

@@ -13,6 +13,7 @@ class UserDAO {
         });
     }
     static createUser(newUser) {
+        var isUserNameOk = false;
         var insert = "INSERT INTO Users VALUES(NULL,'" + newUser.getUserName + "', '"
             + newUser.getUserPassword + "', 'false');";
         console.log(insert);
@@ -21,7 +22,7 @@ class UserDAO {
                 if (err) {
                     console.log("Failed");
                     console.log(err);
-                    resolve(-1);
+                    resolve(this.isUserNameOk);
                 }
                 else {
                     console.log("Success " + this.lastID);
@@ -34,7 +35,7 @@ class UserDAO {
         var user = new Array();
         this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE userName = '" + username + "'; ");
         for (var row of rows) {
-            var u1 = new User_1.User(row['id'], row['username'], row['pass']);
+            var u1 = new User_1.User(row['id'], row['username'], row['password'], row['isTeacher']);
         }
     }
     static loginUser(username, password, callback) {
