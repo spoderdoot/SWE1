@@ -33,20 +33,20 @@ createUserAndRedirectToLogin() {
     var newUser = new User(-1, this.createUserForm.value.username, this.createUserForm.value.password, false);
 
     this.loginService.createUser(newUser).subscribe(response => {
-
-      if(response.isUserNameOk == false) {
+      console.log(response.isUserNameOk);
+      if(response.isUserNameOk.equals("false")) {
         const alert = this.alertCtrl.create({
           title: '<b>Benutzer gibts schon!</b>',
           subTitle: 'Bitte verwende einen anderen Benutzernamen.',
           buttons: ['Verstanden!']
         });
-        alert.present();
-          return false;
+          alert.present();
+          //return false;
       } else {
               this.showSuccessMessage(this.createUserForm.value.username);
+              this.redirectToLogin();
       }
     })
-    this.redirectToLogin();
   }
 }
 
