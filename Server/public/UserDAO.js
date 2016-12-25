@@ -23,6 +23,7 @@ class UserDAO {
                     console.log("Failed");
                     console.log(err);
                     this.isUserNameOk = "false";
+                    console.log(this.isUserNameOk);
                     resolve(this.isUserNameOk);
                 }
                 else {
@@ -61,5 +62,5 @@ class UserDAO {
         });
     }
 }
-UserDAO.uds = UserDataSource_1.UserDataSource.getInstance();
 exports.UserDAO = UserDAO;
+UserDAO.uds = UserDataSource_1.UserDataSource.getInstance();

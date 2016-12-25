@@ -40,5 +40,5 @@ class MultipleDataSource {
         });
     }
 }
-MultipleDataSource.instance = new MultipleDataSource();
 exports.MultipleDataSource = MultipleDataSource;
+MultipleDataSource.instance = new MultipleDataSource();

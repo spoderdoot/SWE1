@@ -28,6 +28,7 @@ createForm() {
 
     username : ['', Validators.compose([Validators.required])],
     password : ['', Validators.compose([Validators.required])]
+    //isTeacher : ['1', Validators.compose([Validators.required])]
   })
 }
 

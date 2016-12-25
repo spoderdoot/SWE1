@@ -27,7 +27,7 @@ export class ListQuestionsComponent {
   }
 
   redirectToListOQ() {
-      this.navCtrl.push(ListOQOverviewComponent);
+      this.navCtrl.push(ListOQComponent);
 
   }
 }

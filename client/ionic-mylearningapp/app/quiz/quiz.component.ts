@@ -113,13 +113,6 @@ export class QuizComponent {
     this.currentQuestion = this.questions[this.currentQuestionCounter - 1];
   }
 
-  increaseBalance() {
-    if (this.balance == 0) {
-      this.balance = 50;
-    } else {
-      this.balance += this.balance;
-    }
-  }
 
   wrongAnswerSelected() {
     //this.quizStarted = false;
@@ -141,10 +134,10 @@ export class QuizComponent {
   saveQuizResults(){
     window.localStorage.setItem("correctAnswerCount",  this.correctAnswerCount.toString());
     console.log(window.localStorage.getItem("correctAnswerCount"));
-    /*window.localStorage.setItem("username", this.username);
+    window.localStorage.setItem("username", this.username);
     console.log(window.localStorage.getItem("username"));
     window.localStorage.setItem("totalNumberOfQuestions",  this.totalNumberOfQuestions.toString());
-    console.log(window.localStorage.getItem("totalNumberOfQuestions"));*/
+    console.log(window.localStorage.getItem("totalNumberOfQuestions"));
   }
 // used to print the quiz results for the player
   printResults() {
@@ -166,6 +159,7 @@ export class QuizComponent {
   }
 
   redirectToResults() {
-    this.navCtrl.setRoot(ResultsComponent, this.saveQuizResults());
+    this.saveQuizResults();
+    this.navCtrl.setRoot(ResultsComponent);
 }
 }

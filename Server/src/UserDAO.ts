@@ -18,7 +18,7 @@ export class UserDAO {
             callback(users);
         });
     }
-    public static createUser(newUser: User): Promise<JSON> {
+    public static createUser(newUser: User): Promise<string> {
         var insert: string = "INSERT INTO Users VALUES(NULL,'" + newUser.getUserName + "', '"
             + newUser.getUserPassword + "', 'false');";
         console.log(insert);
@@ -29,6 +29,7 @@ export class UserDAO {
                     console.log("Failed");
                     console.log(err);
                     this.isUserNameOk = "false";
+                    console.log(this.isUserNameOk);
                     resolve(this.isUserNameOk);
                 } else {
                     console.log("Success " + this.lastID);

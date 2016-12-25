@@ -35,7 +35,7 @@ createUserAndRedirectToLogin() {
 
     this.loginService.createUser(newUser).subscribe(response => {
       console.log("register response from server: " + response.isUserNameOk);
-      if(response.isUserNameOk == "false") {
+      if(response.isUserNameOk == "undefined") {
         const alert = this.alertCtrl.create({
           title: '<b>Benutzername bereits in Verwendung</b>',
           subTitle: 'Bitte verwende einen anderen Benutzernamen.',
