@@ -3,6 +3,12 @@
     <button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Not implemented yet</ion-title>
+    <ion-title>Fragen bearbeiten</ion-title>
   </ion-navbar>
 </ion-header>
+
+<ion-content padding class="listQuestions">
+  <button (click) = "redirectToEditMCQ()" full >Multiple-Choice-Fragen bearbeiten</button>
+  <button (click) = "redirectToEditOQ()" full >Offene Fragen bearbeiten</button>
+
+</ion-content>

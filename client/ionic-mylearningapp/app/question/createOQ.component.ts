@@ -40,17 +40,6 @@ export class CreateOQComponent {
     }
   }
 
-  /*
-  createOpenQuestion() {
-    if(this.isOpenFormIsValid())  {
-      var newOpenQuestion= new OpenQuestion(this.createOpenQuestionForm.value.question, this.createOpenQuestionForm.value.correctAnswer);
-
-      this.questionsService.createOpenQuestion(newOpenQuestion).subscribe(response => {
-        this.showSuccessMessageAndResetOpenForm(response);
-      });;
-    }
-  } */
-
   isFormIsValid(): boolean {
     // check if form input is valid (are all defined validators ok?)
     let isValid: boolean = this.createOpenQuestionForm.valid;

@@ -76,7 +76,10 @@ userLogin() : boolean{
   return;
 }
 
-
+saveUserName() {
+  window.localStorage.setItem("username",  this.userLoginForm.value.username);
+  console.log(window.localStorage.getItem("username"));
+}
 saveUserData(username : string, isTeacher : string){
 
   window.localStorage.setItem("username",  username);
