@@ -15,25 +15,9 @@
       <ion-card-header>
         <b>Spielregeln</b>
       </ion-card-header>
-      <ion-card-content>
-
-        <ion-label>Kategorie:</ion-label>
-        <ion-item>
-          <ion-select [(ngModel)]="selectedCategory" okText="Auswählen" cancelText="Abbrechen">
-            <ion-option value="maths" selected>Mathe</ion-option>
-            <ion-option value="english">Englisch</ion-option>
-          </ion-select>
-        </ion-item>
-
-        <ion-label>Anzahl der Fragen:</ion-label>
-        <ion-item>
-          <ion-select [(ngModel)]="selectedAmount" okText="Auswählen" cancelText="Abbrechen">
-            <ion-option value="1">5</ion-option>
-            <ion-option value="2">10</ion-option>
-            <ion-option value="3">15</ion-option>
-          </ion-select>
-        </ion-item>
-
+       <ion-card-content>
+         <h3><b>Kategorie:</b> {{category}}</h3>
+         <h3><b>Anzahl der Fragen:</b> {{numberOfQuestions}}</h3>
       </ion-card-content>
     </ion-card>
     <button (click)="startQuiz()" full>Spiel starten!</button>
@@ -43,9 +27,7 @@
 
     <ion-card>
       <ion-card-content>
-
-        Kategorie: {{category}}
-
+        <h3><b>Kategorie:</b> {{category}}</h3>
       </ion-card-content>
     </ion-card>
 

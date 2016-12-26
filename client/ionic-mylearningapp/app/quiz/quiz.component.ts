@@ -21,15 +21,21 @@ export class QuizComponent {
   private selectedAnswer: any;
 
   //variables for evaluation of answers
-  private correctAnswerCount : number;
-  private totalNumberOfQuestions : number;
+  private correctAnswerCount : number = 0;
   // user data
   private username: any;
   private category : any;
-  private balance: any = 0;
+  private numberOfQuestions : any;
 
   constructor(private alertCtrl: AlertController, public questionsService: QuestionsService, public navCtrl : NavController) {
     this.username = window.localStorage.getItem("username");
+
+    this.category = window.localStorage.getItem("category");
+  //  this.setCategoryName();
+    console.log(this.category); //1 for math, 2 for english
+    this.numberOfQuestions = window.localStorage.getItem("numberOfQuestions");
+  //  this.clearifyNumberOfQuestions();
+    console.log(this.numberOfQuestions);
   }
 
   startQuiz() {
@@ -102,8 +108,8 @@ export class QuizComponent {
 
     // is last question reached
     if (this.currentQuestionCounter == this.questions.length) {
-      this.quizStarted = false;
-      this.selectedAnswer = '';
+     this.quizStarted = false;
+     this.selectedAnswer = '';
       this.redirectToResults();
     }
 
@@ -136,7 +142,7 @@ export class QuizComponent {
     console.log(window.localStorage.getItem("correctAnswerCount"));
     window.localStorage.setItem("username", this.username);
     console.log(window.localStorage.getItem("username"));
-    window.localStorage.setItem("totalNumberOfQuestions",  this.totalNumberOfQuestions.toString());
+    window.localStorage.setItem("totalNumberOfQuestions",  this.numberOfQuestions);
     console.log(window.localStorage.getItem("totalNumberOfQuestions"));
   }
 // used to print the quiz results for the player
@@ -159,7 +165,7 @@ export class QuizComponent {
   }
 
   redirectToResults() {
-    this.saveQuizResults();
+    //this.saveQuizResults();
     this.navCtrl.setRoot(ResultsComponent);
 }
 }

@@ -7,3 +7,37 @@
     Eingeloggt als <b>{{username}}</b>
   </ion-navbar>
 </ion-header>
+
+<ion-content padding class="quizrules">
+
+    <ion-card>
+      <ion-card-header>
+        <b>Spielregeln</b>
+      </ion-card-header>
+      <ion-card-content>
+
+        <form [formGroup] = "quizRulesForm">
+
+          <ion-item>
+            <ion-label floating>Katgeorie</ion-label>
+            <ion-select formControlName="category">
+              <ion-option value="Mathe" selected>Mathe</ion-option>
+              <ion-option value="Englisch">Englisch</ion-option>
+            </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label floating>Anzahl der Fragen</ion-label>
+          <ion-select formControlName="numberOfQuestions">
+            <ion-option value="5" selected>5</ion-option>
+            <ion-option value="10">10</ion-option>
+            <ion-option value="15">15</ion-option>
+          </ion-select>
+        </ion-item>
+
+      </form>
+
+      </ion-card-content>
+    </ion-card>
+    <button (click)="redirectToQuiz()" full>Spiel starten!</button>
+</ion-content>

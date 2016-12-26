@@ -3,7 +3,7 @@ import { AlertController, NavController, MenuController} from 'ionic-angular';
 import {RegisterComponent} from '../register/index';
 import { User, LoginService} from '../shared/index';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { QuizComponent } from '../quiz/index';
+import { QuizComponent, QuizRulesComponent } from '../quiz/index';
 
 @Component({
   templateUrl: 'build/login/login.component.html',
@@ -142,6 +142,8 @@ getUser() {
   redirectToQuiz() {
       //this.saveUserName();
       this.navCtrl.setRoot(QuizComponent);
-
+  }
+  redirectToQuizRules() {
+    this.navCtrl.setRoot(QuizRulesComponent);
   }
 }
