@@ -63,7 +63,7 @@ export class QuizComponent {
       // check if the answer is correct
       if (this.selectedAnswer == this.currentQuestion.correctAnswer) {
         this.correctAnswerSelected();
-        this.correctAnswerCount++;
+        //this.correctAnswerCount++;
       } else {
         this.wrongAnswerSelected();
       }
@@ -87,6 +87,8 @@ export class QuizComponent {
   }
 
   correctAnswerSelected() {
+    this.correctAnswerCount = this.correctAnswerCount+1;
+    console.log("correctly answered questions: " + this.correctAnswerCount);
     const alert = this.alertCtrl.create({
       title: '<b>Richtig!</b>',
       subTitle: 'Die Antwort ' + this.selectedAnswer + ' war richtig!',
@@ -138,8 +140,9 @@ export class QuizComponent {
     alert.present();
   }
   saveQuizResults(){
-    window.localStorage.setItem("correctAnswerCount",  this.correctAnswerCount.toString());
-    console.log(window.localStorage.getItem("correctAnswerCount"));
+    var correctAnswerCountString = ""+this.correctAnswerCount;
+    window.localStorage.setItem("correctAnswerCount",  correctAnswerCountString);
+    console.log(window.localStorage.getItem("correct answers as string" + "correctAnswerCount"));
     window.localStorage.setItem("username", this.username);
     console.log(window.localStorage.getItem("username"));
     window.localStorage.setItem("totalNumberOfQuestions",  this.numberOfQuestions);
@@ -164,8 +167,9 @@ export class QuizComponent {
 
   }
 
+//shows user the results of the game
   redirectToResults() {
-    //this.saveQuizResults();
+    this.saveQuizResults();
     this.navCtrl.setRoot(ResultsComponent);
 }
 }

@@ -8,11 +8,23 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <h2><b>Benutzername:</b>{{username}} <h2>
-  <h3><b>Gespielte Kategorie:</b> {{category}} <h3>
-  <h3><b>Gesamtzahl der Fragen:</b> {{numberOfQuestions}}<h3>
-  <h3><b>Menge an korrekt beantworteten Fragen:</b> {{correctAnswerCount}}<h3>
-  <h3><b>Note: </b> NOT IMPLEMENTED YET<h3>
+<ion-content padding class="results">
+  <ion-card>
+    <ion-card-header>
+      <b>Spielergebnis</b>
+    </ion-card-header>
+  </ion-card>
 
+  <ion-card>
+    <ion-card-content>
+
+        <h2><b>Benutzername:</b> {{username}} </h2>
+        <h3><b>Gespielte Kategorie:</b> {{category}} </h3>
+        <h3><b>Gesamtzahl der Fragen:</b> {{numberOfQuestions}}</h3>
+        <h3><b>Richtig beantwortete Fragen:</b> {{correctAnswerCount}}</h3>
+        <h3><b>Note: </b> {{grade}}</h3>
+
+</ion-card-content>
+</ion-card>
+  <button (click) = "redirectToQuizRules()" full >Weiterspielen</button>
 </ion-content>

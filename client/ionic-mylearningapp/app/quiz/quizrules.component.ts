@@ -6,6 +6,7 @@ import {ResultsComponent} from '../results/index';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { QuizComponent } from '../quiz/index';
 
+
 @Component({
   templateUrl: 'build/quiz/quizrules.component.html',
   providers: [QuestionsService],
@@ -59,6 +60,12 @@ private quizRulesForm : FormGroup;
   redirectToQuiz() {
     if(this.isFormValid()) {
       this.navCtrl.setRoot(QuizComponent);
+    }
+  }
+
+  redirectToQuizResults() {
+    if(this.isFormValid()) {
+      this.navCtrl.setRoot(ResultsComponent);
     }
   }
 
