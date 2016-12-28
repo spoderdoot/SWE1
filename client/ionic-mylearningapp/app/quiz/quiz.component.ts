@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController, NavController } from 'ionic-angular';
-import { OpenQuestion, MultipleChoiceQuestion, Question, QuestionsService} from '../shared/index';
+import { GeneralQuestion, OpenQuestion, MultipleChoiceQuestion, Question, QuestionsService} from '../shared/index';
 import {ResultsComponent} from '../results/index';
 
 @Component({
@@ -15,8 +15,11 @@ export class QuizComponent {
 
   // array which contains all questions from the service
   private questions: Question[] = [];
+  //general question is used for array which contains multiplechoicequestions and openquestions
+  private generalQuestions : GeneralQuestion[] = [];
   // current question which is displayed
   private currentQuestion: Question;
+  private currentGeneralQuestion : GeneralQuestion;
   private currentQuestionCounter: number;
   private selectedAnswer: any;
 
@@ -26,7 +29,7 @@ export class QuizComponent {
   private username: any;
   private category : any;
   private numberOfQuestions : any;
-  private isMCQ : boolean;
+  private isMCQ : boolean = false;
 
   constructor(private alertCtrl: AlertController, public questionsService: QuestionsService, public navCtrl : NavController) {
     this.username = window.localStorage.getItem("username");
@@ -43,21 +46,32 @@ export class QuizComponent {
     this.getQuestions();
   }
 
+  /*
+  //used to get an array filled with open questions and multiple choice questions depending on user input
+  //returns an array filled with questions according to selected category and selected number of questions
+  */
   getQuizQuestions() {
-    this.questionsService.getQuizQuestions(this.category, this.numberOfQuestions).subscribe(questions => {
+    this.questionsService.getQuizQuestions(this.category, this.numberOfQuestions).subscribe(questionsResponse => {
       console.log("quiz questions were loaded");
-      this.questions = questions;
-      /*if(response[0].isMCQ == true) {
-        this.isMCQ = true;
-      } else {
-        this.isMCQ = false;
-      }*/
+      this.generalQuestions = questionsResponse;
+      this.currentGeneralQuestion = this.generalQuestions[0];
+      //getting 1st question type to start the quiz
+      this.checkTypeOfQuestion();
+      this.currentQuestionCounter = 1;
+      this.quizStarted = true;
     })
   }
 
-  checkTypeOfQuestion (position : number) {
-    //this.isMCQ = this.questions[position].isMCQ;
+  //used to determine if question is a multiple-choice-question or an open quesiton
+  checkTypeOfQuestion () {
+    if(this.generalQuestions[this.currentQuestionCounter].isMCQ == 'true') { //idea is to set HTML depending on isMCQ
+      this.isMCQ = true;
+    }
+    if(this.generalQuestions[this.currentQuestionCounter].isMCQ == 'false') {
+      this.isMCQ = false;
+    }
   }
+
   getQuestions() {
     // call servie
     this.questionsService.getQuestions().subscribe(questions => {
@@ -121,6 +135,20 @@ export class QuizComponent {
     alert.present();
   }
 
+  nextGeneralQuestion() {
+      //last question
+      if(this.currentQuestionCounter == this.generalQuestions.length) {
+        this.quizStarted = false;
+        this.selectedAnswer = '';
+        this.redirectToResults();
+      }
+
+      //next question
+      this.currentQuestionCounter++;
+      this.selectedAnswer = '';
+      this.currentGeneralQuestion = this.generalQuestions[this.currentQuestionCounter -1];
+      this.checkTypeOfQuestion();
+  }
   nextQuestion() {
     //this.increaseBalance();
 
@@ -128,13 +156,14 @@ export class QuizComponent {
     if (this.currentQuestionCounter == this.questions.length) {
      this.quizStarted = false;
      this.selectedAnswer = '';
-      this.redirectToResults();
+     this.redirectToResults();
     }
 
     // next question
     this.currentQuestionCounter++;
     this.selectedAnswer = '';
     this.currentQuestion = this.questions[this.currentQuestionCounter - 1];
+
   }
 
 
@@ -164,24 +193,9 @@ export class QuizComponent {
     window.localStorage.setItem("totalNumberOfQuestions",  this.numberOfQuestions);
     console.log(window.localStorage.getItem("totalNumberOfQuestions"));
   }
-// used to print the quiz results for the player
-  printResults() {
 
 
-    //returns player to the start of the quiz page
-    this.quizStarted = false;
-    this.redirectToResults();
 
-  }
-
-  decideWhatQuestionType(){
-    if(this.currentQuestion instanceof MultipleChoiceQuestion) {
-
-    } else if (this.currentQuestion instanceof OpenQuestion) {
-
-    } else {}
-
-  }
 
 //shows user the results of the game
   redirectToResults() {

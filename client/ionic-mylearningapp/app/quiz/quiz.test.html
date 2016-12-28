@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-navbar>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>InstaLearn</ion-title>
+    Eingeloggt als <b>{{username}}</b>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="quiz">
+
+  <div name="welcome" *ngIf="!quizStarted">
+    <ion-card>
+      <ion-card-header>
+        <b>Spielregeln</b>
+      </ion-card-header>
+       <ion-card-content>
+         <h3><b>Kategorie:</b> {{category}}</h3>
+         <h3><b>Anzahl der Fragen:</b> {{numberOfQuestions}}</h3>
+      </ion-card-content>
+    </ion-card>
+    <button (click)="startQuiz()" full>Spiel starten!</button>
+  </div>
+
+  <div name="mainQuiz" *ngIf="quizStarted">
+    <div name="MCQ" *ngIf="isMCQ">
+    <ion-card>
+      <ion-card-content>
+        <h3><b>Kategorie:</b> {{category}}</h3>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        {{currentQuestion.id}}. Frage
+      </ion-card-header>
+      <ion-card-content>
+        <h2>{{currentQuestion.question}}</h2>
+        <h3>A: {{currentQuestion.answerA}}</h3>
+        <h3>B: {{currentQuestion.answerB}}</h3>
+        <h3>C: {{currentQuestion.answerC}}</h3>
+        <h3>D: {{currentQuestion.answerD}}</h3>
+        <div class="row">
+          <div class="col">
+            <ion-label>Antwort</ion-label>
+          </div>
+          <div class="col">
+            <ion-select [(ngModel)]="selectedAnswer" okText="Auswählen" cancelText="Abbrechen">
+              <ion-option value="1">A</ion-option>
+              <ion-option value="2">B</ion-option>
+              <ion-option value="3">C</ion-option>
+              <ion-option value="4">D</ion-option>
+            </ion-select>
+          </div>
+        </div>
+      </ion-card-content>
+      <button (click)="answerQuestion()" full>Antworten</button>
+    </ion-card>
+  </div>
+</ion-content>
