@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {Headers, Http, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
-import {Question, OpenQuestion, MultipleChoiceQuestion} from './index';
+import {GeneralQuestion, Question, OpenQuestion, MultipleChoiceQuestion} from './index';
 
 import {Settings, SettingsService} from '../settings/index';
 
@@ -28,6 +28,16 @@ export class QuestionsService {
 
     return this.http
       .get(this.settings.serverIp + 'listQuestions')
+      .map((res: Response) => res.json());
+  }
+
+
+
+  getQuizQuestions(category : string, numberOfQuestions : string) : Observable<GeneralQuestion[]> {
+    console.log("quiz questions with rules " + category + numberOfQuestions);
+
+    return this.http
+      .get(this.settings.serverIp + 'listQuizQuestions')
       .map((res: Response) => res.json());
   }
 

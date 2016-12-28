@@ -1,10 +1,11 @@
-//was given to work with - model of a question
-export class Question {
+export class GeneralQuestion {
   constructor(public id: number,
+    public category : any,
+    public questionType : string,
     public question: string,
     public answerA: string,
     public answerB: string,
     public answerC: string,
     public answerD: string,
-    public correctAnswer: number) {}
+    public correctAnswer: string) {}
 }

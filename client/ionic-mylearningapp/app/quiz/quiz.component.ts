@@ -26,6 +26,7 @@ export class QuizComponent {
   private username: any;
   private category : any;
   private numberOfQuestions : any;
+  private isMCQ : boolean;
 
   constructor(private alertCtrl: AlertController, public questionsService: QuestionsService, public navCtrl : NavController) {
     this.username = window.localStorage.getItem("username");
@@ -42,6 +43,21 @@ export class QuizComponent {
     this.getQuestions();
   }
 
+  getQuizQuestions() {
+    this.questionsService.getQuizQuestions(this.category, this.numberOfQuestions).subscribe(questions => {
+      console.log("quiz questions were loaded");
+      this.questions = questions;
+      /*if(response[0].isMCQ == true) {
+        this.isMCQ = true;
+      } else {
+        this.isMCQ = false;
+      }*/
+    })
+  }
+
+  checkTypeOfQuestion (position : number) {
+    //this.isMCQ = this.questions[position].isMCQ;
+  }
   getQuestions() {
     // call servie
     this.questionsService.getQuestions().subscribe(questions => {

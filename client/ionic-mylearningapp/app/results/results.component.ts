@@ -13,6 +13,7 @@ export class ResultsComponent {
   private category : string;
   private numberOfQuestions : string;
   private grade : number;
+  private percentageCorrect : number;
 
   constructor(private alertCtrl: AlertController, public questionsService: QuestionsService, public navCtrl : NavController) {
       this.username = window.localStorage.getItem("username");
@@ -28,7 +29,8 @@ export class ResultsComponent {
     console.log(answered);
     var total = +this.numberOfQuestions;
     console.log(total);
-
+    this.percentageCorrect = (answered*100)/total;
+    console.log(this.percentageCorrect);
     /*
     //testing if grading works as intented
     answered = 1;
@@ -36,19 +38,19 @@ export class ResultsComponent {
     total = 1;
     console.log(total);
     */
-    if(answered == total) {
+    if(this.percentageCorrect == 100) {
       this.grade = 1;
     }
-    if(0.99 > answered/total && answered/total > 0.8) {
+    if(99 > this.percentageCorrect && this.percentageCorrect > 80) {
       this.grade = 2;
     }
-    if(0.79 > answered/total && answered/total > 0.65) {
+    if(79 > this.percentageCorrect && this.percentageCorrect > 65) {
       this.grade = 3;
     }
-    if(0.64 > answered/total && answered/total > 0.5) {
+    if(64 > this.percentageCorrect && this.percentageCorrect > 50) {
       this.grade = 4;
     }
-    if(0.49 > answered/total && answered/total > 0.35) {
+    if(49 > this.percentageCorrect && this.percentageCorrect > 35) {
       this.grade = 5;
     } else {
       this.grade = 6;
