@@ -3,7 +3,7 @@ import { ionicBootstrap, ModalController, Platform, Nav } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
 
 import { AboutModalComponent } from './about/index';
-import { QuizComponent } from './quiz/index';
+import { QuizRulesComponent } from './quiz/index';
 import { CreateMCQComponent, CreateOQComponent, CreateQuestionComponent, ListQuestionsComponent, EditQuestionComponent, ManageQuestionComponent } from './question/index';
 import { SettingsComponent } from './settings/index';
 import { LoginComponent } from './login/index';
@@ -45,22 +45,10 @@ class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Login', icon: 'person', component: LoginComponent}, //maybe I can comibne Login with Play function
-      { title: 'Spielen', icon: 'game-controller-b', component: QuizComponent },
-      { title: 'Fragen verwalten', icon: 'game-controller-b', component: ManageQuestionComponent },
-    //  { title: 'Frage erstellen', icon: 'create', component: CreateQuestionComponent },//Putting them all together in something like "question options" would be nice
-      //{ title: 'Fragen anzeigen', icon: 'list', component: ListQuestionsComponent },
-      //{ title: 'Frage ändern', icon: 'brush', component: EditQuestionComponent },
-      //{ title: 'Frage löschen', icon: 'trash', component: DeleteQuestionComponent },
+      { title: 'Spielen', icon: 'game-controller-b', component: QuizRulesComponent },
+      { title: 'Fragen verwalten', icon: 'create', component: ManageQuestionComponent },
       { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
       { title: 'Über uns', icon: 'at', component: AboutModalComponent },
-    //  { title: 'registertest', icon: '',component: RegisterComponent}
-
-    //  { title: 'Fragen verwalten', icon: '', component: AdminComponent}
-    //  { title: 'Benutzer verwalten', icon: '', component: AdminComponent}
-    //  { title: 'Spielauswertungen', icon: '', component: ResultsComponent}
-    //für statistiken icon: 'stats' 'trophy'
-    //vlt school für "spielen"
-
     ];
   }
 

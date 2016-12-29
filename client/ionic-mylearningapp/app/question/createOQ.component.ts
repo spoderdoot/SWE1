@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Question, QuestionsService, OpenQuestion} from '../shared/index';
 import { NavController } from 'ionic-angular';
 
+//used to create open questions - short OQ
 @Component({
   templateUrl: 'build/question/createOQ.component.html',
   providers: [QuestionsService],
@@ -17,20 +18,26 @@ export class CreateOQComponent {
     this.createForm();
   }
 
+  //creates the form for an open question
   createForm() {
+
     // create the form group and define the validators
     this.createOpenQuestionForm = this.formBuilder.group({
 
+      //each correct question consists of a category, a question and a correct answer
       category: ['1', Validators.compose([Validators.required])],
       question: ['', Validators.compose([Validators.required])],
       correctAnswer: ['', Validators.compose([Validators.required])]
     });
   }
 
+  //used to create an open question - user input is send to the server who should deliver the response if it was possible to save the question or not
   createOpenQuestion() {
+
+    //checks if form is valid
     if (this.isFormIsValid()) {
 
-      // create new question object with the form data
+      // create new open question object with the form data
       var newOpenQuestion = new OpenQuestion(-1, this.createOpenQuestionForm.value.category, this.createOpenQuestionForm.value.question, this.createOpenQuestionForm.value.correctAnswer);
 
       // call service to create the question and wait for an answer
@@ -40,6 +47,7 @@ export class CreateOQComponent {
     }
   }
 
+  //checks if form is valid
   isFormIsValid(): boolean {
     // check if form input is valid (are all defined validators ok?)
     let isValid: boolean = this.createOpenQuestionForm.valid;
@@ -57,6 +65,7 @@ export class CreateOQComponent {
     return isValid;
   }
 
+  //shows success message to user if he could successfully create an open question
   showSuccesMessageAndResetForm(response: any) {
     console.log("success - question was successfully stored with id " + response);
 
@@ -69,7 +78,7 @@ export class CreateOQComponent {
     // show the pop-up message
     alert.present();
 
-    // reset the form
+    // reset the form so more question can be created
     this.createForm();
   }
  }

@@ -3,15 +3,19 @@ import { AlertController, NavController } from 'ionic-angular';
 import { OpenQuestion, MultipleChoiceQuestion, Question, QuestionsService} from '../shared/index';
 import { QuizRulesComponent } from '../quiz/index';
 
+//used to show user the results of his played quiz
 @Component({
   templateUrl: 'build/results/results.component.html',
   providers: [QuestionsService],
 })
 export class ResultsComponent {
+  //some attributes that were saved earlier in local storage for re-use
   private username : string;
   private correctAnswerCount : string;
   private category : string;
   private numberOfQuestions : string;
+
+  //grade and percentage correct to show user how well he did answering his questions
   private grade : number;
   private percentageCorrect : number;
 
@@ -56,6 +60,8 @@ export class ResultsComponent {
       this.grade = 6;
     }
   }
+
+  //used to re-start the quiz
   redirectToQuizRules() {
     this.navCtrl.setRoot(QuizRulesComponent);
   }

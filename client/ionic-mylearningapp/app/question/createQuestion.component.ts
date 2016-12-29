@@ -5,6 +5,7 @@ import { Question, QuestionsService} from '../shared/index';
 import { NavController } from 'ionic-angular';
 import { CreateMCQComponent, CreateOQComponent} from './index';
 
+//NOT USED:
 @Component({
   templateUrl: 'build/question/createQuestion.component.html',
   providers: [QuestionsService],

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Settings, SettingsService, LoadingIndicator, LoadingPage} from '../shared/index';
 
+//used for settings component
 @Component({
   templateUrl: 'build/settings/settings.component.html',
   providers: [SettingsService],
@@ -21,6 +22,7 @@ export class SettingsComponent extends LoadingPage {
     });
   }
 
+  //saves settings 
   saveSettings() {
     console.log("saveSettings");
     SettingsComponent.settingsService.saveSettings(this.settings);

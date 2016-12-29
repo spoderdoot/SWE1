@@ -1,3 +1,4 @@
+//used for how a question looks
 export class GeneralQuestion {
   constructor(public id: number,
     public category : any,

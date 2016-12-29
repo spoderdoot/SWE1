@@ -32,7 +32,7 @@ export class QuestionsService {
   }
 
 
-
+  // used to get the questions for quiz depedning on set category and set number of questions
   getQuizQuestions(category : string, numberOfQuestions : string) : Observable<GeneralQuestion[]> {
     console.log("quiz questions with rules " + category + numberOfQuestions);
 
@@ -41,6 +41,8 @@ export class QuestionsService {
       .map((res: Response) => res.json());
   }
 
+
+  //used to list all open questions
   getOpenQuestions(): Observable<OpenQuestion[]> {
 
     console.log("getOpenQuestions - ServerIp: " + this.settings.serverIp);
@@ -50,6 +52,7 @@ export class QuestionsService {
       .map((res: Response) => res.json());
   }
 
+  //used to list all multiple choice questions
   getMultipleChoiceQuestions(): Observable<MultipleChoiceQuestion[]> {
 
     console.log("getMultipleQuestions - ServerIp: " + this.settings.serverIp);
@@ -59,21 +62,31 @@ export class QuestionsService {
       .map((res: Response) => res.json());
   }
 
+
+
+  //NOT USED YET, but might be important for edit questions
   getQuestionWithId(id: number): Observable<Question> {
     return this.http
       .get(this.settings.serverIp + 'question/' + id)
       .map((res: Response) => res.json());
   }
-getOpenQuestionWithId(id: number) : Observable<OpenQuestion> {
-  return this.http
-    .get(this.settings.serverIp + 'openquestion/' + id)
-    .map((res: Response) => res.json());
-}
-getMultipleChoiceQuestionWithId(id: number) : Observable<OpenQuestion> {
-  return this.http
-    .get(this.settings.serverIp + 'multiplechoicequestion/' + id)
-    .map((res: Response) => res.json());
-}
+
+  //used for getting an open question depending on its ID
+  getOpenQuestionWithId(id: number) : Observable<OpenQuestion> {
+    return this.http
+      .get(this.settings.serverIp + 'openquestion/' + id)
+      .map((res: Response) => res.json());
+  }
+
+  //used for getting a MCQ depending on its ID
+  getMultipleChoiceQuestionWithId(id: number) : Observable<OpenQuestion> {
+    return this.http
+      .get(this.settings.serverIp + 'multiplechoicequestion/' + id)
+      .map((res: Response) => res.json());
+    }
+
+
+  //used for creating questions
   createQuestion(question: Question): Observable<any> {
     console.log(JSON.stringify(question));
     let headers = new Headers();
@@ -84,6 +97,7 @@ getMultipleChoiceQuestionWithId(id: number) : Observable<OpenQuestion> {
       .map((res: Response) => res.json());
   }
 
+  //used for creating open questions
   createOpenQuestion(openQuestion : OpenQuestion) : Observable<any> {
     console.log(JSON.stringify(openQuestion));
     let headers = new Headers();
@@ -94,6 +108,7 @@ getMultipleChoiceQuestionWithId(id: number) : Observable<OpenQuestion> {
     .map((res : Response) => res.json());
   }
 
+  //used for creating MCQ
   createMultipleChoiceQuestion(multipleChoiceQuestion : MultipleChoiceQuestion) : Observable<any> {
     console.log(JSON.stringify(multipleChoiceQuestion));
     let headers = new Headers();

@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content padding class="listMultipleChoiceQuestions">
-  <button (click)="listMultipleChoiceQuestions()" full>Fragen anzeigen!</button>
+  <button ion-button block color="dark" (click)="listMultipleChoiceQuestions()" full>Fragen anzeigen!</button>
 
   <ion-card *ngFor="let multiplechoicequestion of multiplechoicequestions">
     <ion-card-header>

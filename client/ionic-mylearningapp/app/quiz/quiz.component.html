@@ -20,7 +20,7 @@
          <h3><b>Anzahl der Fragen:</b> {{numberOfQuestions}}</h3>
       </ion-card-content>
     </ion-card>
-    <button (click)="startQuiz()" full>Spiel starten!</button>
+    <button ion-button block color="dark" (click)="startQuiz()" full>Spiel starten!</button>
   </div>
 
   <div name="mainQuiz" *ngIf="quizStarted">
@@ -56,7 +56,7 @@
           </div>
         </div>
       </ion-card-content>
-      <button (click)="answerQuestion()" full>Antworten</button>
+      <button ion-button block color="dark" (click)="answerQuestion()" full>Antworten</button>
     </ion-card>
   </div>
 
@@ -91,7 +91,7 @@
           </div>
         </div>
       </ion-card-content>
-      <button (click)="answerQuestion()" full>Antworten</button>
+      <button ion-button block color="dark" (click)="answerQuestion()" full>Antworten</button>
     </ion-card>
   </div>
   </div>

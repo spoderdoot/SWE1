@@ -6,4 +6,3 @@ export * from './createMCQ.component';
 export * from './createOQ.component';
 export * from './listMCQ.component';
 export * from './listOQ.component';
-export * from './listOQoverview.component'

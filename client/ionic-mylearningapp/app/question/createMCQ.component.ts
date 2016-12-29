@@ -4,7 +4,7 @@ import { AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { MultipleChoiceQuestion, QuestionsService} from '../shared/index';
 
-
+//used to create multiple choice questions - short MCQ
 @Component({
   templateUrl: 'build/question/createMCQ.component.html',
   providers: [QuestionsService],
@@ -17,6 +17,8 @@ export class CreateMCQComponent {
     this.createForm();
   }
 
+//creates the form of a multple choice question
+//each MCQ has a category, a question, four possible answers and a correct answer
 createForm() {
 
   this.createMCQForm = this.formBuilder.group({
@@ -30,9 +32,10 @@ createForm() {
   })
 }
 
+//sends user input to server if form is valid and creates a new MCQ
 createMCQ() {
   if (this.isFormValid()) {
-//ID, subject, question, correctAnswer
+
     var newMCQ = new MultipleChoiceQuestion(-1, this.createMCQForm.value.category, this.createMCQForm.value.question, this.createMCQForm.value.answerA, this.createMCQForm.value.answerB, this.createMCQForm.value.answerC, this.createMCQForm.value.answerD, this.createMCQForm.value.correctAnswer);
     this.questionsService.createMultipleChoiceQuestion(newMCQ).subscribe(response => {
       this.showSuccessMessageAndResetForm(response);
@@ -40,7 +43,7 @@ createMCQ() {
   }
 }
 
-
+//checks if form is valid
 isFormValid() : boolean {
   let isValid: boolean = this.createMCQForm.valid;
 
@@ -50,12 +53,13 @@ isFormValid() : boolean {
       subTitle: 'Um die Frage speichern zu können, müssen sämtliche Felder ausgefüllt sein.',
       buttons: ['OK']
     });
-
+    //presents user the alert message
     alert.present();
   }
   return isValid;
 }
 
+//shows success message to user if the MCQ was successfully saved
 showSuccessMessageAndResetForm(response: any) {
   console.log("successfully created question, stored with id " + response);
 
@@ -66,6 +70,7 @@ showSuccessMessageAndResetForm(response: any) {
   })
 
   alert.present();
+  //resets form, so user can continue creating questions
   this.createForm();
 }
 }

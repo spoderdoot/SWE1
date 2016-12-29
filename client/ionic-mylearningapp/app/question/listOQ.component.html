@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content padding class="listOpenQuestions">
-  <button (click)="listOpenQuestions()" full>Fragen anzeigen!</button>
+  <button ion-button block color="dark" (click)="listOpenQuestions()" full>Fragen anzeigen!</button>
 
   <ion-card *ngFor="let openquestion of openquestions">
 

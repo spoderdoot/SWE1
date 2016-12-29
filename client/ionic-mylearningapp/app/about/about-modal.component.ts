@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {ViewController} from 'ionic-angular';
 
+// about class is used to show some general information about instalearn 
 @Component({
   templateUrl: 'build/about/about-modal.component.html'
 })

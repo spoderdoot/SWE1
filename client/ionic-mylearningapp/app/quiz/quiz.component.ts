@@ -3,6 +3,8 @@ import { AlertController, NavController } from 'ionic-angular';
 import { GeneralQuestion, OpenQuestion, MultipleChoiceQuestion, Question, QuestionsService} from '../shared/index';
 import {ResultsComponent} from '../results/index';
 
+
+//used for the main learning quiz part
 @Component({
   templateUrl: 'build/quiz/quiz.component.html',
   providers: [QuestionsService],
@@ -46,6 +48,10 @@ export class QuizComponent {
     this.getQuestions();
   }
 
+  startSpecifiedQuiz() {
+    this.getQuizQuestions();
+  }
+
   /*
   //used to get an array filled with open questions and multiple choice questions depending on user input
   //returns an array filled with questions according to selected category and selected number of questions
@@ -73,6 +79,7 @@ export class QuizComponent {
     }
   }
 
+  //getting all questions for quiz
   getQuestions() {
     // call servie
     this.questionsService.getQuestions().subscribe(questions => {
@@ -87,6 +94,8 @@ export class QuizComponent {
     });
   }
 
+
+  //used to handle what happens after user answered question
   answerQuestion() {
     if (this.isAnswerSelected()) {
       console.log("selected answer: " + this.selectedAnswer + " - correct answer: " + this.currentQuestion.correctAnswer);
@@ -101,6 +110,8 @@ export class QuizComponent {
     }
   }
 
+
+  //checks if an answer is selected
   isAnswerSelected(): boolean {
     let isAnswerEmpty: boolean = this.selectedAnswer == null || this.selectedAnswer == '';
 
@@ -117,6 +128,7 @@ export class QuizComponent {
     return !isAnswerEmpty;
   }
 
+  //used to show the user that he answered correctly
   correctAnswerSelected() {
     this.correctAnswerCount++;
     console.log("correctly answered questions: " + this.correctAnswerCount);
@@ -129,6 +141,7 @@ export class QuizComponent {
           // when the user clicks ok, trigger this method
           handler: () => {
             this.nextQuestion();
+            //this.nextGeneralQuestion();
           }
         }
       ]
@@ -136,6 +149,7 @@ export class QuizComponent {
     alert.present();
   }
 
+  //used to get the next question for the quiz
   nextGeneralQuestion() {
       //last question
       if(this.currentQuestionCounter == this.generalQuestions.length) {
@@ -150,6 +164,8 @@ export class QuizComponent {
       this.currentGeneralQuestion = this.generalQuestions[this.currentQuestionCounter -1];
       this.checkTypeOfQuestion();
   }
+
+
   nextQuestion() {
     //this.increaseBalance();
 
@@ -180,11 +196,14 @@ export class QuizComponent {
             // when the user clicks ok, trigger this method
             handler: () => {
               this.nextQuestion();
+              //this.nextGeneralQuestion();
             }
           }]
     });
     alert.present();
   }
+
+  //saving quiz results to local storage
   saveQuizResults(){
     var correctAnswerCountString = ""+this.correctAnswerCount;
     window.localStorage.setItem("correctAnswerCount",  correctAnswerCountString);
@@ -194,9 +213,6 @@ export class QuizComponent {
     window.localStorage.setItem("totalNumberOfQuestions",  this.numberOfQuestions);
     console.log(window.localStorage.getItem("totalNumberOfQuestions"));
   }
-
-
-
 
 //shows user the results of the game
   redirectToResults() {
