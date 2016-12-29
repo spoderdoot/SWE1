@@ -5,6 +5,8 @@ const OpenDataSource_1 = require("./OpenDataSource");
 const OpenQuestion_1 = require("./OpenQuestion");
 const MultipleDataSource_1 = require("./MultipleDataSource");
 const MultipleQuestion_1 = require("./MultipleQuestion");
+const QuestionDataSource_1 = require("./QuestionDataSource");
+const Questions_1 = require("./Questions");
 class QuestionDAO {
     static getAllQuestions(callback) {
         var questions = new Array();
@@ -26,9 +28,59 @@ class QuestionDAO {
             callback(openQs);
         });
     }
+    static getOpenQuestionsByCategory(cat, callback) {
+        var openQs = new Array();
+        this.opends.getOpenDatabase().all("SELECT * FROM OpenQuestions WHERE category = '" + cat + "';", function (err, rows) {
+            for (var row of rows) {
+                var oq1 = new OpenQuestion_1.OpenQuestion(row['id'], row['category'], row['question'], row['correctAnswer']);
+                openQs.push(oq1);
+            }
+            callback(openQs);
+        });
+    }
+    static getQuestions(callback) {
+        var questions = new Array();
+        this.qds.getQuestionDatabase().all("SELECT * FROM Questions;", function (err, rows) {
+            for (var row of rows) {
+                var q1 = new Questions_1.Questions(row['id'], row['category'], row['isMcq'], row['question'], row['answerA'], row['answerB'], row['answerC'], row['answerD'], row['correctAnswer']);
+                questions.push(q1);
+            }
+            callback(questions);
+        });
+    }
+    static getAllOpenQuestions(callback) {
+        var questions = new Array();
+        this.qds.getQuestionDatabase().all("SELECT * FROM QUESTIONS WHERE isMcq = 'false';", function (err, rows) {
+            for (var row of rows) {
+                var q1 = new Questions_1.Questions(row['id'], row['category'], row['isMcq'], row['question'], row['answerA'], row['answerB'], row['answerC'], row['answerD'], row['correctAnswer']);
+                questions.push(q1);
+            }
+            callback(questions);
+        });
+    }
+    static getAllMultipleChoiceQuestions(callback) {
+        var questions = new Array();
+        this.qds.getQuestionDatabase().all("SELECT * FROM QUESTIONS WHERE isMcq = 'true';", function (err, rows) {
+            for (var row of rows) {
+                var q1 = new Questions_1.Questions(row['id'], row['category'], row['isMcq'], row['question'], row['answerA'], row['answerB'], row['answerC'], row['answerD'], row['correctAnswer']);
+                questions.push(q1);
+            }
+            callback(questions);
+        });
+    }
     static getMultQuestions(callback) {
         var multQs = new Array();
         this.multds.getMultipleDatabase().all("SELECT * FROM MultipleQuestions", function (err, rows) {
+            for (var row of rows) {
+                var q1 = new MultipleQuestion_1.MultipleQuestion(row['id'], row['category'], row['question'], row['answerA'], row['answerB'], row['answerC'], row['answerD'], row['correctAnswer']);
+                multQs.push(q1);
+            }
+            callback(multQs);
+        });
+    }
+    static getMultQuestionsByCategory(cat, callback) {
+        var multQs = new Array();
+        this.multds.getMultipleDatabase().all("SELECT * FROM MultipleQuestions WHERE category = '" + cat + "'", function (err, rows) {
             for (var row of rows) {
                 var q1 = new MultipleQuestion_1.MultipleQuestion(row['id'], row['category'], row['question'], row['answerA'], row['answerB'], row['answerC'], row['answerD'], row['correctAnswer']);
                 multQs.push(q1);
@@ -68,4 +120,5 @@ class QuestionDAO {
 QuestionDAO.ds = DataSource_1.DataSource.getInstance();
 QuestionDAO.opends = OpenDataSource_1.OpenDataSource.getInstance();
 QuestionDAO.multds = MultipleDataSource_1.MultipleDataSource.getInstance();
+QuestionDAO.qds = QuestionDataSource_1.QuestionDataSource.getInstance();
 exports.QuestionDAO = QuestionDAO;

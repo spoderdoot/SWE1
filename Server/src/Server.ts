@@ -8,6 +8,8 @@
 /// <reference path="MultipleQuestion.ts"/>
 /// <reference path="UserDataSource.ts"/>
 /// <reference path="User.ts"/>
+/// <reference path="Questions.ts"/>
+/// <reference path="QuestionDataSource.ts"/>
 /// <reference path="QuestionDAO.ts" />
 /// <reference path="UserDAO.ts" />
 
@@ -21,6 +23,8 @@ import { MultipleDataSource } from './MultipleDataSource';
 import { MultipleQuestion } from './MultipleQuestion';
 import { UserDataSource } from './UserDataSource';
 import { User } from './User';
+import { QuestionDataSource } from './QuestionDataSource';
+import { Questions } from './Questions';
 import { QuestionDAO } from './QuestionDAO';
 import { UserDAO } from './UserDAO';
 
@@ -55,6 +59,8 @@ OpenDataSource.getInstance().initOpenDataBase();
 MultipleDataSource.getInstance().initMultipleDataBase();
 // initialize database for users
 UserDataSource.getInstance().initUserDataBase();
+// initialize database for questions
+QuestionDataSource.getInstance().initDataBase();
 
 /** REST API **/
 
@@ -73,7 +79,7 @@ router.get('/listQuestions', function(req, res) {
     QuestionDAO.getAllQuestions(callback);
 });
 
-// list all available questions alternative -> callback version
+// list all available questions alternative
 router.get('/listOpenQuestions', function(req, res) {
     var callback = function(rows) {
         var response = JSON.stringify(rows);
@@ -82,7 +88,7 @@ router.get('/listOpenQuestions', function(req, res) {
     }
     QuestionDAO.getOpenQuestions(callback);
 });
-// list all available multiple choice questions -> callback version
+// list all available multiple choice questions
 router.get('/listMultipleChoiceQuestions', function(req, res) {
     var callback = function(rows) {
         var response = JSON.stringify(rows);
@@ -91,6 +97,30 @@ router.get('/listMultipleChoiceQuestions', function(req, res) {
     }
     QuestionDAO.getMultQuestions(callback);
 })
+router.get('/listAllQuestions', function(req, res) {
+    var callback = function(rows) {
+        var response = JSON.stringify(rows);
+        console.log("callback executed" + rows);
+        res.json(JSON.parse(response));
+    }
+    QuestionDAO.getQuestions(callback);
+});
+router.get('/listAllOpenQuestions', function(req, res) {
+  var callback = function(rows) {
+    var response = JSON.stringify(rows);
+    console.log("callback executed" + rows);
+    res.json(JSON.parse(response));
+  }
+  QuestionDAO.getAllOpenQuestions(callback);
+});
+router.get('/listAllMultipleChoiceQuestions', function(req, res) {
+  var callback = function(rows) {
+    var response = JSON.stringify(rows);
+    console.log("callback executed" + rows);
+    res.json(JSON.parse(response));
+  }
+  QuestionDAO.getAllMultipleChoiceQuestions(callback);
+});
 // get question by id -> callback version
 router.get('/question/:id', function(req, res) {
     var id = req.params.id;
@@ -100,7 +130,16 @@ router.get('/question/:id', function(req, res) {
     }
     QuestionDAO.getQuestionById(id, callback);
 });
-
+// get questions by category
+router.get('/question/listCategory/'), function(req, res) {
+    var category = 'Mathe';
+    var callback = function(rows) {
+        var response = JSON.stringify(rows);
+        console.log("callback executed " + rows);
+        res.json(JSON.parse(response));
+    }
+    QuestionDAO.getOpenQuestionsByCategory(category, callback);
+}
 // create a new question -> implemented using a Promise in QuestionDAO
 router.put('/question/create', function(req, res) {
     var jsonQuestion = JSON.parse(JSON.stringify(req.body));
@@ -114,10 +153,10 @@ router.put('/question/create', function(req, res) {
 router.put('/user/create', function(req, res) {
     var jsonUser = JSON.parse(JSON.stringify(req.body));
     var user = new User(jsonUser['id'], jsonUser['username'], jsonUser['password'], jsonUser['isTeacher']);
-    var callback = function(rows){
-      var response = JSON.stringify(rows);
-      console.log("callback executed" + rows);
-      res.json(JSON.parse(response));
+    var callback = function(rows) {
+        var response = JSON.stringify(rows);
+        console.log("callback executed" + rows);
+        res.json(JSON.parse(response));
     }
     UserDAO.createUser(user).then((resolve) => {
         res.json(JSON.parse(resolve.toString()));
