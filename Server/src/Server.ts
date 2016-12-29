@@ -122,9 +122,20 @@ router.get('/listAllMultipleChoiceQuestions', function(req, res) {
   QuestionDAO.getAllMultipleChoiceQuestions(callback);
 });
 router.get('/listQuizQuestions', function(req, res) {
+
+  var category = req.params.category;
+  var numberOfQuestions = req.params.numberOfQuestions;
+  console.log(category);
+  console.log(numberOfQuestions);
+
   var input = JSON.parse(JSON.stringify(req.body));
+  console.log(input);
   var category = input['category'];
   var amount = input['numberOfQuestions'];
+
+  console.log("Kategorie: " + category);
+  console.log("Anzahl: " + amount);
+
   var callback = function(rows) {
     var response = JSON.stringify(rows);
     console.log("callback executed" + rows);

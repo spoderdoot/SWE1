@@ -2,7 +2,7 @@
 export class GeneralQuestion {
   constructor(public id: number,
     public category : any,
-    public isMCQ : string,
+    public isMcq : string,
     public question: string,
     public answerA: string,
     public answerB: string,

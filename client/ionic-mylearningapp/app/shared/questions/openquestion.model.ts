@@ -6,9 +6,9 @@ export class OpenQuestion extends QuestionSuperClass {
        id: number,
        category : any, //each question must have a category
        question: string,
-       correctOpenAnswer: string) {
+       correctAnswer: string) {
 
-  super(id, category, question, correctOpenAnswer);
+  super(id, category, question, correctAnswer);
   }
 
 }

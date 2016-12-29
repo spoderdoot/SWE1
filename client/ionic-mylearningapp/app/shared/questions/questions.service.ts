@@ -48,7 +48,7 @@ export class QuestionsService {
     console.log("getOpenQuestions - ServerIp: " + this.settings.serverIp);
 
     return this.http
-      .get(this.settings.serverIp + 'listOpenQuestions')
+      .get(this.settings.serverIp + 'listAllOpenQuestions')
       .map((res: Response) => res.json());
   }
 
@@ -58,7 +58,7 @@ export class QuestionsService {
     console.log("getMultipleQuestions - ServerIp: " + this.settings.serverIp);
 
     return this.http
-      .get(this.settings.serverIp + 'listMultipleChoiceQuestions')
+      .get(this.settings.serverIp + 'listAllMultipleChoiceQuestions')
       .map((res: Response) => res.json());
   }
 

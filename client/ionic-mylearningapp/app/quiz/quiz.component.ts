@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { AlertController, NavController } from 'ionic-angular';
 import { GeneralQuestion, OpenQuestion, MultipleChoiceQuestion, Question, QuestionsService} from '../shared/index';
 import {ResultsComponent} from '../results/index';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 
 //used for the main learning quiz part
 @Component({
-  templateUrl: 'build/quiz/quiz.component.html',
+  templateUrl: 'build/quiz/quiz.test.html',
   providers: [QuestionsService],
 })
 export class QuizComponent {
@@ -33,7 +34,9 @@ export class QuizComponent {
   private numberOfQuestions : any;
   private isMCQ : boolean = false;
 
-  constructor(private alertCtrl: AlertController, public questionsService: QuestionsService, public navCtrl : NavController) {
+  private openQuestionForm : FormGroup;
+
+  constructor(private alertCtrl: AlertController, public questionsService: QuestionsService, private formBuilder : FormBuilder, public navCtrl : NavController) {
     this.username = window.localStorage.getItem("username");
 
     this.category = window.localStorage.getItem("category");
@@ -42,6 +45,7 @@ export class QuizComponent {
     this.numberOfQuestions = window.localStorage.getItem("numberOfQuestions");
   //  this.clearifyNumberOfQuestions();
     console.log(this.numberOfQuestions);
+    this.createOpenQuestionForm();
   }
 
   startQuiz() {
@@ -52,11 +56,34 @@ export class QuizComponent {
     this.getQuizQuestions();
   }
 
+
+createOpenQuestionForm() {
+  this.openQuestionForm = this.formBuilder.group({
+    openAnswer : ['', Validators.compose([Validators.required])]
+  })
+}
+
+isOpenQuestionFormValid() : boolean {
+  let isValid : boolean = this.openQuestionForm.valid;
+  console.log(this.openQuestionForm.valid);
+  console.log(this.openQuestionForm.value.openAnswer);
+
+  if(!isValid) {
+    const alert = this.alertCtrl.create({
+     title: '<b>Antwort überprüfen!</b>',
+     subTitle: 'Du hast keine Antwort eingegeben!',
+     buttons: ['Whoops!']
+   });
+   alert.present();
+  }
+  return isValid;
+}
   /*
   //used to get an array filled with open questions and multiple choice questions depending on user input
   //returns an array filled with questions according to selected category and selected number of questions
   */
   getQuizQuestions() {
+    console.log("getting " + this.numberOfQuestions + " questions "+ " of category " + this.category + " from server...");
     this.questionsService.getQuizQuestions(this.category, this.numberOfQuestions).subscribe(questionsResponse => {
       console.log("getting " + this.numberOfQuestions + " of category " + this.category + " from server...");
       console.log("quiz questions were loaded");
@@ -71,10 +98,10 @@ export class QuizComponent {
 
   //used to determine if question is a multiple-choice-question or an open quesiton
   checkTypeOfQuestion () {
-    if(this.generalQuestions[this.currentQuestionCounter].isMCQ == 'true') { //idea is to set HTML depending on isMCQ
+    if(this.generalQuestions[this.currentQuestionCounter].isMcq == 'true') { //idea is to set HTML depending on isMCQ
       this.isMCQ = true;
     }
-    if(this.generalQuestions[this.currentQuestionCounter].isMCQ == 'false') {
+    if(this.generalQuestions[this.currentQuestionCounter].isMcq == 'false') {
       this.isMCQ = false;
     }
   }
@@ -111,6 +138,29 @@ export class QuizComponent {
   }
 
 
+
+
+
+  answerOpenQuestion() {
+
+    if(this.isOpenQuestionFormValid()) {
+      console.log("user input: " + this.openQuestionForm.value.openAnswer + " - correct answer: "+ this.currentGeneralQuestion.correctAnswer);
+
+      if(this.openQuestionForm.value.openAnswer == this.currentGeneralQuestion.correctAnswer) {
+        this.correctAnswerSelected();
+
+      } else {
+        this.wrongAnswerSelected();
+      }
+    }
+  }
+
+
+
+
+
+
+
   //checks if an answer is selected
   isAnswerSelected(): boolean {
     let isAnswerEmpty: boolean = this.selectedAnswer == null || this.selectedAnswer == '';
@@ -140,8 +190,8 @@ export class QuizComponent {
           text: 'Weiter',
           // when the user clicks ok, trigger this method
           handler: () => {
-            this.nextQuestion();
-            //this.nextGeneralQuestion();
+            //this.nextQuestion();
+            this.nextGeneralQuestion();
           }
         }
       ]
@@ -195,8 +245,8 @@ export class QuizComponent {
             text: 'Weiter',
             // when the user clicks ok, trigger this method
             handler: () => {
-              this.nextQuestion();
-              //this.nextGeneralQuestion();
+              //this.nextQuestion();
+              this.nextGeneralQuestion();
             }
           }]
     });
