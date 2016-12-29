@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AlertController, NavController } from 'ionic-angular';
-import { GeneralQuestion, OpenQuestion, MultipleChoiceQuestion, Question, QuestionsService} from '../shared/index';
+import { QuizRules, GeneralQuestion, OpenQuestion, MultipleChoiceQuestion, Question, QuestionsService} from '../shared/index';
 import {ResultsComponent} from '../results/index';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
@@ -32,6 +32,7 @@ export class QuizComponent {
   private username: any;
   private category : any;
   private numberOfQuestions : any;
+  private quizRules : QuizRules;
   private isMCQ : boolean = false;
 
   private openQuestionForm : FormGroup;
@@ -83,8 +84,10 @@ isOpenQuestionFormValid() : boolean {
   //returns an array filled with questions according to selected category and selected number of questions
   */
   getQuizQuestions() {
+    this.quizRules = new QuizRules(this.category, this.numberOfQuestions);
+    console.log(this.quizRules);
     console.log("getting " + this.numberOfQuestions + " questions "+ " of category " + this.category + " from server...");
-    this.questionsService.getQuizQuestions(this.category, this.numberOfQuestions).subscribe(questionsResponse => {
+    this.questionsService.getQuizQuestions(this.quizRules).subscribe(questionsResponse => {
       console.log("getting " + this.numberOfQuestions + " of category " + this.category + " from server...");
       console.log("quiz questions were loaded");
       this.generalQuestions = questionsResponse;
