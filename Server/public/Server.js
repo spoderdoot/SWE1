@@ -93,9 +93,7 @@ router.put('/listQuizQuestions', function (req, res) {
         console.log("callback executed" + rows);
         res.json(JSON.parse(response));
     };
-    var category = quiz[0];
-    var amount = quiz[1];
-    QuestionDAO_1.QuestionDAO.getQuizQuestions(category, amount, callback);
+    QuestionDAO_1.QuestionDAO.getQuizQuestions(quiz, callback);
 });
 router.get('/question/:id', function (req, res) {
     var id = req.params.id;

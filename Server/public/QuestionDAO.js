@@ -68,13 +68,13 @@ class QuestionDAO {
             callback(questions);
         });
     }
-    static getQuizQuestions(cat, amount, callback) {
+    static getQuizQuestions(quiz, callback) {
         var questions = new Array();
-        this.qds.getQuestionDatabase().all("SELECT * FROM Questions WHERE category = '" + cat + "' ORDER BY RANDOM() LIMIT " + amount + ";", function (err, rows) {
+        this.qds.getQuestionDatabase().all("SELECT * FROM Questions WHERE category = '" + quiz.getCategory + "' ORDER BY RANDOM() LIMIT " + quiz.getNumberOfQuestions + ";", function (err, rows) {
             for (var row of rows) {
                 var q1 = new Questions_1.Questions(row['id'], row['category'], row['isMcq'], row['question'], row['answerA'], row['answerB'], row['answerC'], row['answerD'], row['correctAnswer']);
                 questions.push(q1);
-                console.log(err);
+                console.log(q1.getQuestion);
             }
             callback(questions);
         });

@@ -124,7 +124,7 @@ router.get('/listAllMultipleChoiceQuestions', function(req, res) {
     QuestionDAO.getAllMultipleChoiceQuestions(callback);
 });
 
-router.put('/listQuizQuestions', function(req, res) {
+router.put('/listQuizQuestions', function(req: any, res) {
     console.log("listQuizQuestions: ");
     var jsonQuiz = JSON.parse(JSON.stringify(req.body));
     console.log(jsonQuiz);
@@ -135,9 +135,7 @@ router.put('/listQuizQuestions', function(req, res) {
         console.log("callback executed" + rows);
         res.json(JSON.parse(response));
     }
-    var category = quiz[0];
-    var amount = quiz[1];
-    QuestionDAO.getQuizQuestions(category, amount, callback);
+    QuestionDAO.getQuizQuestions(quiz, callback);
 });
 // get question by id -> callback version
 router.get('/question/:id', function(req, res) {

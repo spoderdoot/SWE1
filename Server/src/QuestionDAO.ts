@@ -6,6 +6,7 @@
 /// <reference path="MultipleDataSource.ts" />
 /// <reference path="Questions.ts"/>
 /// <reference path="QuestionDataSource.ts"/>
+/// <reference path="QuizRules.ts" />
 
 import { DataSource } from './DataSource';
 import { Question } from './Question';
@@ -15,6 +16,7 @@ import { MultipleDataSource } from './MultipleDataSource';
 import { MultipleQuestion } from './MultipleQuestion';
 import { QuestionDataSource } from './QuestionDataSource';
 import { Questions } from './Questions';
+import { QuizRules } from './QuizRules';
 
 export class QuestionDAO {
 
@@ -92,14 +94,14 @@ export class QuestionDAO {
       });
     }
     // lists all questions from one category
-    public static getQuizQuestions(cat: string, amount: string, callback) {
+    public static getQuizQuestions(quiz: QuizRules, callback) {
       var questions: Array<Questions> = new Array<Questions>();
-      this.qds.getQuestionDatabase().all("SELECT * FROM Questions WHERE category = '"+cat+"' ORDER BY RANDOM() LIMIT "+amount+";", function(err, rows) {
+      this.qds.getQuestionDatabase().all("SELECT * FROM Questions WHERE category = '"+quiz.getCategory+"' ORDER BY RANDOM() LIMIT "+quiz.getNumberOfQuestions+";", function(err, rows) {
             for (var row of rows) {
                 var q1 = new Questions(row['id'], row['category'], row['isMcq'], row['question'], row['answerA'], row['answerB'],
                     row['answerC'], row['answerD'], row['correctAnswer']);
                 questions.push(q1);
-                console.log(err);
+                console.log(q1.getQuestion);
             }
             callback(questions);
         });
