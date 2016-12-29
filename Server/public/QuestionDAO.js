@@ -68,6 +68,16 @@ class QuestionDAO {
             callback(questions);
         });
     }
+    static getQuizQuestions(cat, amount, callback) {
+        var questions = new Array();
+        this.qds.getQuestionDatabase().all("SELECT * FROM Questions WHERE category = '" + cat + "' ORDER BY RANDOM() LIMIT " + amount + ";", function (err, rows) {
+            for (var row of rows) {
+                var q1 = new Questions_1.Questions(row['id'], row['category'], row['isMcq'], row['question'], row['answerA'], row['answerB'], row['answerC'], row['answerD'], row['correctAnswer']);
+                questions.push(q1);
+            }
+            callback(questions);
+        });
+    }
     static getMultQuestions(callback) {
         var multQs = new Array();
         this.multds.getMultipleDatabase().all("SELECT * FROM MultipleQuestions", function (err, rows) {

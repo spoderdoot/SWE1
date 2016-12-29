@@ -121,6 +121,16 @@ router.get('/listAllMultipleChoiceQuestions', function(req, res) {
   }
   QuestionDAO.getAllMultipleChoiceQuestions(callback);
 });
+router.get('/listQuizQuestions', function(req, res) {
+  var category = req.params.category;
+  var amount = req.params.numberOfQuestions;
+  var callback = function(rows) {
+    var response = JSON.stringify(rows);
+    console.log("callback executed" + rows);
+    res.json(JSON.parse(response));
+    }
+    QuestionDAO.getQuizQuestions(category, amount, callback);
+});
 // get question by id -> callback version
 router.get('/question/:id', function(req, res) {
     var id = req.params.id;

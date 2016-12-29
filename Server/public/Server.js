@@ -81,6 +81,16 @@ router.get('/listAllMultipleChoiceQuestions', function (req, res) {
     };
     QuestionDAO_1.QuestionDAO.getAllMultipleChoiceQuestions(callback);
 });
+router.get('/listQuizQuestions', function (req, res) {
+    var category = req.params.category;
+    var amount = req.params.numberOfQuestions;
+    var callback = function (rows) {
+        var response = JSON.stringify(rows);
+        console.log("callback executed" + rows);
+        res.json(JSON.parse(response));
+    };
+    QuestionDAO_1.QuestionDAO.getQuizQuestions(category, amount, callback);
+});
 router.get('/question/:id', function (req, res) {
     var id = req.params.id;
     var callback = function (question) {
