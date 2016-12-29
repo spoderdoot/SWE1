@@ -62,5 +62,5 @@ class UserDAO {
         });
     }
 }
-exports.UserDAO = UserDAO;
 UserDAO.uds = UserDataSource_1.UserDataSource.getInstance();
+exports.UserDAO = UserDAO;

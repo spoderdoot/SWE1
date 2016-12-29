@@ -8,6 +8,7 @@ const MultipleDataSource_1 = require("./MultipleDataSource");
 const UserDataSource_1 = require("./UserDataSource");
 const User_1 = require("./User");
 const QuestionDataSource_1 = require("./QuestionDataSource");
+const QuizRules_1 = require("./QuizRules");
 const QuestionDAO_1 = require("./QuestionDAO");
 const UserDAO_1 = require("./UserDAO");
 const app = express();
@@ -82,21 +83,18 @@ router.get('/listAllMultipleChoiceQuestions', function (req, res) {
     QuestionDAO_1.QuestionDAO.getAllMultipleChoiceQuestions(callback);
 });
 router.get('/listQuizQuestions', function (req, res) {
-    var category = req.params.category;
-    var numberOfQuestions = req.params.numberOfQuestions;
-    console.log(category);
-    console.log(numberOfQuestions);
-    var input = JSON.parse(JSON.stringify(req.body));
-    console.log(input);
-    var category = input['category'];
-    var amount = input['numberOfQuestions'];
-    console.log("Kategorie: " + category);
-    console.log("Anzahl: " + amount);
+    console.log("listQuizQuestions: ");
+    var jsonQuiz = JSON.parse(JSON.stringify(req.body));
+    console.log(jsonQuiz);
+    var quiz = new QuizRules_1.QuizRules(jsonQuiz['category'], jsonQuiz['numberOfQuestions']);
+    console.log(quiz);
     var callback = function (rows) {
         var response = JSON.stringify(rows);
         console.log("callback executed" + rows);
         res.json(JSON.parse(response));
     };
+    var category = quiz[0];
+    var amount = quiz[1];
     QuestionDAO_1.QuestionDAO.getQuizQuestions(category, amount, callback);
 });
 router.get('/question/:id', function (req, res) {
@@ -124,13 +122,11 @@ router.put('/question/create', function (req, res) {
     });
 });
 router.put('/user/create', function (req, res) {
+    console.log("Register User: ");
     var jsonUser = JSON.parse(JSON.stringify(req.body));
+    console.log(jsonUser);
     var user = new User_1.User(jsonUser['id'], jsonUser['username'], jsonUser['password'], jsonUser['isTeacher']);
-    var callback = function (rows) {
-        var response = JSON.stringify(rows);
-        console.log("callback executed" + rows);
-        res.json(JSON.parse(response));
-    };
+    console.log(user);
     UserDAO_1.UserDAO.createUser(user).then((resolve) => {
         res.json(JSON.parse(resolve.toString()));
     });

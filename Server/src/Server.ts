@@ -10,6 +10,7 @@
 /// <reference path="User.ts"/>
 /// <reference path="Questions.ts"/>
 /// <reference path="QuestionDataSource.ts"/>
+/// <reference path="QuizRules.ts" />
 /// <reference path="QuestionDAO.ts" />
 /// <reference path="UserDAO.ts" />
 
@@ -25,6 +26,7 @@ import { UserDataSource } from './UserDataSource';
 import { User } from './User';
 import { QuestionDataSource } from './QuestionDataSource';
 import { Questions } from './Questions';
+import { QuizRules } from './QuizRules';
 import { QuestionDAO } from './QuestionDAO';
 import { UserDAO } from './UserDAO';
 
@@ -106,41 +108,35 @@ router.get('/listAllQuestions', function(req, res) {
     QuestionDAO.getQuestions(callback);
 });
 router.get('/listAllOpenQuestions', function(req, res) {
-  var callback = function(rows) {
-    var response = JSON.stringify(rows);
-    console.log("callback executed" + rows);
-    res.json(JSON.parse(response));
-  }
-  QuestionDAO.getAllOpenQuestions(callback);
+    var callback = function(rows) {
+        var response = JSON.stringify(rows);
+        console.log("callback executed" + rows);
+        res.json(JSON.parse(response));
+    }
+    QuestionDAO.getAllOpenQuestions(callback);
 });
 router.get('/listAllMultipleChoiceQuestions', function(req, res) {
-  var callback = function(rows) {
-    var response = JSON.stringify(rows);
-    console.log("callback executed" + rows);
-    res.json(JSON.parse(response));
-  }
-  QuestionDAO.getAllMultipleChoiceQuestions(callback);
-});
-router.get('/listQuizQuestions', function(req, res) {
-
-  var category = req.params.category;
-  var numberOfQuestions = req.params.numberOfQuestions;
-  console.log(category);
-  console.log(numberOfQuestions);
-
-  var input = JSON.parse(JSON.stringify(req.body));
-  console.log(input);
-  var category = input['category'];
-  var amount = input['numberOfQuestions'];
-
-  console.log("Kategorie: " + category);
-  console.log("Anzahl: " + amount);
-
-  var callback = function(rows) {
-    var response = JSON.stringify(rows);
-    console.log("callback executed" + rows);
-    res.json(JSON.parse(response));
+    var callback = function(rows) {
+        var response = JSON.stringify(rows);
+        console.log("callback executed" + rows);
+        res.json(JSON.parse(response));
     }
+    QuestionDAO.getAllMultipleChoiceQuestions(callback);
+});
+
+router.get('/listQuizQuestions', function(req: any, res) {
+    console.log("listQuizQuestions: ");
+    var jsonQuiz = JSON.parse(JSON.stringify(req.body));
+    console.log(jsonQuiz);
+    var quiz = new QuizRules(jsonQuiz['category'], jsonQuiz['numberOfQuestions']);
+    console.log(quiz);
+    var callback = function(rows) {
+        var response = JSON.stringify(rows);
+        console.log("callback executed" + rows);
+        res.json(JSON.parse(response));
+    }
+    var category = quiz[0];
+    var amount = quiz[1];
     QuestionDAO.getQuizQuestions(category, amount, callback);
 });
 // get question by id -> callback version
@@ -173,13 +169,16 @@ router.put('/question/create', function(req, res) {
 });
 // create a new user
 router.put('/user/create', function(req, res) {
+    console.log("Register User: ");
     var jsonUser = JSON.parse(JSON.stringify(req.body));
+    console.log(jsonUser);
     var user = new User(jsonUser['id'], jsonUser['username'], jsonUser['password'], jsonUser['isTeacher']);
-    var callback = function(rows) {
-        var response = JSON.stringify(rows);
-        console.log("callback executed" + rows);
-        res.json(JSON.parse(response));
-    }
+    console.log(user);
+    //  var callback = function(rows) {
+    //      var response = JSON.stringify(rows);
+    //      console.log("callback executed" + rows);
+    //      res.json(JSON.parse(response));
+    //  }
     UserDAO.createUser(user).then((resolve) => {
         res.json(JSON.parse(resolve.toString()));
     })

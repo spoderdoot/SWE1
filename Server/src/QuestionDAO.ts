@@ -92,13 +92,14 @@ export class QuestionDAO {
       });
     }
     // lists all questions from one category
-    public static getQuizQuestions(cat: string,amount: number, callback) {
+    public static getQuizQuestions(cat: string, amount: string, callback) {
       var questions: Array<Questions> = new Array<Questions>();
       this.qds.getQuestionDatabase().all("SELECT * FROM Questions WHERE category = '"+cat+"' ORDER BY RANDOM() LIMIT "+amount+";", function(err, rows) {
             for (var row of rows) {
                 var q1 = new Questions(row['id'], row['category'], row['isMcq'], row['question'], row['answerA'], row['answerB'],
                     row['answerC'], row['answerD'], row['correctAnswer']);
                 questions.push(q1);
+                console.log(err);
             }
             callback(questions);
         });

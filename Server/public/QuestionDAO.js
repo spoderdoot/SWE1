@@ -74,6 +74,7 @@ class QuestionDAO {
             for (var row of rows) {
                 var q1 = new Questions_1.Questions(row['id'], row['category'], row['isMcq'], row['question'], row['answerA'], row['answerB'], row['answerC'], row['answerD'], row['correctAnswer']);
                 questions.push(q1);
+                console.log(err);
             }
             callback(questions);
         });
