@@ -82,7 +82,7 @@ router.get('/listAllMultipleChoiceQuestions', function (req, res) {
     };
     QuestionDAO_1.QuestionDAO.getAllMultipleChoiceQuestions(callback);
 });
-router.get('/listQuizQuestions', function (req, res) {
+router.put('/listQuizQuestions', function (req, res) {
     console.log("listQuizQuestions: ");
     var jsonQuiz = JSON.parse(JSON.stringify(req.body));
     console.log(jsonQuiz);

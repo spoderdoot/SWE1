@@ -88,8 +88,8 @@ isOpenQuestionFormValid() : boolean {
     console.log(this.quizRules);
     console.log("getting " + this.numberOfQuestions + " questions "+ " of category " + this.category + " from server...");
     this.questionsService.getQuizQuestions(this.quizRules).subscribe(questionsResponse => {
-      console.log("getting " + this.numberOfQuestions + " of category " + this.category + " from server...");
       console.log("quiz questions were loaded");
+      console.log(questionsResponse);
       this.generalQuestions = questionsResponse;
       this.currentGeneralQuestion = this.generalQuestions[0];
       //getting 1st question type to start the quiz

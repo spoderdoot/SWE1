@@ -124,7 +124,7 @@ router.get('/listAllMultipleChoiceQuestions', function(req, res) {
     QuestionDAO.getAllMultipleChoiceQuestions(callback);
 });
 
-router.get('/listQuizQuestions', function(req: any, res) {
+router.put('/listQuizQuestions', function(req, res) {
     console.log("listQuizQuestions: ");
     var jsonQuiz = JSON.parse(JSON.stringify(req.body));
     console.log(jsonQuiz);

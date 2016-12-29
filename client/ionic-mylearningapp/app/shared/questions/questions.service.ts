@@ -33,11 +33,14 @@ export class QuestionsService {
 
 
   // used to get the questions for quiz depedning on set category and set number of questions
-  getQuizQuestions(quizrules : QuizRules) : Observable<GeneralQuestion[]> {
-    console.log("quiz questions with rules " + quizrules.category + quizrules.numberOfQuestions);
+  getQuizQuestions(quizrules : QuizRules) : Observable<any> {
+    console.log("quiz questions with rules: category " + quizrules.category + " and number of questions " + quizrules.numberOfQuestions);
+    console.log(JSON.stringify(quizrules));
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
 
     return this.http
-      .get(this.settings.serverIp + 'listQuizQuestions')
+      .put(this.settings.serverIp + 'listQuizQuestions', JSON.stringify(quizrules), {headers : headers})
       .map((res: Response) => res.json());
   }
 
