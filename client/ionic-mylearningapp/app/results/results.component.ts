@@ -24,6 +24,7 @@ export class ResultsComponent {
       this.correctAnswerCount = window.localStorage.getItem("correctAnswerCount");
       this.numberOfQuestions = window.localStorage.getItem("numberOfQuestions");
       this.category = window.localStorage.getItem("category");
+      this.grade = 0;
       this.giveGrade();
   }
 
@@ -44,19 +45,20 @@ export class ResultsComponent {
     */
     if(this.percentageCorrect == 100) {
       this.grade = 1;
-    }
-    if(99 > this.percentageCorrect && this.percentageCorrect > 80) {
+    } else
+    if(99 > this.percentageCorrect && this.percentageCorrect > 75) {
       this.grade = 2;
-    }
-    if(79 > this.percentageCorrect && this.percentageCorrect > 65) {
+    } else
+    if(74 > this.percentageCorrect && this.percentageCorrect > 60) {
       this.grade = 3;
-    }
-    if(64 > this.percentageCorrect && this.percentageCorrect > 50) {
+    } else
+    if(59 > this.percentageCorrect && this.percentageCorrect > 45) {
       this.grade = 4;
-    }
-    if(49 > this.percentageCorrect && this.percentageCorrect > 35) {
+    } else
+    if(44 > this.percentageCorrect && this.percentageCorrect > 35) {
       this.grade = 5;
     } else {
+      console.log(this.percentageCorrect);
       this.grade = 6;
     }
   }

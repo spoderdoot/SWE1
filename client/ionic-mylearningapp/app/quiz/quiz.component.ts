@@ -217,18 +217,23 @@ isOpenQuestionFormValid() : boolean {
 
   //used to get the next question for the quiz
   nextGeneralQuestion() {
+    console.log(this.generalQuestions.length);
+      if(this.currentQuestionCounter+1 > this.generalQuestions.length) {
+        this.redirectToResults();
+      }
       //last question
       if(this.currentQuestionCounter == this.generalQuestions.length) {
-        this.quizStarted = false;
+        //this.quizStarted = false;
         this.selectedAnswer = '';
-        this.redirectToResults();
+        //this.redirectToResults();
       }
 
       //next question
       this.currentQuestionCounter++;
       this.selectedAnswer = '';
-      this.currentGeneralQuestion = this.generalQuestions[this.currentQuestionCounter -1];
+      this.currentGeneralQuestion = this.generalQuestions[this.currentQuestionCounter];
       this.checkTypeOfQuestion();
+      console.log(this.currentGeneralQuestion);
   }
 
 
