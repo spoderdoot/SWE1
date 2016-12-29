@@ -82,7 +82,7 @@ export class QuestionDAO {
     // lists all multiple choice questions
     public static getAllMultipleChoiceQuestions(callback) {
       var questions: Array<Questions> = new Array<Questions>();
-      this.qds.getQuestionDatabase().all("SELECT * FROM QUESTIONS WHERE isMcq = 'true';", function(err, rows) {
+      this.qds.getQuestionDatabase().all("SELECT * FROM Questions WHERE isMcq = 'true';", function(err, rows) {
           for (var row of rows) {
               var q1 = new Questions(row['id'], row['category'], row['isMcq'], row['question'], row['answerA'], row['answerB'],
                   row['answerC'], row['answerD'], row['correctAnswer']);

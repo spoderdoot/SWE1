@@ -60,7 +60,7 @@ class QuestionDAO {
     }
     static getAllMultipleChoiceQuestions(callback) {
         var questions = new Array();
-        this.qds.getQuestionDatabase().all("SELECT * FROM QUESTIONS WHERE isMcq = 'true';", function (err, rows) {
+        this.qds.getQuestionDatabase().all("SELECT * FROM Questions WHERE isMcq = 'true';", function (err, rows) {
             for (var row of rows) {
                 var q1 = new Questions_1.Questions(row['id'], row['category'], row['isMcq'], row['question'], row['answerA'], row['answerB'], row['answerC'], row['answerD'], row['correctAnswer']);
                 questions.push(q1);
