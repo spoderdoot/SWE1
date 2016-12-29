@@ -52,6 +52,7 @@ export class QuizComponent {
   */
   getQuizQuestions() {
     this.questionsService.getQuizQuestions(this.category, this.numberOfQuestions).subscribe(questionsResponse => {
+      console.log("getting " + this.numberOfQuestions + " of category " + this.category + " from server...");
       console.log("quiz questions were loaded");
       this.generalQuestions = questionsResponse;
       this.currentGeneralQuestion = this.generalQuestions[0];
@@ -117,7 +118,7 @@ export class QuizComponent {
   }
 
   correctAnswerSelected() {
-    this.correctAnswerCount = this.correctAnswerCount+1;
+    this.correctAnswerCount++;
     console.log("correctly answered questions: " + this.correctAnswerCount);
     const alert = this.alertCtrl.create({
       title: '<b>Richtig!</b>',
