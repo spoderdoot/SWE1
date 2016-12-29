@@ -23,7 +23,7 @@ export class QuizComponent {
   // current question which is displayed
   private currentQuestion: Question;
   private currentGeneralQuestion : GeneralQuestion;
-  private currentQuestionCounter: number;
+  private currentQuestionCounter: number = 0;
   private selectedAnswer: any;
 
   //variables for evaluation of answers
@@ -101,10 +101,11 @@ isOpenQuestionFormValid() : boolean {
 
   //used to determine if question is a multiple-choice-question or an open quesiton
   checkTypeOfQuestion () {
-    if(this.generalQuestions[this.currentQuestionCounter].isMcq == 'true') { //idea is to set HTML depending on isMCQ
+    console.log(this.generalQuestions[this.currentQuestionCounter].isMcq);
+    if(this.generalQuestions[this.currentQuestionCounter].isMcq == "true") { //idea is to set HTML depending on isMCQ
       this.isMCQ = true;
     }
-    if(this.generalQuestions[this.currentQuestionCounter].isMcq == 'false') {
+    if(this.generalQuestions[this.currentQuestionCounter].isMcq == "false") {
       this.isMCQ = false;
     }
   }
@@ -127,11 +128,23 @@ isOpenQuestionFormValid() : boolean {
 
   //used to handle what happens after user answered question
   answerQuestion() {
+    if(this.selectedAnswer == 1) {
+      this.selectedAnswer = this.currentGeneralQuestion.answerA;
+    }
+    if(this.selectedAnswer == 2) {
+      this.selectedAnswer = this.currentGeneralQuestion.answerB;
+    }
+    if(this.selectedAnswer == 3) {
+      this.selectedAnswer = this.currentGeneralQuestion.answerC;
+    }
+    if(this.selectedAnswer == 4) {
+      this.selectedAnswer = this.currentGeneralQuestion.answerD;
+    }
     if (this.isAnswerSelected()) {
-      console.log("selected answer: " + this.selectedAnswer + " - correct answer: " + this.currentQuestion.correctAnswer);
+      console.log("selected answer: " + this.selectedAnswer + " - correct answer: " + this.currentGeneralQuestion.correctAnswer);
 
       // check if the answer is correct
-      if (this.selectedAnswer == this.currentQuestion.correctAnswer) {
+      if (this.selectedAnswer == this.currentGeneralQuestion.correctAnswer) {
         this.correctAnswerSelected();
         //this.correctAnswerCount++;
       } else {
