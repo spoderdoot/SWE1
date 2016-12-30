@@ -57,7 +57,7 @@ class QuestionDataSource {
                 questiondb.run("INSERT INTO Questions VALUES (18, 'Englisch', 'false', 'Wie übersetzt man Hose?',NULL, NULL, NULL, NULL, 'trousers');");
                 questiondb.run("INSERT INTO Questions VALUES (19, 'Englisch', 'false', 'Wie übersetzt man Schuh?',NULL, NULL, NULL, NULL, 'shoe');");
                 questiondb.run("INSERT INTO Questions VALUES (20, 'Englisch', 'false', 'Wie übersetzt man Bild?',NULL, NULL, NULL, NULL, 'picture');");
-                questiondb.run("INSERT INTO Questions VALUES (21, 'Englisch', 'false', 'Wie übersetzt man Bibliothek?',NULL, NULL, NULL, NULL, 'lirary');");
+                questiondb.run("INSERT INTO Questions VALUES (21, 'Englisch', 'false', 'Wie übersetzt man Bibliothek?',NULL, NULL, NULL, NULL, 'library');");
                 questiondb.run("INSERT INTO Questions VALUES (22, 'Englisch', 'false', 'Wie übersetzt man Computer?',NULL, NULL, NULL, NULL, 'computer');");
                 questiondb.run("INSERT INTO Questions VALUES (23, 'Englisch', 'true', 'Wie wird die Flagge Großbritaniens genannt?','Union Jack', 'British Jack', 'Union Crow', 'Great Jack', 'Union Jack');");
                 questiondb.run("INSERT INTO Questions VALUES (24, 'Englisch', 'true', 'Wie schreibt man Klempner auf englisch?','plummer', 'plumer', 'plumber', 'plummber', 'plumber');");
