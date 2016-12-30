@@ -49,9 +49,9 @@ export class QuizComponent {
     this.createOpenQuestionForm();
   }
 
-  startQuiz() {
+  /*startQuiz() {
     this.getQuestions();
-  }
+  }*/
 
   startSpecifiedQuiz() {
     this.getQuizQuestions();
@@ -110,6 +110,7 @@ isOpenQuestionFormValid() : boolean {
     }
   }
 
+/*
   //getting all questions for quiz
   getQuestions() {
     // call servie
@@ -124,7 +125,7 @@ isOpenQuestionFormValid() : boolean {
       this.quizStarted = true;
     });
   }
-
+*/
 
   //used to handle what happens after user answered question
   answerQuestion() {
@@ -153,25 +154,33 @@ isOpenQuestionFormValid() : boolean {
     }
   }
 
-
-
-
-
+  //used to handle what happens after an open question is answered
   answerOpenQuestion() {
 
     if(this.isOpenQuestionFormValid()) {
       console.log("user input: " + this.openQuestionForm.value.openAnswer + " - correct answer: "+ this.currentGeneralQuestion.correctAnswer);
 
       if(this.openQuestionForm.value.openAnswer == this.currentGeneralQuestion.correctAnswer) {
+        //resetting answer field
+        //this.createOpenQuestionForm();
         this.correctAnswerSelected();
 
+
       } else {
+        //resetting answer field
+      //  this.createOpenQuestionForm();
         this.wrongAnswerSelected();
+        //this.resetOpenQuestionForm();
       }
+
     }
   }
 
+  //used to reset the open question answer field
+  resetOpenQuestionForm() {
+    this.createOpenQuestionForm();
 
+  }
 
 
 
@@ -200,7 +209,7 @@ isOpenQuestionFormValid() : boolean {
     console.log("correctly answered questions: " + this.correctAnswerCount);
     const alert = this.alertCtrl.create({
       title: '<b>Richtig!</b>',
-      subTitle: 'Die Antwort ' + this.selectedAnswer + ' war richtig!',
+      subTitle: 'Die Antwort war richtig!',
       buttons: [
         {
           text: 'Weiter',
@@ -217,23 +226,27 @@ isOpenQuestionFormValid() : boolean {
 
   //used to get the next question for the quiz
   nextGeneralQuestion() {
+    //this.createOpenQuestionForm();
     console.log(this.generalQuestions.length);
-      if(this.currentQuestionCounter+1 > this.generalQuestions.length) {
-        this.redirectToResults();
-      }
-      //last question
-      if(this.currentQuestionCounter == this.generalQuestions.length) {
-        //this.quizStarted = false;
+      if(this.currentQuestionCounter +1 > this.generalQuestions.length) { //last question was finished
+        this.quizStarted = false;
         this.selectedAnswer = '';
-        //this.redirectToResults();
-      }
-
-      //next question
-      this.currentQuestionCounter++;
-      this.selectedAnswer = '';
-      this.currentGeneralQuestion = this.generalQuestions[this.currentQuestionCounter];
-      this.checkTypeOfQuestion();
-      console.log(this.currentGeneralQuestion);
+        this.redirectToResults();
+    //  } else
+      //last question
+        //if(this.currentQuestionCounter == this.generalQuestions.length) {
+        //this.quizStarted = false;
+        //  this.selectedAnswer = '';
+      //  this.redirectToResults();
+    } else {
+        //next question
+      //this.currentQuestionCounter++;
+        this.selectedAnswer = '';
+        this.currentGeneralQuestion = this.generalQuestions[this.currentQuestionCounter];
+        this.checkTypeOfQuestion();
+        this.currentQuestionCounter++;
+        console.log(this.currentGeneralQuestion);
+    }
   }
 
 
