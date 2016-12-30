@@ -18,23 +18,26 @@ class MyApp {
   rootPage: any = LoginComponent;
 
   pages: Array<{ title: string, icon: string, component: any }>;
+  pagesTeacher: Array<{ title: string, icon: string, component: any }>;
+  pagesStudent: Array<{ title: string, icon: string, component: any }>;
   //loginPage
   isTeacher : boolean = false;
+  isLoggedIn : boolean = false;
 
   constructor(public platform: Platform, private modalCtrl: ModalController) {
     this.initializeApp();
 
-    /*if(this.isTeacher) {
-      this.pages = [
+
+    /*if(this.isTeacher && this.isLoggedIn) {
+      this.pagesTeacher = [
         { title: 'Fragen verwalten', icon: 'game-controller-b', component: ManageQuestionComponent },
-        // {title: 'Spielauswertungen anzeigen', icon: 'statistics', component: GameResultsComponent},
+
         { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
         { title: 'Über uns', icon: 'at', component: AboutModalComponent }
       ]
     }
-    if(!this.isTeacher) {
-      this.pages = [
-        { title: 'Login', icon: 'person', component: LoginComponent}, //maybe I can comibne Login with Play function
+    if(!this.isTeacher && this.isLoggedIn) {
+      this.pagesStudent = [
         { title: 'Spielen', icon: 'game-controller-b', component: QuizComponent },
         { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
         { title: 'Über uns', icon: 'at', component: AboutModalComponent }
@@ -50,7 +53,20 @@ class MyApp {
       { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
       { title: 'Über uns', icon: 'at', component: AboutModalComponent },
     ];
+
+    this.pagesTeacher = [
+      { title: 'Fragen verwalten', icon: 'game-controller-b', component: ManageQuestionComponent },
+      { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
+      { title: 'Über uns', icon: 'at', component: AboutModalComponent },
+    ];
+
+    this.pagesStudent = [
+      { title: 'Spielen', icon: 'game-controller-b', component: QuizRulesComponent },
+      { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
+      { title: 'Über uns', icon: 'at', component: AboutModalComponent },
+    ];
   }
+
 
   initializeApp() {
     this.platform.ready().then(() => {

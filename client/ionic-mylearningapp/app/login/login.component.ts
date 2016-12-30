@@ -4,6 +4,7 @@ import {RegisterComponent} from '../register/index';
 import { User, LoginService} from '../shared/index';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { QuizComponent, QuizRulesComponent } from '../quiz/index';
+import {ManageQuestionComponent } from '../question/index';
 
 //login component is used for the login into the instalearn system by users
 @Component({
@@ -15,6 +16,9 @@ private user : User[];
 //private username : string;
 //private password : string;
 private userLoginForm : FormGroup;
+private isTeacher : boolean;
+private isLoggedIn : boolean;
+
   constructor(private alertCtrl : AlertController, public navCtrl : NavController, private formBuilder : FormBuilder, public loginService : LoginService, public menuCtrl : MenuController) {
     this.navCtrl = navCtrl;
     this.createForm();
@@ -71,8 +75,10 @@ userLogin() : boolean{
         alert.present();
           return false;
       }
+      this.isLoggedIn = true;
+      this.isTeacher = response.isTeacher;
       this.saveUserData(this.userLoginForm.value.username, response.isTeacher);
-      this.redirectToQuiz();
+      this.redirectAfterLogin();
       return true;
       //this.userID = response.userID;
     })
@@ -119,8 +125,15 @@ redirectToQuiz() {
       this.navCtrl.setRoot(QuizComponent);
 }
 
-//redirects to quiz rules, so user can adjust the quiz before he starts playing
 redirectToQuizRules() {
-    this.navCtrl.setRoot(QuizRulesComponent);
+  this.navCtrl.setRoot(QuizRulesComponent);
+}
+  //redirects to another component after login depending on user status
+  redirectAfterLogin() {
+    if(this.isLoggedIn && !this.isTeacher) { //for students
+      this.navCtrl.setRoot(QuizRulesComponent);
+    } else if(this.isLoggedIn && this.isTeacher) { //for teacher
+      this.navCtrl.setRoot(ManageQuestionComponent);
+    }
   }
 }

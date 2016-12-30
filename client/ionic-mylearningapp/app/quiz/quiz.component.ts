@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 //used for the main learning quiz part
 @Component({
-  templateUrl: 'build/quiz/quiz.test.html',
+  templateUrl: 'build/quiz/quiz.component.html',
   providers: [QuestionsService],
 })
 export class QuizComponent {
@@ -16,16 +16,12 @@ export class QuizComponent {
   private quizStarted: boolean = false;
   private quizFinished: boolean = false;
 
-  // array which contains all questions from the service
-  private questions: Question[] = [];
   //general question is used for array which contains multiplechoicequestions and openquestions
   private generalQuestions : GeneralQuestion[] = [];
   // current question which is displayed
-  private currentQuestion: Question;
   private currentGeneralQuestion : GeneralQuestion;
   private currentQuestionCounter: number = 0;
   private selectedAnswer: any;
-
   //variables for evaluation of answers
   private correctAnswerCount : number = 0;
   // user data
@@ -34,51 +30,45 @@ export class QuizComponent {
   private numberOfQuestions : any;
   private quizRules : QuizRules;
   private isMCQ : boolean = false;
-
+  //used for answering an open question
   private openQuestionForm : FormGroup;
+  private alreadySubmitted : boolean = false;
 
   constructor(private alertCtrl: AlertController, public questionsService: QuestionsService, private formBuilder : FormBuilder, public navCtrl : NavController) {
     this.username = window.localStorage.getItem("username");
-
     this.category = window.localStorage.getItem("category");
-  //  this.setCategoryName();
-    console.log(this.category); //1 for math, 2 for english
+    console.log(this.category);
     this.numberOfQuestions = window.localStorage.getItem("numberOfQuestions");
-  //  this.clearifyNumberOfQuestions();
     console.log(this.numberOfQuestions);
     this.createOpenQuestionForm();
   }
 
-  /*startQuiz() {
-    this.getQuestions();
-  }*/
-
-  startSpecifiedQuiz() {
+  //used to initiate the quiz
+  startQuiz() {
     this.getQuizQuestions();
   }
 
-
-createOpenQuestionForm() {
-  this.openQuestionForm = this.formBuilder.group({
-    openAnswer : ['', Validators.compose([Validators.required])]
-  })
-}
-
-isOpenQuestionFormValid() : boolean {
-  let isValid : boolean = this.openQuestionForm.valid;
-  console.log(this.openQuestionForm.valid);
-  console.log(this.openQuestionForm.value.openAnswer);
-
-  if(!isValid) {
-    const alert = this.alertCtrl.create({
-     title: '<b>Antwort überprüfen!</b>',
-     subTitle: 'Du hast keine Antwort eingegeben!',
-     buttons: ['Whoops!']
-   });
-   alert.present();
+  //used to create an open question form
+  createOpenQuestionForm() {
+    this.openQuestionForm = this.formBuilder.group({
+      openAnswer : ['', Validators.compose([Validators.required])]
+    })
   }
-  return isValid;
-}
+
+  //used to check if the form is valid
+  isOpenQuestionFormValid() : boolean {
+    let isValid : boolean = this.openQuestionForm.valid;
+    if(!isValid) {
+      const alert = this.alertCtrl.create({
+        title: '<b>Antwort überprüfen!</b>',
+        subTitle: 'Du hast keine Antwort eingegeben!',
+        buttons: ['Whoops!']
+      });
+      alert.present();
+    }
+    return isValid;
+  }
+
   /*
   //used to get an array filled with open questions and multiple choice questions depending on user input
   //returns an array filled with questions according to selected category and selected number of questions
@@ -94,41 +84,27 @@ isOpenQuestionFormValid() : boolean {
       this.currentGeneralQuestion = this.generalQuestions[0];
       //getting 1st question type to start the quiz
       this.checkTypeOfQuestion();
+      //starting question counter
       this.currentQuestionCounter = 1;
+      //setting boolean quiz started to true since the quiz will be started after receiving all questions
       this.quizStarted = true;
     })
   }
 
   //used to determine if question is a multiple-choice-question or an open quesiton
   checkTypeOfQuestion () {
-    console.log(this.generalQuestions[this.currentQuestionCounter].isMcq);
-    if(this.generalQuestions[this.currentQuestionCounter].isMcq == "true") { //idea is to set HTML depending on isMCQ
+    //console.log(this.generalQuestions[this.currentQuestionCounter].isMcq);
+    if(this.generalQuestions[this.currentQuestionCounter].isMcq == "true") { //multiple choice question
       this.isMCQ = true;
     }
-    if(this.generalQuestions[this.currentQuestionCounter].isMcq == "false") {
+    if(this.generalQuestions[this.currentQuestionCounter].isMcq == "false") { //open question
       this.isMCQ = false;
     }
   }
 
-/*
-  //getting all questions for quiz
-  getQuestions() {
-    // call servie
-    this.questionsService.getQuestions().subscribe(questions => {
-      console.log("Questions were loaded");
-      this.questions = questions;
-      // set current question to the first element of the array
-      this.currentQuestion = this.questions[0];
-      // set the question counter to the inital number 1
-      this.currentQuestionCounter = 1;
-      // quiz is started
-      this.quizStarted = true;
-    });
-  }
-*/
-
   //used to handle what happens after user answered question
   answerQuestion() {
+    //used to change user input from number to the answer in a MCQ
     if(this.selectedAnswer == 1) {
       this.selectedAnswer = this.currentGeneralQuestion.answerA;
     }
@@ -147,7 +123,6 @@ isOpenQuestionFormValid() : boolean {
       // check if the answer is correct
       if (this.selectedAnswer == this.currentGeneralQuestion.correctAnswer) {
         this.correctAnswerSelected();
-        //this.correctAnswerCount++;
       } else {
         this.wrongAnswerSelected();
       }
@@ -158,33 +133,30 @@ isOpenQuestionFormValid() : boolean {
   answerOpenQuestion() {
 
     if(this.isOpenQuestionFormValid()) {
+      this.onSubmit();
       console.log("user input: " + this.openQuestionForm.value.openAnswer + " - correct answer: "+ this.currentGeneralQuestion.correctAnswer);
 
       if(this.openQuestionForm.value.openAnswer == this.currentGeneralQuestion.correctAnswer) {
-        //resetting answer field
-        //this.createOpenQuestionForm();
+        //correctly answered
         this.correctAnswerSelected();
-
-
       } else {
-        //resetting answer field
-      //  this.createOpenQuestionForm();
+        //wrongly answered
         this.wrongAnswerSelected();
-        //this.resetOpenQuestionForm();
       }
-
+      //resetting answer field for open quesiton
+      this.resetOpenQuestionForm();
     }
+  }
+
+  //used for submitting an open question answer
+  onSubmit() {
+    this.alreadySubmitted = true;
   }
 
   //used to reset the open question answer field
   resetOpenQuestionForm() {
     this.createOpenQuestionForm();
-
   }
-
-
-
-
 
   //checks if an answer is selected
   isAnswerSelected(): boolean {
@@ -226,21 +198,16 @@ isOpenQuestionFormValid() : boolean {
 
   //used to get the next question for the quiz
   nextGeneralQuestion() {
-    //this.createOpenQuestionForm();
+    this.alreadySubmitted = false;
     console.log(this.generalQuestions.length);
+
       if(this.currentQuestionCounter +1 > this.generalQuestions.length) { //last question was finished
         this.quizStarted = false;
         this.selectedAnswer = '';
         this.redirectToResults();
-    //  } else
-      //last question
-        //if(this.currentQuestionCounter == this.generalQuestions.length) {
-        //this.quizStarted = false;
-        //  this.selectedAnswer = '';
-      //  this.redirectToResults();
+
     } else {
         //next question
-      //this.currentQuestionCounter++;
         this.selectedAnswer = '';
         this.currentGeneralQuestion = this.generalQuestions[this.currentQuestionCounter];
         this.checkTypeOfQuestion();
@@ -249,27 +216,8 @@ isOpenQuestionFormValid() : boolean {
     }
   }
 
-
-  nextQuestion() {
-    //this.increaseBalance();
-
-    // is last question reached
-    if (this.currentQuestionCounter == this.questions.length) {
-     this.quizStarted = false;
-     this.selectedAnswer = '';
-     this.redirectToResults();
-    }
-
-    // next question
-    this.currentQuestionCounter++;
-    this.selectedAnswer = '';
-    this.currentQuestion = this.questions[this.currentQuestionCounter - 1];
-
-  }
-
-
+  //used to show user he answered the question wrongly
   wrongAnswerSelected() {
-    //this.quizStarted = false;
     this.selectedAnswer = '';
 
     const alert = this.alertCtrl.create({
