@@ -25,7 +25,7 @@ export class QuestionDAO {
     private static multds: MultipleDataSource = MultipleDataSource.getInstance();
     private static qds: QuestionDataSource = QuestionDataSource.getInstance();
 
-    public static getAllQuestions(callback) {
+    public static getQuestions(callback) {
         var questions: Array<Question> = new Array<Question>();
         this.ds.getDatabase().all("SELECT * FROM TB_QUESTIONS", function(err, rows) {
             for (var row of rows) {
@@ -58,7 +58,7 @@ export class QuestionDAO {
         });
     }
     // lists all available questions
-    public static getQuestions(callback) {
+    public static getAllQuestions(callback) {
         var questions: Array<Questions> = new Array<Questions>();
         this.qds.getQuestionDatabase().all("SELECT * FROM Questions;", function(err, rows) {
             for (var row of rows) {
@@ -83,20 +83,20 @@ export class QuestionDAO {
     }
     // lists all multiple choice questions
     public static getAllMultipleChoiceQuestions(callback) {
-      var questions: Array<Questions> = new Array<Questions>();
-      this.qds.getQuestionDatabase().all("SELECT * FROM Questions WHERE isMcq = 'true';", function(err, rows) {
-          for (var row of rows) {
-              var q1 = new Questions(row['id'], row['category'], row['isMcq'], row['question'], row['answerA'], row['answerB'],
-                  row['answerC'], row['answerD'], row['correctAnswer']);
-              questions.push(q1);
-          }
-          callback(questions);
-      });
+        var questions: Array<Questions> = new Array<Questions>();
+        this.qds.getQuestionDatabase().all("SELECT * FROM Questions WHERE isMcq = 'true';", function(err, rows) {
+            for (var row of rows) {
+                var q1 = new Questions(row['id'], row['category'], row['isMcq'], row['question'], row['answerA'], row['answerB'],
+                    row['answerC'], row['answerD'], row['correctAnswer']);
+                questions.push(q1);
+            }
+            callback(questions);
+        });
     }
     // lists all questions from one category
     public static getQuizQuestions(quiz: QuizRules, callback) {
-      var questions: Array<Questions> = new Array<Questions>();
-      this.qds.getQuestionDatabase().all("SELECT * FROM Questions WHERE category = '"+quiz.getCategory+"' ORDER BY RANDOM() LIMIT "+quiz.getNumberOfQuestions+";", function(err, rows) {
+        var questions: Array<Questions> = new Array<Questions>();
+        this.qds.getQuestionDatabase().all("SELECT * FROM Questions WHERE category = '" + quiz.getCategory + "' ORDER BY RANDOM() LIMIT " + quiz.getNumberOfQuestions + ";", function(err, rows) {
             for (var row of rows) {
                 var q1 = new Questions(row['id'], row['category'], row['isMcq'], row['question'], row['answerA'], row['answerB'],
                     row['answerC'], row['answerD'], row['correctAnswer']);
@@ -150,6 +150,40 @@ export class QuestionDAO {
                 }
             });
         });
+    }
+    // creates a new open question
+    public static createOpenQuestion(newQuestion: Questions): Promise<number> {
+        var insert: string = "INSERT INTO Questions VALUES (NULL, '" + newQuestion.getCategory + "', 'false', '" + newQuestion.getQuestion + "', NULL, NULL, NULL, NULL, '" + newQuestion.getCorrectAnswer + "')"
+        console.log(insert);
+        return new Promise(function(resolve, reject) {
+            QuestionDAO.qds.getQuestionDatabase().run(insert, function(err) {
+                if (err) {
+                    console.log("Failed");
+                    console.log(err);
+                    resolve(err);
+                } else {
+                    console.log("Success " + this.lastID);
+                    resolve(this.lastID);
+                }
+            })
+        })
+    }
+    public static createMultipleChoiceQuestion(newQuestion: Questions): Promise<number> {
+        var insert: string = "INSERT INTO Questions VALUES (NULL, '" + newQuestion.getCategory + "', 'true', '" + newQuestion.getQuestion + "', '" + newQuestion.getAnswerA + "', '" + newQuestion.getAnswerB + "', " +
+            "'" + newQuestion.getAnswerC + "', '" + newQuestion.getAnswerD + "', '" + newQuestion.getCorrectAnswer + "');"
+        console.log(insert);
+        return new Promise(function(resolve, reject) {
+            QuestionDAO.qds.getQuestionDatabase().run(insert, function(err) {
+                if (err) {
+                    console.log("Failed");
+                    console.log(err);
+                    resolve(err);
+                } else {
+                    console.log("Success " + this.lastID);
+                    resolve(this.lastID);
+                }
+            })
+        })
     }
     public static getQuestionById(id: number, callback) {
         var query = "SELECT * FROM TB_QUESTIONS WHERE id='" + id + "'";

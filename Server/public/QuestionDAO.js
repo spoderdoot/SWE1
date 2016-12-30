@@ -8,7 +8,7 @@ const MultipleQuestion_1 = require("./MultipleQuestion");
 const QuestionDataSource_1 = require("./QuestionDataSource");
 const Questions_1 = require("./Questions");
 class QuestionDAO {
-    static getAllQuestions(callback) {
+    static getQuestions(callback) {
         var questions = new Array();
         this.ds.getDatabase().all("SELECT * FROM TB_QUESTIONS", function (err, rows) {
             for (var row of rows) {
@@ -38,7 +38,7 @@ class QuestionDAO {
             callback(openQs);
         });
     }
-    static getQuestions(callback) {
+    static getAllQuestions(callback) {
         var questions = new Array();
         this.qds.getQuestionDatabase().all("SELECT * FROM Questions;", function (err, rows) {
             for (var row of rows) {
@@ -112,6 +112,41 @@ class QuestionDAO {
                 if (err) {
                     console.log("Failed");
                     reject(err);
+                }
+                else {
+                    console.log("Success " + this.lastID);
+                    resolve(this.lastID);
+                }
+            });
+        });
+    }
+    static createOpenQuestion(newQuestion) {
+        var insert = "INSERT INTO Questions VALUES (NULL, '" + newQuestion.getCategory + "', 'false', '" + newQuestion.getQuestion + "', NULL, NULL, NULL, NULL, '" + newQuestion.getCorrectAnswer + "')";
+        console.log(insert);
+        return new Promise(function (resolve, reject) {
+            QuestionDAO.qds.getQuestionDatabase().run(insert, function (err) {
+                if (err) {
+                    console.log("Failed");
+                    console.log(err);
+                    resolve(err);
+                }
+                else {
+                    console.log("Success " + this.lastID);
+                    resolve(this.lastID);
+                }
+            });
+        });
+    }
+    static createMultipleChoiceQuestion(newQuestion) {
+        var insert = "INSERT INTO Questions VALUES (NULL, '" + newQuestion.getCategory + "', 'true', '" + newQuestion.getQuestion + "', '" + newQuestion.getAnswerA + "', '" + newQuestion.getAnswerB + "', " +
+            "'" + newQuestion.getAnswerC + "', '" + newQuestion.getAnswerD + "', '" + newQuestion.getCorrectAnswer + "');";
+        console.log(insert);
+        return new Promise(function (resolve, reject) {
+            QuestionDAO.qds.getQuestionDatabase().run(insert, function (err) {
+                if (err) {
+                    console.log("Failed");
+                    console.log(err);
+                    resolve(err);
                 }
                 else {
                     console.log("Success " + this.lastID);
