@@ -102,21 +102,27 @@ export class QuizComponent {
     }
   }
 
+  mcqAnswerConverter() {
+    //used to change user input from number to the answer in a MCQ, only for pre-defined questions, the implementation of user created questions works as intended by client-side
+    if(this.currentGeneralQuestion.id < 32) {
+      if(this.selectedAnswer == 1) {
+        this.selectedAnswer = this.currentGeneralQuestion.answerA;
+      }
+      if(this.selectedAnswer == 2) {
+        this.selectedAnswer = this.currentGeneralQuestion.answerB;
+      }
+      if(this.selectedAnswer == 3) {
+        this.selectedAnswer = this.currentGeneralQuestion.answerC;
+      }
+      if(this.selectedAnswer == 4) {
+        this.selectedAnswer = this.currentGeneralQuestion.answerD;
+      }
+    }
+  }
+
   //used to handle what happens after user answered question
   answerQuestion() {
-    //used to change user input from number to the answer in a MCQ
-    if(this.selectedAnswer == 1) {
-      this.selectedAnswer = this.currentGeneralQuestion.answerA;
-    }
-    if(this.selectedAnswer == 2) {
-      this.selectedAnswer = this.currentGeneralQuestion.answerB;
-    }
-    if(this.selectedAnswer == 3) {
-      this.selectedAnswer = this.currentGeneralQuestion.answerC;
-    }
-    if(this.selectedAnswer == 4) {
-      this.selectedAnswer = this.currentGeneralQuestion.answerD;
-    }
+    this.mcqAnswerConverter();
     if (this.isAnswerSelected()) {
       console.log("selected answer: " + this.selectedAnswer + " - correct answer: " + this.currentGeneralQuestion.correctAnswer);
 

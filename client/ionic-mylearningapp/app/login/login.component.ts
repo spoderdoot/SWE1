@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import { AlertController, NavController, MenuController} from 'ionic-angular';
+import { AlertController, App, NavController, MenuController} from 'ionic-angular';
 import {RegisterComponent} from '../register/index';
 import { User, LoginService} from '../shared/index';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -18,16 +18,17 @@ private user : User[];
 private userLoginForm : FormGroup;
 private isTeacher : boolean;
 private isLoggedIn : boolean;
+private static app : any;
 
-  constructor(private alertCtrl : AlertController, public navCtrl : NavController, private formBuilder : FormBuilder, public loginService : LoginService, public menuCtrl : MenuController) {
+  constructor(private alertCtrl : AlertController, public appCtrl : App, public navCtrl : NavController, private formBuilder : FormBuilder, public loginService : LoginService, public menuCtrl : MenuController) {
     this.navCtrl = navCtrl;
     this.createForm();
     //this.menuCtrl.enable(false); ///damit man nicht das Menu aufrufen kann bevor man sich eingeloggt hat.
   }
 
-//static setPages(app : any) {
-
-//}
+static setPages(app : any) {
+  this.app = app;
+}
 
 //creates login form
 createForm() {
@@ -77,6 +78,7 @@ userLogin() : boolean{
       }
       this.isLoggedIn = true;
       this.isTeacher = response.isTeacher;
+      console.log("is user a teacher? " + this.isTeacher);
       this.saveUserData(this.userLoginForm.value.username, response.isTeacher);
       this.redirectAfterLogin();
       return true;
@@ -131,8 +133,10 @@ redirectToQuizRules() {
   //redirects to another component after login depending on user status
   redirectAfterLogin() {
     if(this.isLoggedIn && !this.isTeacher) { //for students
+      LoginComponent.app.pages = LoginComponent.app.pagesStudent;
       this.navCtrl.setRoot(QuizRulesComponent);
     } else if(this.isLoggedIn && this.isTeacher) { //for teacher
+      LoginComponent.app.pages = LoginComponent.app.pagesTeacher;
       this.navCtrl.setRoot(ManageQuestionComponent);
     }
   }

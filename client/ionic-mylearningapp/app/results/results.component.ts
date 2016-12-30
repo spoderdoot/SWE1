@@ -35,6 +35,8 @@ export class ResultsComponent {
     var total = +this.numberOfQuestions;
     console.log(total);
     this.percentageCorrect = (answered*100)/total;
+
+    this.percentageCorrect = Math.ceil(this.percentageCorrect);
     console.log(this.percentageCorrect);
     /*
     //testing if grading works as intented

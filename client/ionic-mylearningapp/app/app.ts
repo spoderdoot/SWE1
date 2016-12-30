@@ -17,9 +17,10 @@ class MyApp {
 
   rootPage: any = LoginComponent;
 
-  pages: Array<{ title: string, icon: string, component: any }>;
-  pagesTeacher: Array<{ title: string, icon: string, component: any }>;
-  pagesStudent: Array<{ title: string, icon: string, component: any }>;
+public pages: Array<{ title: string, icon: string, component: any }>;
+public pagesLogin: Array<{ title: string, icon: string, component: any }>;
+public pagesTeacher: Array<{ title: string, icon: string, component: any }>;
+public pagesStudent: Array<{ title: string, icon: string, component: any }>;
   //loginPage
   isTeacher : boolean = false;
   isLoggedIn : boolean = false;
@@ -27,26 +28,9 @@ class MyApp {
   constructor(public platform: Platform, private modalCtrl: ModalController) {
     this.initializeApp();
 
-
-    /*if(this.isTeacher && this.isLoggedIn) {
-      this.pagesTeacher = [
-        { title: 'Fragen verwalten', icon: 'game-controller-b', component: ManageQuestionComponent },
-
-        { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
-        { title: 'Über uns', icon: 'at', component: AboutModalComponent }
-      ]
-    }
-    if(!this.isTeacher && this.isLoggedIn) {
-      this.pagesStudent = [
-        { title: 'Spielen', icon: 'game-controller-b', component: QuizComponent },
-        { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
-        { title: 'Über uns', icon: 'at', component: AboutModalComponent }
-      ]
-    } */
-
     //ion-icon - https://ionicframework.com/docs/v2/ionicons/
     // used for an example of ngFor and navigation
-    this.pages = [
+    this.pagesLogin = [
       { title: 'Login', icon: 'person', component: LoginComponent}, //maybe I can comibne Login with Play function
       { title: 'Spielen', icon: 'game-controller-b', component: QuizRulesComponent },
       { title: 'Fragen verwalten', icon: 'create', component: ManageQuestionComponent },
@@ -65,6 +49,8 @@ class MyApp {
       { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
       { title: 'Über uns', icon: 'at', component: AboutModalComponent },
     ];
+
+    LoginComponent.setPages(this);
   }
 
 
@@ -73,6 +59,7 @@ class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
+      this.pages = this.pagesLogin;
     });
   }
 
