@@ -78,7 +78,7 @@ router.get('/listQuestions', function(req, res) {
         console.log("callback executed" + rows);
         res.json(JSON.parse(response));
     }
-    QuestionDAO.getAllQuestions(callback);
+    QuestionDAO.getQuestions(callback);
 });
 
 // list all available questions alternative
@@ -105,7 +105,7 @@ router.get('/listAllQuestions', function(req, res) {
         console.log("callback executed" + rows);
         res.json(JSON.parse(response));
     }
-    QuestionDAO.getQuestions(callback);
+    QuestionDAO.getAllQuestions(callback);
 });
 router.get('/listAllOpenQuestions', function(req, res) {
     var callback = function(rows) {
@@ -165,6 +165,24 @@ router.put('/question/create', function(req, res) {
         res.json(JSON.parse(resolve.toString()));
     });
 });
+// create a new open question
+router.put('/openquestion/create', function(req, res) {
+    var jsonQuestion = JSON.parse(JSON.stringify(req.body));
+    var question = new Questions(jsonQuestion['id'], jsonQuestion['category'], jsonQuestion['isMcq'], jsonQuestion['question'], jsonQuestion['answerA'], jsonQuestion['answerB'],
+        jsonQuestion['answerC'], jsonQuestion['answerD'], jsonQuestion['correctAnswer']);
+    QuestionDAO.createOpenQuestion(question).then((resolve) => {
+        res.json(JSON.parse(resolve.toString()));
+    })
+});
+// create a new multiple choice question
+router.put('/multiplechoicequestion/create', function(req, res) {
+  var jsonQuestion = JSON.parse(JSON.stringify(req.body));
+  var question = new Questions(jsonQuestion['id'], jsonQuestion['category'], jsonQuestion['isMcq'], jsonQuestion['question'], jsonQuestion['answerA'], jsonQuestion['answerB'],
+      jsonQuestion['answerC'], jsonQuestion['answerD'], jsonQuestion['correctAnswer']);
+  QuestionDAO.createMultipleChoiceQuestion(question).then((resolve) => {
+    res.json(JSON.parse(resolve.toString()));
+  })
+})
 // create a new user
 router.put('/user/create', function(req, res) {
     console.log("Register User: ");
@@ -189,13 +207,16 @@ router.get('/user/listUsers', function(req, res) {
     }
     UserDAO.getUsers(callback);
 });
+// enables the login of a user
 router.post('/user/login/', function(req, res) {
-    var uName = req.params.username;
-    var pw = req.params.password;
+    var jsonUser = JSON.parse(JSON.stringify(req.body));
+    console.log(jsonUser);
+    var user = new User(jsonUser['id'], jsonUser['username'], jsonUser['password'], jsonUser['isTeacher']);
+    console.log(user);
     var callback = function(rows) {
         var response = JSON.stringify(rows);
-        console.log("callback executed" + rows);
+        console.log("callback executed " + rows);
         res.json(JSON.parse(response));
     }
-    UserDAO.loginUser(uName, pw, callback);
+    UserDAO.loginUser(user, callback);
 })

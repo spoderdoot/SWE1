@@ -24,7 +24,7 @@ export class UserDAO {
         console.log(insert);
         return new Promise(function(resolve, reject) {
             UserDAO.uds.getUserDataBase().run(insert, function(err) {
-              var isUserNameOk:string;
+                var isUserNameOk: string;
                 if (err) {
                     console.log("Failed");
                     console.log(err);
@@ -39,32 +39,69 @@ export class UserDAO {
             });
         });
     }
-    private static checkUser(username: string): string {
-        var isEmpty: string = "true";
+    private static checkUser(checkUser: User,callback) {
+        var userExists: boolean;
         var user: Array<User> = new Array<User>();
-        this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE userName = '" + username + "'; ", function(err, rows) {
+        this.uds.getUserDataBase().all("SELECT * FROM Users WHERE username = '" + checkUser.getUserName + "'; ", function(err, rows) {
             for (var row of rows) {
                 var u1 = new User(row['id'], row['username'], row['password'], row['isTeacher']);
                 user.push(u1);
             }
         });
-        if (user.length != 0) {
-            isEmpty = "false";
+        if (user.length > 0) {
+            userExists = true;
+        } else {
+            userExists = false;
         }
-        return isEmpty;
+        console.log("user exists: " + userExists);
+        callback(userExists);
     }
-    private static checkPassword(username: string,password: string) {
-      var is
+    private static checkPassword(checkUser: User, callback) {
+        var correctPassword: boolean;
+        var user: Array<User> = new Array<User>();
+        this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE username = '" + checkUser.getUserName +
+        "' AND password = '" + checkUser.getUserPassword + "';", function(err, rows) {
+                for (var row of rows) {
+                    var u1 = new User(row['id'], row['username'], row['password'], row['isTeacher']);
+                    user.push(u1);
+                    console.log(err);
+                }
+            });
+        if (user.length > 0) {
+            correctPassword = true;
+        } else {
+            correctPassword = false;
+        }
+        console.log("correct password: " + correctPassword);
+        callback(correctPassword);
     }
-    public static loginUser(username: string, password: string, callback) {
-        var query = "SELECT * FROM Users WHERE username = '" + username + "' AND password = '"+password+"';";
-        this.uds.getUserDataBase().get(query, function(err, row) {
-            var userLogin =
-            [
-              {"isUserNameOk":this.checkUser(username),"isPassWordOk":this.checkPassword(username,password),"isTeacher":"false"}
-            ];
-            callback(userLogin);
-            console.log(err);
-        });
+    private static isUserTeacher(checkUser: User, callback) {
+        var isTeacher: boolean;
+        var user: Array<User> = new Array<User>();
+        this.uds.getUserDataBase().all("SELECT username FROM Users WHERE username = '" + checkUser.getUserName +
+            "' AND isTeacher = '" + checkUser.getIsTeacher + "';", function(err, rows) {
+                for (var row of rows) {
+                    var u1 = new User(row['id'], row['username'], row['password'], row['isTeacher']);
+                    user.push(u1);
+                }
+            });
+        if (user.length > 0) {
+            isTeacher = true;
+        } else {
+            isTeacher = false;
+        }
+        console.log("user is a teacher: " + isTeacher);
+        callback(isTeacher);
+    }
+    public static loginUser(checkUser: User, callback) {
+        var callback1 = this.checkUser(checkUser, callback);
+        var callback2 = this.checkPassword(checkUser, callback);
+        var callback3 = this.isUserTeacher(checkUser, callback);
+        var userLogin = [
+            { "isUserNameOk": callback1, "isPassWordOk": callback2, "isTeacher": callback3 }
+        ];
+        console.log("userLogin array: ");
+        console.log(userLogin);
+        callback(userLogin);
     }
 }

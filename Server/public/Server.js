@@ -8,6 +8,7 @@ const MultipleDataSource_1 = require("./MultipleDataSource");
 const UserDataSource_1 = require("./UserDataSource");
 const User_1 = require("./User");
 const QuestionDataSource_1 = require("./QuestionDataSource");
+const Questions_1 = require("./Questions");
 const QuizRules_1 = require("./QuizRules");
 const QuestionDAO_1 = require("./QuestionDAO");
 const UserDAO_1 = require("./UserDAO");
@@ -40,7 +41,7 @@ router.get('/listQuestions', function (req, res) {
         console.log("callback executed" + rows);
         res.json(JSON.parse(response));
     };
-    QuestionDAO_1.QuestionDAO.getAllQuestions(callback);
+    QuestionDAO_1.QuestionDAO.getQuestions(callback);
 });
 router.get('/listOpenQuestions', function (req, res) {
     var callback = function (rows) {
@@ -64,7 +65,7 @@ router.get('/listAllQuestions', function (req, res) {
         console.log("callback executed" + rows);
         res.json(JSON.parse(response));
     };
-    QuestionDAO_1.QuestionDAO.getQuestions(callback);
+    QuestionDAO_1.QuestionDAO.getAllQuestions(callback);
 });
 router.get('/listAllOpenQuestions', function (req, res) {
     var callback = function (rows) {
@@ -119,6 +120,20 @@ router.put('/question/create', function (req, res) {
         res.json(JSON.parse(resolve.toString()));
     });
 });
+router.put('/openquestion/create', function (req, res) {
+    var jsonQuestion = JSON.parse(JSON.stringify(req.body));
+    var question = new Questions_1.Questions(jsonQuestion['id'], jsonQuestion['category'], jsonQuestion['isMcq'], jsonQuestion['question'], jsonQuestion['answerA'], jsonQuestion['answerB'], jsonQuestion['answerC'], jsonQuestion['answerD'], jsonQuestion['correctAnswer']);
+    QuestionDAO_1.QuestionDAO.createOpenQuestion(question).then((resolve) => {
+        res.json(JSON.parse(resolve.toString()));
+    });
+});
+router.put('/multiplechoicequestion/create', function (req, res) {
+    var jsonQuestion = JSON.parse(JSON.stringify(req.body));
+    var question = new Questions_1.Questions(jsonQuestion['id'], jsonQuestion['category'], jsonQuestion['isMcq'], jsonQuestion['question'], jsonQuestion['answerA'], jsonQuestion['answerB'], jsonQuestion['answerC'], jsonQuestion['answerD'], jsonQuestion['correctAnswer']);
+    QuestionDAO_1.QuestionDAO.createMultipleChoiceQuestion(question).then((resolve) => {
+        res.json(JSON.parse(resolve.toString()));
+    });
+});
 router.put('/user/create', function (req, res) {
     console.log("Register User: ");
     var jsonUser = JSON.parse(JSON.stringify(req.body));
@@ -138,12 +153,14 @@ router.get('/user/listUsers', function (req, res) {
     UserDAO_1.UserDAO.getUsers(callback);
 });
 router.post('/user/login/', function (req, res) {
-    var uName = req.params.username;
-    var pw = req.params.password;
+    var jsonUser = JSON.parse(JSON.stringify(req.body));
+    console.log(jsonUser);
+    var user = new User_1.User(jsonUser['id'], jsonUser['username'], jsonUser['password'], jsonUser['isTeacher']);
+    console.log(user);
     var callback = function (rows) {
         var response = JSON.stringify(rows);
-        console.log("callback executed" + rows);
+        console.log("callback executed " + rows);
         res.json(JSON.parse(response));
     };
-    UserDAO_1.UserDAO.loginUser(uName, pw, callback);
+    UserDAO_1.UserDAO.loginUser(user, callback);
 });

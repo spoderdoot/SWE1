@@ -1,6 +1,6 @@
 export class User {
 
-    constructor(private id: string, private username: string, private uPassword: string, private isTeacher: string) { };
+    constructor(private id: string, private username: string, private password: string, private isTeacher: string) { };
 
     public get getUserID() {
         return this.id;
@@ -12,7 +12,7 @@ export class User {
         return this.username;
     }
     public get getUserPassword() {
-        return this.uPassword;
+        return this.password;
     }
     public get getIsTeacher() {
         return this.isTeacher;

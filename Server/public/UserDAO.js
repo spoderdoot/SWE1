@@ -34,32 +34,73 @@ class UserDAO {
             });
         });
     }
-    static checkUser(username) {
-        var isEmpty = "true";
+    static checkUser(checkUser, callback) {
+        var userExists;
         var user = new Array();
-        this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE userName = '" + username + "'; ", function (err, rows) {
+        this.uds.getUserDataBase().all("SELECT * FROM Users WHERE username = '" + checkUser.getUserName + "'; ", function (err, rows) {
             for (var row of rows) {
                 var u1 = new User_1.User(row['id'], row['username'], row['password'], row['isTeacher']);
                 user.push(u1);
             }
         });
-        if (user.length != 0) {
-            isEmpty = "false";
+        if (user.length > 0) {
+            userExists = true;
         }
-        return isEmpty;
+        else {
+            userExists = false;
+        }
+        console.log("user exists: " + userExists);
+        callback(userExists);
     }
-    static checkPassword(username, password) {
-        var is;
-    }
-    static loginUser(username, password, callback) {
-        var query = "SELECT * FROM Users WHERE username = '" + username + "' AND password = '" + password + "';";
-        this.uds.getUserDataBase().get(query, function (err, row) {
-            var userLogin = [
-                { "isUserNameOk": this.checkUser(username), "isPassWordOk": this.checkPassword(username, password), "isTeacher": "false" }
-            ];
-            callback(userLogin);
-            console.log(err);
+    static checkPassword(checkUser, callback) {
+        var correctPassword;
+        var user = new Array();
+        this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE username = '" + checkUser.getUserName +
+            "' AND password = '" + checkUser.getUserPassword + "';", function (err, rows) {
+            for (var row of rows) {
+                var u1 = new User_1.User(row['id'], row['username'], row['password'], row['isTeacher']);
+                user.push(u1);
+                console.log(err);
+            }
         });
+        if (user.length > 0) {
+            correctPassword = true;
+        }
+        else {
+            correctPassword = false;
+        }
+        console.log("correct password: " + correctPassword);
+        callback(correctPassword);
+    }
+    static isUserTeacher(checkUser, callback) {
+        var isTeacher;
+        var user = new Array();
+        this.uds.getUserDataBase().all("SELECT username FROM Users WHERE username = '" + checkUser.getUserName +
+            "' AND isTeacher = '" + checkUser.getIsTeacher + "';", function (err, rows) {
+            for (var row of rows) {
+                var u1 = new User_1.User(row['id'], row['username'], row['password'], row['isTeacher']);
+                user.push(u1);
+            }
+        });
+        if (user.length > 0) {
+            isTeacher = true;
+        }
+        else {
+            isTeacher = false;
+        }
+        console.log("user is a teacher: " + isTeacher);
+        callback(isTeacher);
+    }
+    static loginUser(checkUser, callback) {
+        var callback1 = this.checkUser(checkUser, callback);
+        var callback2 = this.checkPassword(checkUser, callback);
+        var callback3 = this.isUserTeacher(checkUser, callback);
+        var userLogin = [
+            { "isUserNameOk": callback1, "isPassWordOk": callback2, "isTeacher": callback3 }
+        ];
+        console.log("userLogin array: ");
+        console.log(userLogin);
+        callback(userLogin);
     }
 }
 UserDAO.uds = UserDataSource_1.UserDataSource.getInstance();
