@@ -37,26 +37,21 @@
         {{currentQuestionCounter}}. Frage
       </ion-card-header>
       <ion-card-content>
-        <h2>{{currentQuestion.question}}</h2>
-        <h3>A: {{currentQuestion.answerA}}</h3>
-        <h3>B: {{currentQuestion.answerB}}</h3>
-        <h3>C: {{currentQuestion.answerC}}</h3>
-        <h3>D: {{currentQuestion.answerD}}</h3>
+        <h2>{{currentGeneralQuestion.question}}</h2>
         <div class="row">
           <div class="col">
-            <ion-label>Antwort</ion-label>
-          </div>
-          <div class="col">
-            <ion-select [(ngModel)]="selectedAnswer" okText="Auswählen" cancelText="Abbrechen">
-              <ion-option value="1">A</ion-option>
-              <ion-option value="2">B</ion-option>
-              <ion-option value="3">C</ion-option>
-              <ion-option value="4">D</ion-option>
-            </ion-select>
+
+                    <form *ngIf="!alreadySubmitted"[formGroup]="openQuestionForm">
+
+                      <ion-item>
+                        <ion-label floating>Deine Antwort</ion-label>
+                        <ion-input formControlName ="openAnswer" type="text"></ion-input>
+                      </ion-item>
+                    </form>
           </div>
         </div>
       </ion-card-content>
-      <button ion-button block color="dark" (click)="answerQuestion()" full>Antworten</button>
+      <button ion-button block color="dark" (click)="answerOpenQuestion()" full>Antworten</button>
     </ion-card>
   </div>
 
@@ -72,11 +67,11 @@
         {{currentQuestionCounter}}. Frage
       </ion-card-header>
       <ion-card-content>
-        <h2>{{currentQuestion.question}}</h2>
-        <h3>A: {{currentQuestion.answerA}}</h3>
-        <h3>B: {{currentQuestion.answerB}}</h3>
-        <h3>C: {{currentQuestion.answerC}}</h3>
-        <h3>D: {{currentQuestion.answerD}}</h3>
+        <h2>{{currentGeneralQuestion.question}}</h2>
+        <h3>A: {{currentGeneralQuestion.answerA}}</h3>
+        <h3>B: {{currentGeneralQuestion.answerB}}</h3>
+        <h3>C: {{currentGeneralQuestion.answerC}}</h3>
+        <h3>D: {{currentGeneralQuestion.answerD}}</h3>
         <div class="row">
           <div class="col">
             <ion-label>Antwort</ion-label>
