@@ -9,11 +9,21 @@ export class UserDataSource {
     private static instance: UserDataSource = new UserDataSource();
 
     constructor() {
+        var fs = require("fs");
+        var file = 'Users.db';
+        var exists = fs.existsSync(file);
+
         if (UserDataSource.instance) {
             throw new Error("Not available for singletons!");
         }
+        if(exists) {
         UserDataSource.instance = this;
         this.db = new Database('./Users.db');
+      } else {
+        this.initUserDataBase();
+        UserDataSource.instance = this;
+        this.db = new Database('./Users.db');
+      }
     }
 
     public static getInstance(): UserDataSource {
@@ -23,19 +33,16 @@ export class UserDataSource {
         return this.db;
     }
     public initUserDataBase() {
-        var fs = require("fs");
-        var file = 'Users.db';
-        var exists = fs.existsSync(file);
 
+        var file = 'Users.db';
         var sqlite3 = require("sqlite3");
         var userdb = new sqlite3.Database(file);
 
         userdb.serialize(function() {
-            if (!exists) {
+
                 userdb.run("CREATE TABLE Users(id INTEGER PRIMARY KEY, username TEXT UNIQUE, userpassword TEXT, isTeacher TEXT);");
                 userdb.run("INSERT INTO Users VALUES (1, 'Emil', 'passwort1', 'false');");
                 userdb.run("INSERT INTO Users VALUES (2, 'Timo', 'admin123', 'true');");
-            }
-        })
+        });
     }
 }

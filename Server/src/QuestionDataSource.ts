@@ -16,8 +16,14 @@ export class QuestionDataSource {
         if (QuestionDataSource.instance) {
             throw new Error("Not available for singletons!");
         }
+        if(exists) {
         QuestionDataSource.instance = this;
         this.db = new Database('./Questions.db');
+      } else {
+        this.initDataBase();
+        QuestionDataSource.instance = this;
+        this.db = new Database('./Questions.db');
+      }
     }
 
     public static getInstance(): QuestionDataSource {
@@ -27,15 +33,12 @@ export class QuestionDataSource {
         return this.db;
     }
     public initDataBase() {
-        var fs = require("fs");
         var file = 'Questions.db';
-        var exists = fs.existsSync(file);
 
         var sqlite3 = require("sqlite3");
         var questiondb = new sqlite3.Database(file);
 
         questiondb.serialize(function() {
-            if (!exists) {
                 questiondb.run("CREATE TABLE Questions (" +
                     "id INTEGER PRIMARY KEY, " +
                     "category TEXT, " +
@@ -78,7 +81,6 @@ export class QuestionDataSource {
                 questiondb.run("INSERT INTO Questions VALUES (28, 'Englisch', 'true', 'Wie übersetzt man Maus?', 'rat', 'mouse', 'mose', 'ratt', 'mouse');");
                 questiondb.run("INSERT INTO Questions VALUES (29, 'Englisch', 'true', 'Wie übersetzt man Kugelschreiber?', 'pen', 'pencil', 'biro', 'buro', 'biro');");
                 questiondb.run("INSERT INTO Questions VALUES (30, 'Englisch', 'true', 'Wie schreibt man Gehweg auf englisch (british)?', 'pavement', 'sidewalk', 'side walk', 'side-walk', 'pavement');");
-            }
         })
     }
 }

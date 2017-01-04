@@ -1,28 +1,20 @@
 /// <reference path="DataSource.ts"/>
 /// <reference path="Question.ts" />
-/// <reference path="OpenQuestion.ts" />
-/// <reference path="OpenDataSource.ts" />
-/// <reference path="MultipleQuestion.ts" />
-/// <reference path="MultipleDataSource.ts" />
 /// <reference path="Questions.ts"/>
 /// <reference path="QuestionDataSource.ts"/>
 /// <reference path="QuizRules.ts" />
+/// <reference path="Category.ts" />
 
 import { DataSource } from './DataSource';
 import { Question } from './Question';
-import { OpenDataSource } from './OpenDataSource';
-import { OpenQuestion } from './OpenQuestion';
-import { MultipleDataSource } from './MultipleDataSource';
-import { MultipleQuestion } from './MultipleQuestion';
 import { QuestionDataSource } from './QuestionDataSource';
 import { Questions } from './Questions';
 import { QuizRules } from './QuizRules';
+import { Category } from './Category';
 
 export class QuestionDAO {
 
     private static ds: DataSource = DataSource.getInstance();
-    private static opends: OpenDataSource = OpenDataSource.getInstance();
-    private static multds: MultipleDataSource = MultipleDataSource.getInstance();
     private static qds: QuestionDataSource = QuestionDataSource.getInstance();
 
     public static getQuestions(callback) {
@@ -33,28 +25,6 @@ export class QuestionDAO {
                 questions.push(q1);
             }
             callback(questions);
-        });
-    }
-    // lists all open questions
-    public static getOpenQuestions(callback) {
-        var openQs: Array<OpenQuestion> = new Array<OpenQuestion>();
-        this.opends.getOpenDatabase().all("SELECT * FROM OpenQuestions;", function(err, rows) {
-            for (var row of rows) {
-                var q1 = new OpenQuestion(row['id'], row['category'], row['question'], row['correctAnswer']);
-                openQs.push(q1);
-            }
-            callback(openQs);
-        });
-    }
-    // lists open questions from a specific category
-    public static getOpenQuestionsByCategory(cat: string, callback) {
-        var openQs: Array<OpenQuestion> = new Array<OpenQuestion>();
-        this.opends.getOpenDatabase().all("SELECT * FROM OpenQuestions WHERE category = '" + cat + "';", function(err, rows) {
-            for (var row of rows) {
-                var oq1 = new OpenQuestion(row['id'], row['category'], row['question'], row['correctAnswer']);
-                openQs.push(oq1);
-            }
-            callback(openQs);
         });
     }
     // lists all available questions
@@ -107,28 +77,17 @@ export class QuestionDAO {
         });
 
     }
-    // lists all multiple choice questions
-    public static getMultQuestions(callback) {
-        var multQs: Array<MultipleQuestion> = new Array<MultipleQuestion>();
-        this.multds.getMultipleDatabase().all("SELECT * FROM MultipleQuestions", function(err, rows) {
+    // lists all available questions from a specific category
+    public static getQuestionByCategory(cat: Category, callback) {
+        var questions: Array<Questions> = new Array<Questions>();
+        QuestionDAO.qds.getQuestionDatabase().all("SELECT * FROM Questions WHERE category = '" + cat.getCategory + "';", function(err, rows) {
             for (var row of rows) {
-                var q1 = new MultipleQuestion(row['id'], row['category'], row['question'], row['answerA'],
-                    row['answerB'], row['answerC'], row['answerD'], row['correctAnswer']);
-                multQs.push(q1);
+                var q1 = new Questions(row['id'], row['category'], row['isMcq'], row['question'], row['answerA'], row['answerB'],
+                    row['answerC'], row['answerD'], row['correctAnswer']);
+                questions.push(q1);
+                console.log(q1.getQuestion);
             }
-            callback(multQs);
-        });
-    }
-    // lists all multiple choice questions from a specific category
-    public static getMultQuestionsByCategory(cat: string, callback) {
-        var multQs: Array<MultipleQuestion> = new Array<MultipleQuestion>();
-        this.multds.getMultipleDatabase().all("SELECT * FROM MultipleQuestions WHERE category = '" + cat + "'", function(err, rows) {
-            for (var row of rows) {
-                var q1 = new MultipleQuestion(row['id'], row['category'], row['question'], row['answerA'],
-                    row['answerB'], row['answerC'], row['answerD'], row['correctAnswer']);
-                multQs.push(q1);
-            }
-            callback(multQs);
+            callback(questions);
         });
     }
     public static createQuestion(newQuestion: Question): Promise<number> {

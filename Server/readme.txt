@@ -3,18 +3,22 @@ Requirements
 - typescript (npm install typescript -g)
 - tsd (npm install tsd -g)
 
+
 Run the application
 - node public/Server.js
 
 Suggested Editor
-Atom Editor: https://atom.io
-Additional Package: atom-typescript
+Atom 
+Editor: https://atom.io
+Additional 
+Package: atom-typescript
 
 Test server
-http://localhost:8080/wwm/
+http://localhost:8080/ila/
 
 REST API
 - see src/Server.ts for available functions
+
 
 Manual compilation of ts files
 e.g. tsc Server.ts -w --outDir public
