@@ -39,7 +39,7 @@ export class UserDAO {
             });
         });
     }
-    private static checkUser(checkUser: User,callback) {
+    private static checkUser(checkUser: User):boolean {
         var userExists: boolean;
         var user: Array<User> = new Array<User>();
         this.uds.getUserDataBase().all("SELECT * FROM Users WHERE username = '" + checkUser.getUserName + "'; ", function(err, rows) {
@@ -54,9 +54,9 @@ export class UserDAO {
             userExists = false;
         }
         console.log("user exists: " + userExists);
-        callback(userExists);
+        return userExists;
     }
-    private static checkPassword(checkUser: User, callback) {
+    private static checkPassword(checkUser: User):boolean {
         var correctPassword: boolean;
         var user: Array<User> = new Array<User>();
         this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE username = '" + checkUser.getUserName +
@@ -73,9 +73,9 @@ export class UserDAO {
             correctPassword = false;
         }
         console.log("correct password: " + correctPassword);
-        callback(correctPassword);
+        return correctPassword;
     }
-    private static isUserTeacher(checkUser: User, callback) {
+    private static isUserTeacher(checkUser: User):boolean {
         var isTeacher: boolean;
         var user: Array<User> = new Array<User>();
         this.uds.getUserDataBase().all("SELECT username FROM Users WHERE username = '" + checkUser.getUserName +
@@ -91,12 +91,12 @@ export class UserDAO {
             isTeacher = false;
         }
         console.log("user is a teacher: " + isTeacher);
-        callback(isTeacher);
+        return isTeacher;
     }
     public static loginUser(checkUser: User, callback) {
-        var callback1 = this.checkUser(checkUser, callback);
-        var callback2 = this.checkPassword(checkUser, callback);
-        var callback3 = this.isUserTeacher(checkUser, callback);
+        var callback1 = this.checkUser(checkUser);
+        var callback2 = this.checkPassword(checkUser);
+        var callback3 = this.isUserTeacher(checkUser);
         var userLogin = [
             { "isUserNameOk": callback1, "isPassWordOk": callback2, "isTeacher": callback3 }
         ];

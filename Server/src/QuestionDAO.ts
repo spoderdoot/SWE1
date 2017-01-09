@@ -59,6 +59,7 @@ export class QuestionDAO {
                 var q1 = new Questions(row['id'], row['category'], row['isMcq'], row['question'], row['answerA'], row['answerB'],
                     row['answerC'], row['answerD'], row['correctAnswer']);
                 questions.push(q1);
+                console.log("Question: "+ q1);
             }
             callback(questions);
         });

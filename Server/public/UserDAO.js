@@ -34,7 +34,7 @@ class UserDAO {
             });
         });
     }
-    static checkUser(checkUser, callback) {
+    static checkUser(checkUser) {
         var userExists;
         var user = new Array();
         this.uds.getUserDataBase().all("SELECT * FROM Users WHERE username = '" + checkUser.getUserName + "'; ", function (err, rows) {
@@ -50,9 +50,9 @@ class UserDAO {
             userExists = false;
         }
         console.log("user exists: " + userExists);
-        callback(userExists);
+        return userExists;
     }
-    static checkPassword(checkUser, callback) {
+    static checkPassword(checkUser) {
         var correctPassword;
         var user = new Array();
         this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE username = '" + checkUser.getUserName +
@@ -70,9 +70,9 @@ class UserDAO {
             correctPassword = false;
         }
         console.log("correct password: " + correctPassword);
-        callback(correctPassword);
+        return correctPassword;
     }
-    static isUserTeacher(checkUser, callback) {
+    static isUserTeacher(checkUser) {
         var isTeacher;
         var user = new Array();
         this.uds.getUserDataBase().all("SELECT username FROM Users WHERE username = '" + checkUser.getUserName +
@@ -89,12 +89,12 @@ class UserDAO {
             isTeacher = false;
         }
         console.log("user is a teacher: " + isTeacher);
-        callback(isTeacher);
+        return isTeacher;
     }
     static loginUser(checkUser, callback) {
-        var callback1 = this.checkUser(checkUser, callback);
-        var callback2 = this.checkPassword(checkUser, callback);
-        var callback3 = this.isUserTeacher(checkUser, callback);
+        var callback1 = this.checkUser(checkUser);
+        var callback2 = this.checkPassword(checkUser);
+        var callback3 = this.isUserTeacher(checkUser);
         var userLogin = [
             { "isUserNameOk": callback1, "isPassWordOk": callback2, "isTeacher": callback3 }
         ];
