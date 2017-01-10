@@ -127,8 +127,18 @@ redirectToQuiz() {
       this.navCtrl.setRoot(QuizComponent);
 }
 
+//USED FOR TEST PURPOSES, different handling between teacher and student works as intented - waiting for server implementation
 redirectToQuizRules() {
-  this.navCtrl.setRoot(QuizRulesComponent);
+  this.isLoggedIn = true;
+  this.isTeacher = false;
+  if(this.isLoggedIn && !this.isTeacher) { //for students
+    LoginComponent.app.pages = LoginComponent.app.pagesStudent;
+    this.navCtrl.setRoot(QuizRulesComponent);
+  } else if(this.isLoggedIn && this.isTeacher) { //for teacher
+    LoginComponent.app.pages = LoginComponent.app.pagesTeacher;
+    this.navCtrl.setRoot(ManageQuestionComponent);
+  }
+  //this.navCtrl.setRoot(QuizRulesComponent);
 }
   //redirects to another component after login depending on user status
   redirectAfterLogin() {

@@ -23,7 +23,7 @@ export class ListOQComponent {
     });
   }
 
-  //NOT USED YET - get a specific question depending on question ID 
+  //NOT USED YET, but might be useful later - get a specific question depending on question ID 
   getOpenQuestion(id : number) {
     this.questionsService.getOpenQuestionWithId(id).subscribe( questions => {
       var openquestion = questions;
