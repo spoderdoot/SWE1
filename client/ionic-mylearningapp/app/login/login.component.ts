@@ -78,7 +78,11 @@ userLogin(){
           return false;
       }
       this.isLoggedIn = true;
-      this.isTeacher = response.isTeacher;
+      if(response.isTeacher = true) {
+        this.isTeacher = true;
+      } else {
+        this.isTeacher = false;
+      }
       console.log("is user a teacher? " + this.isTeacher);
       this.saveUserData(this.userLoginForm.value.username, response.isTeacher);
       this.redirectAfterLogin();
