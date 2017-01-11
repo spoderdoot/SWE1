@@ -10,20 +10,20 @@
 
 <ion-content padding class="quizrules">
 
-    <ion-card>
-      <ion-card-header>
-        <b>Spielregeln</b>
-      </ion-card-header>
-      <ion-card-content>
+  <ion-card>
+    <ion-card-header>
+      <b>Spielregeln</b>
+    </ion-card-header>
+    <ion-card-content>
 
-        <form [formGroup] = "quizRulesForm">
+      <form [formGroup]="quizRulesForm">
 
-          <ion-item>
-            <ion-label floating>Katgeorie</ion-label>
-            <ion-select formControlName="category">
-              <ion-option value="Mathe" selected>Mathe</ion-option>
-              <ion-option value="Englisch">Englisch</ion-option>
-            </ion-select>
+        <ion-item>
+          <ion-label floating>Katgeorie</ion-label>
+          <ion-select formControlName="category">
+            <ion-option value="Mathe" selected>Mathe</ion-option>
+            <ion-option value="Englisch">Englisch</ion-option>
+          </ion-select>
         </ion-item>
 
         <ion-item>
@@ -37,7 +37,7 @@
 
       </form>
 
-      </ion-card-content>
-    </ion-card>
-    <button ion-button block color="dark" (click)="redirectToQuiz()" full>Spiel starten!</button>
+    </ion-card-content>
+  </ion-card>
+  <button ion-button block color="dark" (click)="redirectToQuiz()" full>Spiel starten!</button>
 </ion-content>

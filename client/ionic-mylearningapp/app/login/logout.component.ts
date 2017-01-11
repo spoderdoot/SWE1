@@ -9,20 +9,20 @@ import {LoginComponent } from '../login/index';
 
 })
 export class LogoutComponent {
-private isLoggedIn : boolean;
-constructor(private alertCtrl : AlertController, public appCtrl : App, public navCtrl : NavController) {
-  this.navCtrl = navCtrl;
-  this.isLoggedIn = true;
+  private isLoggedIn: boolean;
+  constructor(private alertCtrl: AlertController, public appCtrl: App, public navCtrl: NavController) {
+    this.navCtrl = navCtrl;
+    this.isLoggedIn = true;
 
-  //this.menuCtrl.enable(false); ///damit man nicht das Menu aufrufen kann bevor man sich eingeloggt hat.
-}
+    //this.menuCtrl.enable(false); ///damit man nicht das Menu aufrufen kann bevor man sich eingeloggt hat.
+  }
 
-logout() {
-  if(window.localStorage.getItem("isLoggedIn") == "true")
-    this.isLoggedIn = false;
+  logout() {
+    if (window.localStorage.getItem("isLoggedIn") == "true")
+      this.isLoggedIn = false;
     window.localStorage.setItem("isLoggedIn", this.isLoggedIn.toString());
     //back to the login page
     this.navCtrl.setRoot(LoginComponent);
 
-}
+  }
 }

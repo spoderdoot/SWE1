@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Question, MultipleChoiceQuestion, QuestionsService} from '../shared/index';
+import { MultipleChoiceQuestion, QuestionsService} from '../../shared/index';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { AlertController } from 'ionic-angular';
 
@@ -10,11 +10,11 @@ import { AlertController } from 'ionic-angular';
 })
 export class EditMCQComponent {
   private multipleChoiceQuestions: MultipleChoiceQuestion[] = [];
-  private multipleChoiceQuestion : MultipleChoiceQuestion;
-  private isForEdit : boolean;
-  private editMCQForm : FormGroup;
+  private multipleChoiceQuestion: MultipleChoiceQuestion;
+  private isForEdit: boolean;
+  private editMCQForm: FormGroup;
 
-  constructor(private alertCtrl : AlertController, public questionsService: QuestionsService, private formBuilder : FormBuilder) {
+  constructor(private alertCtrl: AlertController, public questionsService: QuestionsService, private formBuilder: FormBuilder) {
     this.isForEdit = false;
   }
 
@@ -29,22 +29,23 @@ export class EditMCQComponent {
   createForm() {
 
     this.editMCQForm = this.formBuilder.group({
-      category : ['', Validators.compose([Validators.required])],
+      category: ['', Validators.compose([Validators.required])],
       question: ['', Validators.compose([Validators.required])],
       answerA: ['', Validators.compose([Validators.required])],
       answerB: ['', Validators.compose([Validators.required])],
       answerC: ['', Validators.compose([Validators.required])],
       answerD: ['', Validators.compose([Validators.required])],
-      correctAnswer : ['', Validators.compose([Validators.required])]
+      correctAnswer: ['', Validators.compose([Validators.required])]
     })
   }
 
   //checks if form is valid
-  isFormValid() : boolean {
+  isFormValid(): boolean {
     let isValid: boolean = this.editMCQForm.valid;
-
-    if(!isValid) {
-      const alert = this.alertCtrl.create( {
+    let noWhiteSpace: boolean = this.checkUserInputForWhiteSpace();
+    console.log(noWhiteSpace);
+    if (!isValid) {
+      const alert = this.alertCtrl.create({
         title: '<b> Bitte füllen Sie alle Felder aus!</b>',
         subTitle: 'Um die Frage speichern zu können, müssen sämtliche Felder ausgefüllt sein.',
         buttons: ['OK']
@@ -52,7 +53,31 @@ export class EditMCQComponent {
       //presents user the alert message
       alert.present();
     }
-    return isValid;
+    if (!noWhiteSpace) {
+      const alert = this.alertCtrl.create({
+        title: '<b>Angaben überprüfen!</b>',
+        subTitle: 'Leerzeichen zählen leider nicht! Bitte geben Sie einen entsprechenden Text ein!',
+        buttons: ['OK']
+      });
+      alert.present();
+    }
+    if (isValid && noWhiteSpace) {
+      return isValid;
+    }
+  }
+
+  //used for checking if user only input white spaces
+  checkForWhiteSpace(input: string): boolean {
+    var result = /\S/.test(input);
+    console.log(result);
+    return result;
+  }
+
+  //checks if user input only white spaces
+  checkUserInputForWhiteSpace(): boolean {
+    if (this.checkForWhiteSpace(this.editMCQForm.value.question) == true && this.checkForWhiteSpace(this.editMCQForm.value.answerA) == true && this.checkForWhiteSpace(this.editMCQForm.value.answerB) == true && this.checkForWhiteSpace(this.editMCQForm.value.answerC) == true && this.checkForWhiteSpace(this.editMCQForm.value.answerD) == true) {
+      return true;
+    }
   }
 
   //shows success message to user if the MCQ was successfully saved
@@ -74,7 +99,7 @@ export class EditMCQComponent {
   editQuestion() {
     //console.log(temp);
     this.createForm();
-    var position : number = 0;
+    var position: number = 0;
     this.multipleChoiceQuestion = this.multipleChoiceQuestions[position];
     this.editMCQForm.value.category = this.multipleChoiceQuestion.category;
     this.editMCQForm.value.question = this.multipleChoiceQuestion.question;

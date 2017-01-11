@@ -10,29 +10,29 @@
 
 <ion-content padding class="login">
 
-    <ion-card>
-      <ion-card-header>
-        <b>Login</b>
-      </ion-card-header>
-      <ion-card-content>
+  <ion-card>
+    <ion-card-header>
+      <b>Login</b>
+    </ion-card-header>
+    <ion-card-content>
 
-        <form [formGroup]="userLoginForm">
+      <form [formGroup]="userLoginForm">
 
-          <ion-item>
-            <ion-label floating>Benutzername</ion-label>
-            <ion-input formControlName ="username" type="text"></ion-input>
-          </ion-item>
+        <ion-item>
+          <ion-label floating>Benutzername</ion-label>
+          <ion-input formControlName="username" type="text"></ion-input>
+        </ion-item>
 
-          <ion-item>
-            <ion-label floating>Passwort</ion-label>
-            <ion-input formControlName ="password" type="password"></ion-input>
-          </ion-item>
+        <ion-item>
+          <ion-label floating>Passwort</ion-label>
+          <ion-input formControlName="password" type="password"></ion-input>
+        </ion-item>
 
-        </form>
+      </form>
 
-      </ion-card-content>
-    </ion-card>
-    <button ion-button block color="dark" (click) = "userLogin()" full >Einloggen</button>
-    <button ion-button block color="dark" (click) = "redirectToRegister()" full >Neu bei InstaLearn?</button>
+    </ion-card-content>
+  </ion-card>
+  <button ion-button block color="dark" (click)="userLogin()" full>Einloggen</button>
+  <button ion-button block color="dark" (click)="redirectToRegister()" full>Neu bei InstaLearn?</button>
 
-  </ion-content>
+</ion-content>

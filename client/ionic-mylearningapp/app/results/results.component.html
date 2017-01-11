@@ -17,15 +17,15 @@
 
   <ion-card>
     <ion-card-content>
-        <h1><b>Note: </b> {{grade}}</h1>
-        <h3><b>Benutzername:</b> {{username}} </h3>
-        <h3><b>Gespielte Kategorie:</b> {{category}} </h3>
-        <h3><b>Gesamtzahl der Fragen:</b> {{numberOfQuestions}}</h3>
-        <h3><b>Richtig beantwortete Fragen:</b> {{correctAnswerCount}}</h3>
-        <h3><b>Richtig beantwortete Fragen  in %:</b> {{percentageCorrect}} %</h3>
+      <h1><b>Note: </b> {{grade}}</h1>
+      <h3><b>Benutzername:</b> {{username}} </h3>
+      <h3><b>Gespielte Kategorie:</b> {{category}} </h3>
+      <h3><b>Gesamtzahl der Fragen:</b> {{numberOfQuestions}}</h3>
+      <h3><b>Richtig beantwortete Fragen:</b> {{correctAnswerCount}}</h3>
+      <h3><b>Richtig beantwortete Fragen  in %:</b> {{percentageCorrect}} %</h3>
 
 
-</ion-card-content>
-</ion-card>
-  <button ion-button block color="dark" (click) = "redirectToQuizRules()" full >Weiterspielen</button>
+    </ion-card-content>
+  </ion-card>
+  <button ion-button block color="dark" (click)="redirectToQuizRules()" full>Weiterspielen</button>
 </ion-content>

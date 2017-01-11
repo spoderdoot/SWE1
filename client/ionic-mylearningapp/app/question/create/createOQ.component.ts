@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { Question, QuestionsService, OpenQuestion} from '../shared/index';
+import { QuestionsService, OpenQuestion} from '../../shared/index';
 import { NavController } from 'ionic-angular';
 
 //used to create open questions - short OQ
@@ -51,7 +51,8 @@ export class CreateOQComponent {
   isFormIsValid(): boolean {
     // check if form input is valid (are all defined validators ok?)
     let isValid: boolean = this.createOpenQuestionForm.valid;
-
+    let noWhiteSpace : boolean = this.checkUserInputForWhiteSpace();
+    console.log(noWhiteSpace);
     if (!isValid) {
       // create a pop-up message
       const alert = this.alertCtrl.create({
@@ -62,7 +63,17 @@ export class CreateOQComponent {
       // show the pop-up message
       alert.present();
     }
-    return isValid;
+    if(!noWhiteSpace) {
+      const alert = this.alertCtrl.create({
+        title: '<b>Angaben überprüfen!</b>',
+        subTitle: 'Leerzeichen zählen leider nicht! Bitte geben Sie einen entsprechenden Text ein!',
+        buttons: ['OK']
+      });
+      alert.present();
+    }
+    if(isValid && noWhiteSpace) {
+      return isValid;
+    }
   }
 
   //shows success message to user if he could successfully create an open question
@@ -80,5 +91,19 @@ export class CreateOQComponent {
 
     // reset the form so more question can be created
     this.createForm();
+  }
+
+  //used for checking if user only input white spaces
+  checkForWhiteSpace(input : string) : boolean {
+    var result = /\S/.test(input);
+    console.log(result);
+    return result;
+  }
+
+  //checks if user input only white spaces
+  checkUserInputForWhiteSpace() : boolean {
+    if(this.checkForWhiteSpace(this.createOpenQuestionForm.value.question) == true && this.checkForWhiteSpace(this.createOpenQuestionForm.value.correctAnswer) == true) {
+      return true;
+    }
   }
  }

@@ -15,9 +15,9 @@
       <ion-card-header>
         <b>Spielregeln</b>
       </ion-card-header>
-       <ion-card-content>
-         <h3><b>Kategorie:</b> {{category}}</h3>
-         <h3><b>Anzahl der Fragen:</b> {{numberOfQuestions}}</h3>
+      <ion-card-content>
+        <h3><b>Kategorie:</b> {{category}}</h3>
+        <h3><b>Anzahl der Fragen:</b> {{numberOfQuestions}}</h3>
       </ion-card-content>
     </ion-card>
     <button ion-button block color="dark" (click)="startQuiz()" full>Spiel starten!</button>
@@ -27,68 +27,68 @@
   <div name="mainQuiz" *ngIf="quizStarted">
 
     <div name="openquestion" *ngIf="!isMCQ">
-    <ion-card>
-      <ion-card-content>
-        <h3><b>Kategorie:</b> {{category}}</h3>
-      </ion-card-content>
-    </ion-card>
+      <ion-card>
+        <ion-card-content>
+          <h3><b>Kategorie:</b> {{category}}</h3>
+        </ion-card-content>
+      </ion-card>
 
-    <ion-card>
-      <ion-card-header>
-        {{currentQuestionCounter}}. Frage
-      </ion-card-header>
-      <ion-card-content>
-        <h2>{{currentGeneralQuestion.question}}</h2>
-        <div class="row">
-          <div class="col">
+      <ion-card>
+        <ion-card-header>
+          {{currentQuestionCounter}}. Frage
+        </ion-card-header>
+        <ion-card-content>
+          <h2>{{currentGeneralQuestion.question}}</h2>
+          <div class="row">
+            <div class="col">
 
-                    <form *ngIf="!alreadySubmitted"[formGroup]="openQuestionForm">
+              <form *ngIf="!alreadySubmitted" [formGroup]="openQuestionForm">
 
-                      <ion-item>
-                        <ion-label floating>Deine Antwort</ion-label>
-                        <ion-input formControlName ="openAnswer" type="text"></ion-input>
-                      </ion-item>
-                    </form>
+                <ion-item>
+                  <ion-label floating>Deine Antwort</ion-label>
+                  <ion-input formControlName="openAnswer" type="text"></ion-input>
+                </ion-item>
+              </form>
+            </div>
           </div>
-        </div>
-      </ion-card-content>
-      <button ion-button block color="dark" (click)="answerOpenQuestion()" full>Antworten</button>
-    </ion-card>
-  </div>
+        </ion-card-content>
+        <button ion-button block color="dark" (click)="answerOpenQuestion()" full>Antworten</button>
+      </ion-card>
+    </div>
 
-  <div name="multiplechoicequestion" *ngIf="isMCQ">
-    <ion-card>
-      <ion-card-content>
-        <h3><b>Kategorie:</b> {{category}}</h3>
-      </ion-card-content>
-    </ion-card>
+    <div name="multiplechoicequestion" *ngIf="isMCQ">
+      <ion-card>
+        <ion-card-content>
+          <h3><b>Kategorie:</b> {{category}}</h3>
+        </ion-card-content>
+      </ion-card>
 
-    <ion-card>
-      <ion-card-header>
-        {{currentQuestionCounter}}. Frage
-      </ion-card-header>
-      <ion-card-content>
-        <h2>{{currentGeneralQuestion.question}}</h2>
-        <h3>A: {{currentGeneralQuestion.answerA}}</h3>
-        <h3>B: {{currentGeneralQuestion.answerB}}</h3>
-        <h3>C: {{currentGeneralQuestion.answerC}}</h3>
-        <h3>D: {{currentGeneralQuestion.answerD}}</h3>
-        <div class="row">
-          <div class="col">
-            <ion-label>Antwort</ion-label>
+      <ion-card>
+        <ion-card-header>
+          {{currentQuestionCounter}}. Frage
+        </ion-card-header>
+        <ion-card-content>
+          <h2>{{currentGeneralQuestion.question}}</h2>
+          <h3>A: {{currentGeneralQuestion.answerA}}</h3>
+          <h3>B: {{currentGeneralQuestion.answerB}}</h3>
+          <h3>C: {{currentGeneralQuestion.answerC}}</h3>
+          <h3>D: {{currentGeneralQuestion.answerD}}</h3>
+          <div class="row">
+            <div class="col">
+              <ion-label>Antwort</ion-label>
+            </div>
+            <div class="col">
+              <ion-select [(ngModel)]="selectedAnswer" okText="Auswählen" cancelText="Abbrechen">
+                <ion-option value="1">A</ion-option>
+                <ion-option value="2">B</ion-option>
+                <ion-option value="3">C</ion-option>
+                <ion-option value="4">D</ion-option>
+              </ion-select>
+            </div>
           </div>
-          <div class="col">
-            <ion-select [(ngModel)]="selectedAnswer" okText="Auswählen" cancelText="Abbrechen">
-              <ion-option value="1">A</ion-option>
-              <ion-option value="2">B</ion-option>
-              <ion-option value="3">C</ion-option>
-              <ion-option value="4">D</ion-option>
-            </ion-select>
-          </div>
-        </div>
-      </ion-card-content>
-      <button ion-button block color="dark" (click)="answerQuestion()" full>Antworten</button>
-    </ion-card>
-  </div>
+        </ion-card-content>
+        <button ion-button block color="dark" (click)="answerQuestion()" full>Antworten</button>
+      </ion-card>
+    </div>
   </div>
 </ion-content>

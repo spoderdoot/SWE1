@@ -7,7 +7,7 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="listMultipleChoiceQuestions">
+<ion-content padding class="editMultipleChoiceQuestions">
 
   <div name="generalList" *ngIf="!isForEdit">
     <button ion-button block color="dark" (click)="listMultipleChoiceQuestions()" full>Fragen anzeigen!</button>
@@ -36,11 +36,11 @@
 
       <ion-item>
         <ion-label floating>Kategorie</ion-label>
-          <ion-select formControlName="category">
-            <ion-option value="Mathe" selected>Mathe</ion-option>
-            <ion-option value="Englisch">Englisch</ion-option>
-          </ion-select>
-        </ion-item>
+        <ion-select formControlName="category">
+          <ion-option value="Mathe" selected>Mathe</ion-option>
+          <ion-option value="Englisch">Englisch</ion-option>
+        </ion-select>
+      </ion-item>
 
       <ion-item>
         <ion-label floating>Deine Frage</ion-label>

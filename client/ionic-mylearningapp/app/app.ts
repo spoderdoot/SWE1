@@ -1,7 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ionicBootstrap, ModalController, Platform, Nav } from 'ionic-angular';
 import { StatusBar } from 'ionic-native';
-
 import { AboutModalComponent } from './about/index';
 import { QuizRulesComponent } from './quiz/index';
 import { CreateMCQComponent, CreateOQComponent, CreateQuestionComponent, ListQuestionsComponent, EditQuestionComponent, ManageQuestionComponent } from './question/index';
@@ -17,13 +16,10 @@ class MyApp {
 
   rootPage: any = LoginComponent;
 
-public pages: Array<{ title: string, icon: string, component: any }>;
-public pagesLogin: Array<{ title: string, icon: string, component: any }>;
-public pagesTeacher: Array<{ title: string, icon: string, component: any }>;
-public pagesStudent: Array<{ title: string, icon: string, component: any }>;
-  //loginPage
-  isTeacher : boolean = false;
-  isLoggedIn : boolean = false;
+  public pages: Array<{ title: string, icon: string, component: any }>;
+  public pagesLogin: Array<{ title: string, icon: string, component: any }>;
+  public pagesTeacher: Array<{ title: string, icon: string, component: any }>;
+  public pagesStudent: Array<{ title: string, icon: string, component: any }>;
 
   constructor(public platform: Platform, private modalCtrl: ModalController) {
     this.initializeApp();
@@ -31,9 +27,7 @@ public pagesStudent: Array<{ title: string, icon: string, component: any }>;
     //ion-icon - https://ionicframework.com/docs/v2/ionicons/
     // used for an example of ngFor and navigation
     this.pagesLogin = [
-      { title: 'Login', icon: 'person', component: LoginComponent}, //maybe I can comibne Login with Play function
-    //{ title: 'Spielen', icon: 'game-controller-b', component: QuizRulesComponent },
-    //  { title: 'Fragen verwalten', icon: 'create', component: ManageQuestionComponent },
+      { title: 'Login', icon: 'log-in', component: LoginComponent }, //maybe I can comibne Login with Play function
       { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
       { title: 'Über uns', icon: 'at', component: AboutModalComponent },
     ];

@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { OpenQuestion, QuestionsService} from '../shared/index';
+import { OpenQuestion, QuestionsService} from '../../shared/index';
 import { NavController } from 'ionic-angular';
 
 
 //used to show the user all open questions
 @Component({
-  templateUrl: 'build/question/editOQ.component.html',
+  templateUrl: 'build/question/listOQ.component.html',
   providers: [QuestionsService],
 })
-export class EditOQComponent {
+export class ListOQComponent {
   private openquestions: OpenQuestion[] = [];
 
-  constructor(public questionsService: QuestionsService, public navCtrl : NavController) {
+  constructor(public questionsService: QuestionsService, public navCtrl: NavController) {
     this.navCtrl = navCtrl;
   }
 
@@ -24,8 +24,8 @@ export class EditOQComponent {
   }
 
   //NOT USED YET, but might be useful later - get a specific question depending on question ID
-  getOpenQuestion(id : number) {
-    this.questionsService.getOpenQuestionWithId(id).subscribe( questions => {
+  getOpenQuestion(id: number) {
+    this.questionsService.getOpenQuestionWithId(id).subscribe(questions => {
       var openquestion = questions;
     }
     )

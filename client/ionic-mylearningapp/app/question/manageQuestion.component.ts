@@ -8,7 +8,7 @@ import { CreateQuestionComponent, ListQuestionsComponent, EditQuestionComponent}
 })
 export class ManageQuestionComponent {
 
-  constructor(public navCtrl : NavController) {
+  constructor(public navCtrl: NavController) {
     this.navCtrl = navCtrl;
   }
 

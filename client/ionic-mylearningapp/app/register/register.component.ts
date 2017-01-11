@@ -62,6 +62,7 @@ createUserAndRedirectToLogin() {
 //checks if form is valid
 isFormValid() : boolean {
   let isValid : boolean = this.createUserForm.valid;
+  let noWhiteSpace : boolean = this.checkForWhiteSpace(this.createUserForm.value.username);
   console.log(this.createUserForm);
   if(!isValid) {
     const alert = this.alertCtrl.create({
@@ -71,7 +72,23 @@ isFormValid() : boolean {
     });
     alert.present();
   }
-  return isValid;
+  if(!noWhiteSpace) {
+    const alert = this.alertCtrl.create({
+      title: '<b>Angaben überprüfen!</b>',
+      subTitle: 'Leerzeichen zählen leider nicht für einen Benutzernamen!',
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+  if(isValid && noWhiteSpace) {
+    return isValid;
+  }
+}
+
+checkForWhiteSpace(input : string) : boolean {
+  var result = /\S/.test(input);
+  console.log(result);
+  return result;
 }
 
 //shows user success message if he was able to be registered
@@ -95,5 +112,7 @@ redirectToLogin() {
 redirectToAbout() {
   this.navCtrl.push(AboutModalComponent);
 }
+
+
 
 }
