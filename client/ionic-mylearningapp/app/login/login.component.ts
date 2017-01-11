@@ -78,7 +78,7 @@ userLogin(){
           return false;
       }
       this.isLoggedIn = true;
-      if(response.isTeacher = true) {
+      if(response.isTeacher = "true") {
         this.isTeacher = true;
       } else {
         this.isTeacher = false;
