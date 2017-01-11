@@ -68,9 +68,7 @@ userLogin(){
     this.loginService.login(loginUser).subscribe(response => {
       //this.showSuccessMessage(response);
       console.log(response);
-      this.loginResult = response;
-      console.log(this.loginResult);
-      if(this.loginResult.isUserNameOk == "false" || this.loginResult.isPasswordOk == "false") {
+      if(response.isUserNameOk == "false" || response.isPasswordOk == "false") {
         const alert = this.alertCtrl.create({
           title: '<b>Falscher Name oder falsches Passwort!</b>',
           subTitle: 'Bitte überprüfe deine Angaben.',
@@ -80,14 +78,14 @@ userLogin(){
           return false;
       }
       this.isLoggedIn = true;
-      this.isTeacher = this.loginResult.isTeacher;
+      this.isTeacher = response.isTeacher;
       console.log("is user a teacher? " + this.isTeacher);
       this.saveUserData(this.userLoginForm.value.username, response.isTeacher);
       this.redirectAfterLogin();
 
       //this.userID = response.userID;
     })
-  } 
+  }
 }
 
 //saves the user name into local storage
