@@ -40,7 +40,7 @@ export class UserDataSource {
 
         userdb.serialize(function() {
 
-                userdb.run("CREATE TABLE Users(id INTEGER PRIMARY KEY, username TEXT UNIQUE, userpassword TEXT, isTeacher TEXT);");
+                userdb.run("CREATE TABLE Users(id INTEGER PRIMARY KEY, username TEXT UNIQUE, password TEXT, isTeacher TEXT);");
                 userdb.run("INSERT INTO Users VALUES (1, 'Emil', 'passwort1', 'false');");
                 userdb.run("INSERT INTO Users VALUES (2, 'Timo', 'admin123', 'true');");
         });

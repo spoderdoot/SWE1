@@ -45,27 +45,47 @@ export class UserDAO {
     }
     // Enables the login
     public static loginUser(checkUser: User, callback) {
-        console.log("Check user :")
-        var usernameOk: string = "false";
-        var passwordOk: string = "false";
-        var isUserTeacher: boolean = false;
+        console.log("Check user :");
+        var isUserNameOk: string = "false";
+        var isPasswordOk: string = "false";
+        var isTeacher: boolean = false;
 
+
+        /*var query1: string = "SELECT * FROM Users WHERE username = '" + checkUser.getUserName + "';";
         var user: Array<User> = new Array<User>();
-        this.uds.getUserDataBase().all("SELECT * FROM Users WHERE username = '" + checkUser.getUserName + "';", function(err, rows) {
+        this.uds.getUserDataBase().all(query1, function(err, rows) {
             for (var row of rows) {
                 var u1 = new User(row['id'], row['username'], row['password'], row['isTeacher']);
                 user.push(u1);
             }
+            console.log("row: " + u1);
             if (row != null) {
-                usernameOk = "true";
-                if (row['passwort'] === checkUser.getUserPassword) {
-                    passwordOk = "true";
-                    isUserTeacher = row['isTeacher'];
-                }
+                isUserNameOk = "true";
+                console.log("1 " + isUserNameOk);
             }
         });
-        var loginResult: LoginResult = new LoginResult(usernameOk, passwordOk, isUserTeacher);
-        console.log(loginResult);
-        callback(loginResult);
+        console.log("2: " + isUserNameOk);
+        */
+        var query2: string = "SELECT * FROM Users WHERE username = '" + checkUser.getUserName + "'" + "AND password = '" + checkUser.getUserPassword + "' ;";
+        var user: Array<User> = new Array<User>();
+        this.uds.getUserDataBase().all(query2, function(err, rows) {
+            for (var row of rows) {
+                var u1 = new User(row['id'], row['username'], row['password'], row['isTeacher']);
+                user.push(u1);
+            }
+            console.log("row: " + u1);
+            if (row != null) {
+                console.log("3:" + isUserNameOk);
+                isUserNameOk = "true";
+                isPasswordOk = "true";
+                isTeacher = row['isTeacher'];
+            }
+            var loginResult: LoginResult = new LoginResult(isUserNameOk, isPasswordOk, isTeacher);
+            console.log(loginResult);
+            callback(loginResult);
+        });
+        console.log("4: " + isUserNameOk);
+
+
     }
 }

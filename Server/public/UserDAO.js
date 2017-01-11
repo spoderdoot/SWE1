@@ -38,26 +38,28 @@ class UserDAO {
     }
     static loginUser(checkUser, callback) {
         console.log("Check user :");
-        var usernameOk = "false";
-        var passwordOk = "false";
-        var isUserTeacher = false;
+        var isUserNameOk = "false";
+        var isPasswordOk = "false";
+        var isTeacher = false;
+        var query2 = "SELECT * FROM Users WHERE username = '" + checkUser.getUserName + "'" + "AND password = '" + checkUser.getUserPassword + "' ;";
         var user = new Array();
-        this.uds.getUserDataBase().all("SELECT * FROM Users WHERE username = '" + checkUser.getUserName + "';", function (err, rows) {
+        this.uds.getUserDataBase().all(query2, function (err, rows) {
             for (var row of rows) {
                 var u1 = new User_1.User(row['id'], row['username'], row['password'], row['isTeacher']);
                 user.push(u1);
             }
+            console.log("row: " + u1);
             if (row != null) {
-                usernameOk = "true";
-                if (row['passwort'] === checkUser.getUserPassword) {
-                    passwordOk = "true";
-                    isUserTeacher = row['isTeacher'];
-                }
+                console.log("3:" + isUserNameOk);
+                isUserNameOk = "true";
+                isPasswordOk = "true";
+                isTeacher = row['isTeacher'];
             }
+            var loginResult = new LoginResult_1.LoginResult(isUserNameOk, isPasswordOk, isTeacher);
+            console.log(loginResult);
+            callback(loginResult);
         });
-        var loginResult = new LoginResult_1.LoginResult(usernameOk, passwordOk, isUserTeacher);
-        console.log(loginResult);
-        callback(loginResult);
+        console.log("4: " + isUserNameOk);
     }
 }
 UserDAO.uds = UserDataSource_1.UserDataSource.getInstance();

@@ -1,13 +1,13 @@
 export class LoginResult {
 
-    constructor(private userNameIsOk:string, private passwordIsOk:string, private isTeacher:boolean){
+    constructor(private isUserNameOk:string, private isPasswordOk:string, private isTeacher:boolean){
     }
 
     public get getUserNameIsOk() {
-      return this.userNameIsOk;
+      return this.isUserNameOk;
     }
     public get getPasswordIsOk() {
-      return this.passwordIsOk;
+      return this.isPasswordOk;
     }
     public get getIsTeacher() {
       return this.isTeacher;

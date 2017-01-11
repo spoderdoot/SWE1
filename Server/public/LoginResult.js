@@ -1,15 +1,15 @@
 "use strict";
 class LoginResult {
-    constructor(userNameIsOk, passwordIsOk, isTeacher) {
-        this.userNameIsOk = userNameIsOk;
-        this.passwordIsOk = passwordIsOk;
+    constructor(isUserNameOk, isPasswordOk, isTeacher) {
+        this.isUserNameOk = isUserNameOk;
+        this.isPasswordOk = isPasswordOk;
         this.isTeacher = isTeacher;
     }
     get getUserNameIsOk() {
-        return this.userNameIsOk;
+        return this.isUserNameOk;
     }
     get getPasswordIsOk() {
-        return this.passwordIsOk;
+        return this.isPasswordOk;
     }
     get getIsTeacher() {
         return this.isTeacher;
