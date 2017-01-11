@@ -6,7 +6,7 @@ import { AboutModalComponent } from './about/index';
 import { QuizRulesComponent } from './quiz/index';
 import { CreateMCQComponent, CreateOQComponent, CreateQuestionComponent, ListQuestionsComponent, EditQuestionComponent, ManageQuestionComponent } from './question/index';
 import { SettingsComponent } from './settings/index';
-import { LoginComponent } from './login/index';
+import { LoginComponent, LogoutComponent } from './login/index';
 import { RegisterComponent } from './register/index';
 
 @Component({
@@ -32,8 +32,8 @@ public pagesStudent: Array<{ title: string, icon: string, component: any }>;
     // used for an example of ngFor and navigation
     this.pagesLogin = [
       { title: 'Login', icon: 'person', component: LoginComponent}, //maybe I can comibne Login with Play function
-      { title: 'Spielen', icon: 'game-controller-b', component: QuizRulesComponent },
-      { title: 'Fragen verwalten', icon: 'create', component: ManageQuestionComponent },
+    //{ title: 'Spielen', icon: 'game-controller-b', component: QuizRulesComponent },
+    //  { title: 'Fragen verwalten', icon: 'create', component: ManageQuestionComponent },
       { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
       { title: 'Über uns', icon: 'at', component: AboutModalComponent },
     ];
@@ -42,12 +42,14 @@ public pagesStudent: Array<{ title: string, icon: string, component: any }>;
       { title: 'Fragen verwalten', icon: 'game-controller-b', component: ManageQuestionComponent },
       { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
       { title: 'Über uns', icon: 'at', component: AboutModalComponent },
+      { title: 'Logout', icon: 'log-out', component: LogoutComponent },
     ];
 
     this.pagesStudent = [
       { title: 'Spielen', icon: 'game-controller-b', component: QuizRulesComponent },
       { title: 'Einstellungen', icon: 'settings', component: SettingsComponent },
       { title: 'Über uns', icon: 'at', component: AboutModalComponent },
+      { title: 'Logout', icon: 'log-out', component: LogoutComponent },
     ];
 
     LoginComponent.setPages(this);
@@ -59,6 +61,8 @@ public pagesStudent: Array<{ title: string, icon: string, component: any }>;
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
       StatusBar.styleDefault();
+      //resetting all input user data that might be left when app starts
+      window.localStorage.clear();
       this.pages = this.pagesLogin;
     });
   }

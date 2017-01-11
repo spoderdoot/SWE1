@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import { AlertController, App, NavController, MenuController} from 'ionic-angular';
 import {RegisterComponent} from '../register/index';
-import { User, LoginResult, LoginService} from '../shared/index';
+import { User, LoginService} from '../shared/index';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { QuizComponent, QuizRulesComponent } from '../quiz/index';
 import {ManageQuestionComponent } from '../question/index';
@@ -13,7 +13,6 @@ import {ManageQuestionComponent } from '../question/index';
 })
 export class LoginComponent {
 private user : User[];
-private loginResult : LoginResult;
 //private username : string;
 //private password : string;
 private userLoginForm : FormGroup;
@@ -24,7 +23,9 @@ private static app : any;
   constructor(private alertCtrl : AlertController, public appCtrl : App, public navCtrl : NavController, private formBuilder : FormBuilder, public loginService : LoginService, public menuCtrl : MenuController) {
     this.navCtrl = navCtrl;
     this.createForm();
-    //this.menuCtrl.enable(false); ///damit man nicht das Menu aufrufen kann bevor man sich eingeloggt hat.
+    this.isLoggedIn = false;
+    //setting default avalaible pages
+    LoginComponent.app.pages = LoginComponent.app.pagesLogin;
   }
 
 static setPages(app : any) {
@@ -77,13 +78,14 @@ userLogin(){
         alert.present();
           return false;
       }
-      this.isLoggedIn = true;
+
       if(response.isTeacher == "true") {
         this.isTeacher = true;
       } else {
         this.isTeacher = false;
       }
       console.log("is user a teacher? " + this.isTeacher);
+      this.isLoggedIn = true;
       this.saveUserData(this.userLoginForm.value.username, response.isTeacher);
       this.redirectAfterLogin();
 
@@ -104,6 +106,8 @@ saveUserData(username : string, isTeacher : string){
   window.localStorage.setItem("username",  username);
   console.log(window.localStorage.getItem("username"));
   window.localStorage.setItem("isTeacher", isTeacher);
+  window.localStorage.setItem("isLoggedIn", this.isLoggedIn.toString());
+  console.log(window.localStorage.getItem("isLoggedIn"));
 }
 
 //shows success message to the user if he successfully logged in
@@ -125,12 +129,7 @@ redirectToRegister(){
       //this.appCtrl.getRootNav().push(RegisterComponent)
 }
 
-//NOT USED ANYMORE BUT MIGHT BE NESSECCARY LATER - redirects to QuizComponent
-redirectToQuiz() {
-      //this.saveUserName();
-      this.navCtrl.setRoot(QuizComponent);
-}
-
+/*
 //USED FOR TEST PURPOSES, different handling between teacher and student works as intented - waiting for server implementation
 redirectToQuizRules() {
   this.isLoggedIn = true;
@@ -143,7 +142,8 @@ redirectToQuizRules() {
     this.navCtrl.setRoot(ManageQuestionComponent);
   }
   //this.navCtrl.setRoot(QuizRulesComponent);
-}
+}*/
+
   //redirects to another component after login depending on user status
   redirectAfterLogin() {
     if(this.isLoggedIn && !this.isTeacher) { //for students
