@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AlertController, NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Question, QuestionsService} from '../shared/index';
+import { EditMCQComponent, EditOQComponent} from './index';
 // NOT IMPLEMENTED YET import { EditMCQComponent, EditOQComponent} from './index';
 
 //NOT IMPLEMENTED YET -used for editting questions
@@ -13,7 +14,7 @@ export class EditQuestionComponent {
 
   constructor(public alertCtrl : AlertController, public navCtrl : NavController){}
 
-  /*
+
   // NOT IMPLEMENTED YET
   //redirects to edit multiple choice questions
   redirectToEditMCQ() {
@@ -25,5 +26,5 @@ export class EditQuestionComponent {
       this.navCtrl.push(EditOQComponent);
 
   }
-  */
+
 }

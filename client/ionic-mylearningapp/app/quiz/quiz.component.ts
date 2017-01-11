@@ -3,7 +3,7 @@ import { AlertController, NavController } from 'ionic-angular';
 import { QuizRules, GeneralQuestion, OpenQuestion, MultipleChoiceQuestion, Question, QuestionsService} from '../shared/index';
 import {ResultsComponent} from '../results/index';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-
+import { QuizRulesComponent } from '../quiz/index';
 
 //used for the main learning quiz part
 @Component({
@@ -252,6 +252,9 @@ export class QuizComponent {
     console.log(window.localStorage.getItem("totalNumberOfQuestions"));
   }
 
+  changeRules() {
+    this.navCtrl.setRoot(QuizRulesComponent);
+  }
 //shows user the results of the game
   redirectToResults() {
     this.saveQuizResults();

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-navbar>
+    <button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>InstaLearn</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="listMultipleChoiceQuestions">
+  <button ion-button block color="dark" (click)="listMultipleChoiceQuestions()" full>Fragen anzeigen!</button>
+
+  <ion-card *ngFor="let multipleChoiceQuestion of multipleChoiceQuestions">
+    <ion-card-header>
+      <b>ID: </b>{{multipleChoiceQuestion.id}}. Frage
+    </ion-card-header>
+    <ion-card-content>
+      <h2><b>Kategorie: </b>{{multipleChoiceQuestion.category}}</h2>
+      <h2><b>Frage: </b>{{multipleChoiceQuestion.question}}</h2>
+      <h3><b>A: </b>{{multipleChoiceQuestion.answerA}}</h3>
+      <h3><b>B: </b>{{multipleChoiceQuestion.answerB}}</h3>
+      <h3><b>C: </b>{{multipleChoiceQuestion.answerC}}</h3>
+      <h3><b>D: </b>{{multipleChoiceQuestion.answerD}}</h3>
+      <p><b>Richtige Antwort: </b>{{multipleChoiceQuestion.correctAnswer}}</p>
+      <button ion-button block color="dark" (click)="editQuestion()" full>Frage ändern!</button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

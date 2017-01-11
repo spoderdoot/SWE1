@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import { AlertController, App, NavController, MenuController} from 'ionic-angular';
 import {RegisterComponent} from '../register/index';
-import { User, LoginService} from '../shared/index';
+import { User, LoginResult, LoginService} from '../shared/index';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { QuizComponent, QuizRulesComponent } from '../quiz/index';
 import {ManageQuestionComponent } from '../question/index';
@@ -13,6 +13,7 @@ import {ManageQuestionComponent } from '../question/index';
 })
 export class LoginComponent {
 private user : User[];
+private loginResult : LoginResult;
 //private username : string;
 //private password : string;
 private userLoginForm : FormGroup;
@@ -65,9 +66,10 @@ userLogin() : boolean{
     var loginUser = new User(-1, this.userLoginForm.value.username, this.userLoginForm.value.password, false);
 
     this.loginService.login(loginUser).subscribe(response => {
-      this.showSuccessMessage(response);
+      //this.showSuccessMessage(response);
       console.log(response);
-      if(response.isUserNameOk == false || response.isPasswordOk == false) {
+      this.loginResult = response;
+      if(this.loginResult.isUserNameOk == "false" || this.loginResult.isPasswordOk == "false") {
         const alert = this.alertCtrl.create({
           title: '<b>Falscher Name oder falsches Passwort!</b>',
           subTitle: 'Bitte überprüfe deine Angaben.',
@@ -77,7 +79,7 @@ userLogin() : boolean{
           return false;
       }
       this.isLoggedIn = true;
-      this.isTeacher = response.isTeacher;
+      this.isTeacher = this.loginResult.isTeacher;
       console.log("is user a teacher? " + this.isTeacher);
       this.saveUserData(this.userLoginForm.value.username, response.isTeacher);
       this.redirectAfterLogin();
