@@ -60,7 +60,7 @@ isFormValid() : boolean {
 }
 
 //used for user login
-userLogin() : boolean{
+userLogin(){
 
   if(this.isFormValid()) {
     var loginUser = new User(-1, this.userLoginForm.value.username, this.userLoginForm.value.password, false);
@@ -69,6 +69,7 @@ userLogin() : boolean{
       //this.showSuccessMessage(response);
       console.log(response);
       this.loginResult = response;
+      console.log(this.loginResult);
       if(this.loginResult.isUserNameOk == "false" || this.loginResult.isPasswordOk == "false") {
         const alert = this.alertCtrl.create({
           title: '<b>Falscher Name oder falsches Passwort!</b>',
@@ -83,11 +84,10 @@ userLogin() : boolean{
       console.log("is user a teacher? " + this.isTeacher);
       this.saveUserData(this.userLoginForm.value.username, response.isTeacher);
       this.redirectAfterLogin();
-      return true;
+
       //this.userID = response.userID;
     })
-  } else
-  return;
+  } 
 }
 
 //saves the user name into local storage

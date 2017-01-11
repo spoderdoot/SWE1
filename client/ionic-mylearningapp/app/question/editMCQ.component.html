@@ -8,22 +8,76 @@
 </ion-header>
 
 <ion-content padding class="listMultipleChoiceQuestions">
-  <button ion-button block color="dark" (click)="listMultipleChoiceQuestions()" full>Fragen anzeigen!</button>
 
-  <ion-card *ngFor="let multipleChoiceQuestion of multipleChoiceQuestions">
-    <ion-card-header>
-      <b>ID: </b>{{multipleChoiceQuestion.id}}. Frage
-    </ion-card-header>
-    <ion-card-content>
-      <h2><b>Kategorie: </b>{{multipleChoiceQuestion.category}}</h2>
-      <h2><b>Frage: </b>{{multipleChoiceQuestion.question}}</h2>
-      <h3><b>A: </b>{{multipleChoiceQuestion.answerA}}</h3>
-      <h3><b>B: </b>{{multipleChoiceQuestion.answerB}}</h3>
-      <h3><b>C: </b>{{multipleChoiceQuestion.answerC}}</h3>
-      <h3><b>D: </b>{{multipleChoiceQuestion.answerD}}</h3>
-      <p><b>Richtige Antwort: </b>{{multipleChoiceQuestion.correctAnswer}}</p>
-      <button ion-button block color="dark" (click)="editQuestion()" full>Frage ändern!</button>
-    </ion-card-content>
-  </ion-card>
+  <div name="generalList" *ngIf="!isForEdit">
+    <button ion-button block color="dark" (click)="listMultipleChoiceQuestions()" full>Fragen anzeigen!</button>
 
+    <ion-card *ngFor="let multipleChoiceQuestion of multipleChoiceQuestions">
+      <ion-card-header>
+        <b>ID: </b>{{multipleChoiceQuestion.id}}. Frage
+      </ion-card-header>
+      <ion-card-content>
+        <h2><b>Kategorie: </b>{{multipleChoiceQuestion.category}}</h2>
+        <h2><b>Frage: </b>{{multipleChoiceQuestion.question}}</h2>
+        <h3><b>A: </b>{{multipleChoiceQuestion.answerA}}</h3>
+        <h3><b>B: </b>{{multipleChoiceQuestion.answerB}}</h3>
+        <h3><b>C: </b>{{multipleChoiceQuestion.answerC}}</h3>
+        <h3><b>D: </b>{{multipleChoiceQuestion.answerD}}</h3>
+        <p><b>Richtige Antwort: </b>{{multipleChoiceQuestion.correctAnswer}}</p>
+        <button ion-button block color="dark" (click)="editQuestion()" full>Frage ändern!</button>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+
+  <div name="details" *ngIf="isForEdit">
+
+    <form [formGroup]="editMCQForm">
+
+      <ion-item>
+        <ion-label floating>Kategorie</ion-label>
+          <ion-select formControlName="category">
+            <ion-option value="Mathe" selected>Mathe</ion-option>
+            <ion-option value="Englisch">Englisch</ion-option>
+          </ion-select>
+        </ion-item>
+
+      <ion-item>
+        <ion-label floating>Deine Frage</ion-label>
+        <ion-textarea formControlName="question" type="text"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Antwort A</ion-label>
+        <ion-input formControlName="answerA" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Antwort B</ion-label>
+        <ion-input formControlName="answerB" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Antwort C</ion-label>
+        <ion-input formControlName="answerC" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Antwort D</ion-label>
+        <ion-input formControlName="answerD" type="text"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Richtige Antwort</ion-label>
+        <ion-select formControlName="correctAnswer">
+          <ion-option value="1" selected>A</ion-option>
+          <ion-option value="2">B</ion-option>
+          <ion-option value="3">C</ion-option>
+          <ion-option value="4">D</ion-option>
+        </ion-select>
+      </ion-item>
+
+    </form>
+    <button ion-button block color="dark" (click)="saveEdit()" full>Änderung speichern!</button>
+  </div>
 </ion-content>
