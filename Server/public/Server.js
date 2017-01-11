@@ -1,7 +1,6 @@
 "use strict";
 const express = require("express");
 const bodyParser = require("body-parser");
-const DataSource_1 = require("./DataSource");
 const Question_1 = require("./Question");
 const User_1 = require("./User");
 const Questions_1 = require("./Questions");
@@ -24,7 +23,6 @@ app.use(allowCrossDomain);
 app.use('/ila', router);
 app.listen(port);
 console.log('http://127.0.0.1:' + port + '/ila');
-DataSource_1.DataSource.getInstance().initDatabase();
 router.get('/', function (req, res) {
     res.json({ "message": 'ILA server is running ...' });
 });

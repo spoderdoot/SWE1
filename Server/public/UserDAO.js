@@ -1,6 +1,7 @@
 "use strict";
 const UserDataSource_1 = require("./UserDataSource");
 const User_1 = require("./User");
+const LoginResult_1 = require("./LoginResult");
 class UserDAO {
     static getUsers(callback) {
         var users = new Array();
@@ -10,6 +11,7 @@ class UserDAO {
                 users.push(u1);
             }
             callback(users);
+            console.log(users);
         });
     }
     static createUser(newUser) {
@@ -34,73 +36,28 @@ class UserDAO {
             });
         });
     }
-    static checkUser(checkUser) {
-        var userExists;
-        var user = new Array();
-        this.uds.getUserDataBase().all("SELECT * FROM Users WHERE username = '" + checkUser.getUserName + "'; ", function (err, rows) {
-            for (var row of rows) {
-                var u1 = new User_1.User(row['id'], row['username'], row['password'], row['isTeacher']);
-                user.push(u1);
-            }
-        });
-        if (user.length > 0) {
-            userExists = true;
-        }
-        else {
-            userExists = false;
-        }
-        console.log("user exists: " + userExists);
-        return userExists;
-    }
-    static checkPassword(checkUser) {
-        var correctPassword;
-        var user = new Array();
-        this.uds.getUserDataBase().all("SELECT userName FROM Users WHERE username = '" + checkUser.getUserName +
-            "' AND password = '" + checkUser.getUserPassword + "';", function (err, rows) {
-            for (var row of rows) {
-                var u1 = new User_1.User(row['id'], row['username'], row['password'], row['isTeacher']);
-                user.push(u1);
-                console.log(err);
-            }
-        });
-        if (user.length > 0) {
-            correctPassword = true;
-        }
-        else {
-            correctPassword = false;
-        }
-        console.log("correct password: " + correctPassword);
-        return correctPassword;
-    }
-    static isUserTeacher(checkUser) {
-        var isTeacher;
-        var user = new Array();
-        this.uds.getUserDataBase().all("SELECT username FROM Users WHERE username = '" + checkUser.getUserName +
-            "' AND isTeacher = '" + checkUser.getIsTeacher + "';", function (err, rows) {
-            for (var row of rows) {
-                var u1 = new User_1.User(row['id'], row['username'], row['password'], row['isTeacher']);
-                user.push(u1);
-            }
-        });
-        if (user.length > 0) {
-            isTeacher = true;
-        }
-        else {
-            isTeacher = false;
-        }
-        console.log("user is a teacher: " + isTeacher);
-        return isTeacher;
-    }
     static loginUser(checkUser, callback) {
-        var callback1 = this.checkUser(checkUser);
-        var callback2 = this.checkPassword(checkUser);
-        var callback3 = this.isUserTeacher(checkUser);
-        var userLogin = [
-            { "isUserNameOk": callback1, "isPassWordOk": callback2, "isTeacher": callback3 }
-        ];
-        console.log("userLogin array: ");
-        console.log(userLogin);
-        callback(userLogin);
+        console.log("Check user :");
+        var usernameOk = "false";
+        var passwordOk = "false";
+        var isUserTeacher = false;
+        var user = new Array();
+        this.uds.getUserDataBase().all("SELECT * FROM Users WHERE username = '" + checkUser.getUserName + "';", function (err, rows) {
+            for (var row of rows) {
+                var u1 = new User_1.User(row['id'], row['username'], row['password'], row['isTeacher']);
+                user.push(u1);
+            }
+            if (row != null) {
+                usernameOk = "true";
+                if (row['passwort'] === checkUser.getUserPassword) {
+                    passwordOk = "true";
+                    isUserTeacher = row['isTeacher'];
+                }
+            }
+        });
+        var loginResult = new LoginResult_1.LoginResult(usernameOk, passwordOk, isUserTeacher);
+        console.log(loginResult);
+        callback(loginResult);
     }
 }
 UserDAO.uds = UserDataSource_1.UserDataSource.getInstance();

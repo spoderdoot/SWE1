@@ -47,13 +47,6 @@ app.use('/ila', router);
 app.listen(port);
 console.log('http://127.0.0.1:' + port + '/ila');
 
-// initialize databases
-DataSource.getInstance().initDatabase();
-// initialize database for users
-//UserDataSource.getInstance().initUserDataBase();
-// initialize database for questions
-//QuestionDataSource.getInstance().initDataBase();
-
 /** REST API **/
 
 // test function
