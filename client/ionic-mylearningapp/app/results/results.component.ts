@@ -48,16 +48,16 @@ export class ResultsComponent {
     if(this.percentageCorrect == 100) {
       this.grade = 1;
     } else
-    if(99 > this.percentageCorrect && this.percentageCorrect > 75) {
+    if(99 >= this.percentageCorrect && this.percentageCorrect >= 75) {
       this.grade = 2;
     } else
-    if(74 > this.percentageCorrect && this.percentageCorrect > 60) {
+    if(74 >= this.percentageCorrect && this.percentageCorrect >= 60) {
       this.grade = 3;
     } else
-    if(59 > this.percentageCorrect && this.percentageCorrect > 45) {
+    if(59 >= this.percentageCorrect && this.percentageCorrect >= 45) {
       this.grade = 4;
     } else
-    if(44 > this.percentageCorrect && this.percentageCorrect > 35) {
+    if(44 >= this.percentageCorrect && this.percentageCorrect >= 35) {
       this.grade = 5;
     } else {
       console.log(this.percentageCorrect);
