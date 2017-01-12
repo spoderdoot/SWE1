@@ -25,7 +25,7 @@ export class CreateOQComponent {
     this.createOpenQuestionForm = this.formBuilder.group({
 
       //each correct question consists of a category, a question and a correct answer
-      category: ['1', Validators.compose([Validators.required])],
+      category: ['', Validators.compose([Validators.required])],
       question: ['', Validators.compose([Validators.required])],
       correctAnswer: ['', Validators.compose([Validators.required])]
     });

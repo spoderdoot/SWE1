@@ -242,7 +242,7 @@ export class QuizComponent {
     alert.present();
   }
 
-  //starting timer
+  // not ready yet for use - starting timer
   startTimer() {
     setInterval(this.startQuiz(),1000);
   }

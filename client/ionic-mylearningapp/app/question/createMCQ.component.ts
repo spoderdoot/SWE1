@@ -22,7 +22,7 @@ export class CreateMCQComponent {
   createForm() {
 
     this.createMCQForm = this.formBuilder.group({
-      category: ['1', Validators.compose([Validators.required])],
+      category: ['', Validators.compose([Validators.required])],
       question: ['', Validators.compose([Validators.required])],
       answerA: ['', Validators.compose([Validators.required])],
       answerB: ['', Validators.compose([Validators.required])],
