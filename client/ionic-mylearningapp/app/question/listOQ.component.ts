@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { OpenQuestion, QuestionsService} from '../../shared/index';
+import { OpenQuestion, QuestionsService} from '../shared/index';
 import { NavController } from 'ionic-angular';
 
 

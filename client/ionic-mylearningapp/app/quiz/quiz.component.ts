@@ -47,7 +47,6 @@ export class QuizComponent {
   startQuiz() {
     this.getQuizQuestions();
     //setting boolean quiz started to true since the quiz will be started after receiving all questions
-    this.quizStarted = true;
   }
 
   //used to create an open question form
@@ -88,6 +87,8 @@ export class QuizComponent {
       this.checkTypeOfQuestion();
       //starting question counter
       this.currentQuestionCounter = 1;
+
+      this.quizStarted = true;
     })
   }
 
@@ -241,6 +242,10 @@ export class QuizComponent {
     alert.present();
   }
 
+  //starting timer
+  startTimer() {
+    setInterval(this.startQuiz(),1000);
+  }
   //saving quiz results to local storage
   saveQuizResults() {
     var correctAnswerCountString = "" + this.correctAnswerCount;

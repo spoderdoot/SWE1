@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { QuestionsService, OpenQuestion} from '../../shared/index';
+import { QuestionsService, OpenQuestion} from '../shared/index';
 import { NavController } from 'ionic-angular';
 
 //used to create open questions - short OQ

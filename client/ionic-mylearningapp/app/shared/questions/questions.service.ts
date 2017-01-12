@@ -79,6 +79,7 @@ export class QuestionsService {
       .map((res: Response) => res.json());
   }
 
+
   //used for creating MCQ
   createMultipleChoiceQuestion(multipleChoiceQuestion: MultipleChoiceQuestion): Observable<any> {
     console.log(JSON.stringify(multipleChoiceQuestion));
@@ -87,6 +88,28 @@ export class QuestionsService {
 
     return this.http
       .put(this.settings.serverIp + 'multiplechoicequestion/create', JSON.stringify(multipleChoiceQuestion), { headers: headers })
+      .map((res: Response) => res.json());
+  }
+
+  //used for editting open questions
+  editOpenQuestion(openQuestion : OpenQuestion) : Observable<any> {
+    console.log(JSON.stringify(openQuestion));
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http
+      .put(this.settings.serverIp + 'openquestion/edit', JSON.stringify(openQuestion), { headers: headers })
+      .map((res: Response) => res.json());
+  }
+
+  //used for editting MCQs
+  editMultipleChoiceQuestion(multipleChoiceQuestion : MultipleChoiceQuestion) : Observable<any> {
+    console.log(JSON.stringify(multipleChoiceQuestion));
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http
+      .put(this.settings.serverIp + 'multiplechoicequestion/edit', JSON.stringify(multipleChoiceQuestion), { headers: headers })
       .map((res: Response) => res.json());
   }
 

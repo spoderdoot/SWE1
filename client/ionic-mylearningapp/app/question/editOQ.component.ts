@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { OpenQuestion, QuestionsService} from '../../shared/index';
+import { OpenQuestion, QuestionsService} from '../shared/index';
 import { NavController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { AlertController } from 'ionic-angular';
+import { EditQuestionComponent } from './index';
 
 
 //used to show the user all open questions
@@ -44,9 +45,9 @@ export class EditOQComponent {
     this.editOQForm = this.formBuilder.group({
 
       //each correct question consists of a category, a question and a correct answer
-      category: ['1', Validators.compose([Validators.required])],
-      question: ['', Validators.compose([Validators.required])],
-      correctAnswer: ['', Validators.compose([Validators.required])]
+      category: [this.openQuestion.category, Validators.compose([Validators.required])],
+      question: [this.openQuestion.question, Validators.compose([Validators.required])],
+      correctAnswer: [this.openQuestion.correctAnswer, Validators.compose([Validators.required])]
     });
   }
 
@@ -79,21 +80,18 @@ export class EditOQComponent {
     }
   }
 
-  //shows success message to user if he could successfully create an open question
-  showSuccesMessageAndResetForm(response: any) {
+  //shows success message to user if he could successfully edit an open question
+  showSuccesMessage(response: any) {
     console.log("success - question was successfully stored with id " + response);
 
-    // create a pop-up message
+    // creating success message
     const alert = this.alertCtrl.create({
       title: '<b>Frage gespeichert!</b>',
-      subTitle: 'Ihre Frage wurde unter der Id ' + response + ' gespeichert.',
+      subTitle: 'Ihre Frage wurde erfolgreich geändert.',
       buttons: ['OK']
     });
-    // show the pop-up message
+    // show the success message
     alert.present();
-
-    // reset the form so more question can be created
-    this.createForm();
   }
 
   //used for checking if user only input white spaces
@@ -110,13 +108,39 @@ export class EditOQComponent {
     }
   }
 
-  editQuestion() {
+  //used for getting a specific question out of the openquestions[] by its ID
+  getQuestionById(id: number) {
+    for (var i = 0; i < this.openquestions.length; i++) {
+      if (id == this.openquestions[i].id)
+        this.openQuestion = this.openquestions[i];
+    }
+  }
+
+  //used for editting questions by their ID, creating form and changing HTML view
+  editQuestion(id: number) {
+    this.getQuestionById(id);
     this.createForm();
-    var position: number = 0;
-    this.openQuestion = this.openquestions[position];
-    this.editOQForm.value.category = this.openQuestion.category;
-    this.editOQForm.value.question = this.openQuestion.question;
-    this.editOQForm.value.correctAnswer = this.openQuestion.correctAnswer;
     this.isForEdit = true;
+  }
+
+  //used for saving any edits
+  saveEdit() {
+    //checks if form is valid
+    if (this.isFormIsValid()) {
+
+      // create new open question object that server can use to update with the ID
+      var editOQ = new OpenQuestion(this.openQuestion.id, this.editOQForm.value.category, this.editOQForm.value.question, this.editOQForm.value.correctAnswer);
+
+      // sending editted question to server
+      this.questionsService.editOpenQuestion(editOQ).subscribe(response => {
+        this.showSuccesMessage(response);
+      });;
+    }
+  }
+
+  //used for cancelling edit process
+  cancel() {
+    this.isForEdit = false;
+    this.navCtrl.setRoot(EditQuestionComponent);
   }
 }

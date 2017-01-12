@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { MultipleChoiceQuestion, QuestionsService} from '../../shared/index';
+import { MultipleChoiceQuestion, QuestionsService} from '../shared/index';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { AlertController } from 'ionic-angular';
+import { AlertController, NavController } from 'ionic-angular';
+import { EditQuestionComponent } from './index';
 
 //used for showing the user all multiple choice questions(MCQ)
 @Component({
@@ -14,7 +15,7 @@ export class EditMCQComponent {
   private isForEdit: boolean;
   private editMCQForm: FormGroup;
 
-  constructor(private alertCtrl: AlertController, public questionsService: QuestionsService, private formBuilder: FormBuilder) {
+  constructor(private alertCtrl: AlertController, public questionsService: QuestionsService,  public navCtrl: NavController, private formBuilder: FormBuilder) {
     this.isForEdit = false;
   }
 
@@ -29,13 +30,13 @@ export class EditMCQComponent {
   createForm() {
 
     this.editMCQForm = this.formBuilder.group({
-      category: ['', Validators.compose([Validators.required])],
-      question: ['', Validators.compose([Validators.required])],
-      answerA: ['', Validators.compose([Validators.required])],
-      answerB: ['', Validators.compose([Validators.required])],
-      answerC: ['', Validators.compose([Validators.required])],
-      answerD: ['', Validators.compose([Validators.required])],
-      correctAnswer: ['', Validators.compose([Validators.required])]
+      category: [this.multipleChoiceQuestion.category, Validators.compose([Validators.required])],
+      question: [this.multipleChoiceQuestion.question, Validators.compose([Validators.required])],
+      answerA: [this.multipleChoiceQuestion.answerA, Validators.compose([Validators.required])],
+      answerB: [this.multipleChoiceQuestion.answerB, Validators.compose([Validators.required])],
+      answerC: [this.multipleChoiceQuestion.answerC, Validators.compose([Validators.required])],
+      answerD: [this.multipleChoiceQuestion.answerD, Validators.compose([Validators.required])],
+      correctAnswer: [this.multipleChoiceQuestion.correctAnswer, Validators.compose([Validators.required])]
     })
   }
 
@@ -96,19 +97,37 @@ export class EditMCQComponent {
     this.isForEdit = false;
   }
 
-  editQuestion() {
-    //console.log(temp);
+  //used for getting a specific question by its ID
+  getQuestionById(id : number) {
+    for(var i  = 0; i < this.multipleChoiceQuestions.length; i++) {
+      if(id == this.multipleChoiceQuestions[i].id)
+      this.multipleChoiceQuestion = this.multipleChoiceQuestions[i];
+    }
+  }
+
+  //used for editting question and setting html code to the editted one
+  editQuestion(id : number) {
+    this.getQuestionById(id);
     this.createForm();
-    var position: number = 0;
-    this.multipleChoiceQuestion = this.multipleChoiceQuestions[position];
-    this.editMCQForm.value.category = this.multipleChoiceQuestion.category;
-    this.editMCQForm.value.question = this.multipleChoiceQuestion.question;
-    this.editMCQForm.value.answerA = this.multipleChoiceQuestion.answerA;
-    this.editMCQForm.value.answerB = this.multipleChoiceQuestion.answerB;
-    this.editMCQForm.value.answerC = this.multipleChoiceQuestion.answerC;
-    this.editMCQForm.value.answerD = this.multipleChoiceQuestion.answerD;
-    this.editMCQForm.value.correctAnswer = this.multipleChoiceQuestion.correctAnswer;
     this.isForEdit = true;
+  }
+
+  //used for saving the edit
+  saveEdit() {
+    //checking if form is valid
+    if (this.isFormValid()) {
+      //creating new MCQ that server can use to update existing MCQ by comparing IDs
+      var editMCQ = new MultipleChoiceQuestion(this.multipleChoiceQuestion.id, this.editMCQForm.value.category, this.editMCQForm.value.question, this.editMCQForm.value.answerA, this.editMCQForm.value.answerB, this.editMCQForm.value.answerC, this.editMCQForm.value.answerD, this.editMCQForm.value.correctAnswer);
+      this.questionsService.editMultipleChoiceQuestion(editMCQ).subscribe(response => {
+        this.showSuccessMessageAndResetForm(response);
+      })
+    }
+  }
+
+  //used for cancelling editting the question, no changes will be saved
+  cancel() {
+    this.isForEdit = false;
+    this.navCtrl.setRoot(EditQuestionComponent);
   }
 
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MultipleChoiceQuestion, QuestionsService} from '../../shared/index';
+import { MultipleChoiceQuestion, QuestionsService} from '../shared/index';
 
 //used for showing the user all multiple choice questions(MCQ)
 @Component({
