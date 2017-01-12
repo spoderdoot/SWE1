@@ -56,8 +56,7 @@ export class CreateMCQComponent {
       });
       //presents user the alert message
       alert.present();
-    }
-    if (!noWhiteSpace) {
+    } else if (!noWhiteSpace) {
       const alert = this.alertCtrl.create({
         title: '<b>Angaben überprüfen!</b>',
         subTitle: 'Leerzeichen zählen leider nicht! Bitte geben Sie einen entsprechenden Text ein!',

@@ -101,8 +101,8 @@ class QuestionDAO {
         });
     }
     static updateQuestion(upQuestion) {
-        var insert = "UPDATE Users SET id = " + upQuestion.getID +
-            ", category = '" + upQuestion.getCategory + "', isMcq = '" + upQuestion.getType +
+        var insert = "UPDATE Questions SET id = " + upQuestion.getID +
+            ", category = '" + upQuestion.getCategory +
             "', question = '" + upQuestion.getQuestion + "', answerA = '" + upQuestion.getAnswerA +
             "', answerB = '" + upQuestion.getAnswerB + "', answerC = '" + upQuestion.getAnswerC +
             "', answerD = '" + upQuestion.getAnswerD + "', correctAnswer = '" + upQuestion.getCorrectAnswer +
@@ -122,5 +122,5 @@ class QuestionDAO {
         });
     }
 }
-QuestionDAO.qds = QuestionDataSource_1.QuestionDataSource.getInstance();
 exports.QuestionDAO = QuestionDAO;
+QuestionDAO.qds = QuestionDataSource_1.QuestionDataSource.getInstance();

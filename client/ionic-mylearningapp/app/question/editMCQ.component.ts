@@ -53,7 +53,7 @@ export class EditMCQComponent {
       });
       //presents user the alert message
       alert.present();
-    }
+    } else
     if (!noWhiteSpace) {
       const alert = this.alertCtrl.create({
         title: '<b>Angaben überprüfen!</b>',

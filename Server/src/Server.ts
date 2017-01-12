@@ -128,8 +128,18 @@ router.put('/multiplechoicequestion/create', function(req, res) {
         res.json(JSON.parse(resolve.toString()));
     })
 })
-// Change an already existing question
-router.post('/question/change', function(req, res) {
+// Change an already existing mcq
+router.put('/multiplechoicequestion/edit', function(req, res) {
+    var jsonQuestion = JSON.parse(JSON.stringify(req.body));
+    var question = new Question(jsonQuestion['id'], jsonQuestion['category'], jsonQuestion['isMcq'], jsonQuestion['question'],
+        jsonQuestion['answerA'], jsonQuestion['answerB'], jsonQuestion['answerC'], jsonQuestion['answerD'], jsonQuestion['correctAnswer']);
+    QuestionDAO.updateQuestion(question).then((resolve) => {
+        res.json(JSON.parse(resolve.toString()));
+    })
+})
+
+// Change an already existing open question
+router.put('/openquestion/edit', function(req, res) {
     var jsonQuestion = JSON.parse(JSON.stringify(req.body));
     var question = new Question(jsonQuestion['id'], jsonQuestion['category'], jsonQuestion['isMcq'], jsonQuestion['question'],
         jsonQuestion['answerA'], jsonQuestion['answerB'], jsonQuestion['answerC'], jsonQuestion['answerD'], jsonQuestion['correctAnswer']);

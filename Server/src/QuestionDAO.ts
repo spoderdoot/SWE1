@@ -130,8 +130,8 @@ export class QuestionDAO {
     }
     // Updates an existing question with the given information (not tested yet)
     public static updateQuestion(upQuestion: Question): Promise<number> {
-        var insert: string = "UPDATE Users SET id = " + upQuestion.getID +
-            ", category = '" + upQuestion.getCategory + "', isMcq = '" + upQuestion.getType +
+        var insert: string = "UPDATE Questions SET id = " + upQuestion.getID +
+            ", category = '" + upQuestion.getCategory  +
             "', question = '" + upQuestion.getQuestion + "', answerA = '" + upQuestion.getAnswerA +
             "', answerB = '" + upQuestion.getAnswerB + "', answerC = '" + upQuestion.getAnswerC +
             "', answerD = '" + upQuestion.getAnswerD + "', correctAnswer = '" + upQuestion.getCorrectAnswer +

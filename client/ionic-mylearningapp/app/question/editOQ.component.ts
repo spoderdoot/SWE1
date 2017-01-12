@@ -66,7 +66,7 @@ export class EditOQComponent {
       });
       // show the pop-up message
       alert.present();
-    }
+    } else
     if (!noWhiteSpace) {
       const alert = this.alertCtrl.create({
         title: '<b>Angaben überprüfen!</b>',
