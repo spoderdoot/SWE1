@@ -1,9 +1,8 @@
 "use strict";
 const express = require("express");
 const bodyParser = require("body-parser");
-const Question_1 = require("./Question");
 const User_1 = require("./User");
-const Questions_1 = require("./Questions");
+const Question_1 = require("./Question");
 const QuizRules_1 = require("./QuizRules");
 const QuestionDAO_1 = require("./QuestionDAO");
 const UserDAO_1 = require("./UserDAO");
@@ -23,17 +22,6 @@ app.use(allowCrossDomain);
 app.use('/ila', router);
 app.listen(port);
 console.log('http://127.0.0.1:' + port + '/ila');
-router.get('/', function (req, res) {
-    res.json({ "message": 'ILA server is running ...' });
-});
-router.get('/listQuestions', function (req, res) {
-    var callback = function (rows) {
-        var response = JSON.stringify(rows);
-        console.log("callback executed" + rows);
-        res.json(JSON.parse(response));
-    };
-    QuestionDAO_1.QuestionDAO.getQuestions(callback);
-});
 router.get('/listAllQuestions', function (req, res) {
     var callback = function (rows) {
         var response = JSON.stringify(rows);
@@ -63,7 +51,7 @@ router.put('/listQuizQuestions', function (req, res) {
     var jsonQuiz = JSON.parse(JSON.stringify(req.body));
     console.log(jsonQuiz);
     var quiz = new QuizRules_1.QuizRules(jsonQuiz['category'], jsonQuiz['numberOfQuestions']);
-    console.log(quiz);
+    console.log("Quiz: " + quiz);
     var callback = function (rows) {
         var response = JSON.stringify(rows);
         console.log("callback executed" + rows);
@@ -71,15 +59,18 @@ router.put('/listQuizQuestions', function (req, res) {
     };
     QuestionDAO_1.QuestionDAO.getQuizQuestions(quiz, callback);
 });
-router.get('/question/:id', function (req, res) {
-    var id = req.params.id;
+router.get('/question/getQuestionByID', function (req, res) {
+    var jsonID = JSON.parse(JSON.stringify(req.body));
+    console.log(jsonID);
+    var arrayID = new Array(jsonID['id']);
+    var id = arrayID[0];
     var callback = function (question) {
         var response = JSON.stringify(question);
         res.json(JSON.parse(response));
     };
-    QuestionDAO_1.QuestionDAO.getQuestionById(id, callback);
+    QuestionDAO_1.QuestionDAO.getQuestionByID(id, callback);
 });
-router.get('/question/listCategory/', function (req, res) {
+router.get('/question/listCategory', function (req, res) {
     var jsonCategory = JSON.parse(JSON.stringify(req.body));
     console.log(jsonCategory);
     var category = new Category_1.Category(jsonCategory['category']);
@@ -90,24 +81,24 @@ router.get('/question/listCategory/', function (req, res) {
     };
     QuestionDAO_1.QuestionDAO.getQuestionByCategory(category, callback);
 });
-router.put('/question/create', function (req, res) {
-    var jsonQuestion = JSON.parse(JSON.stringify(req.body));
-    var question = new Question_1.Question(jsonQuestion['id'], jsonQuestion['question'], jsonQuestion['answerA'], jsonQuestion['answerB'], jsonQuestion['answerC'], jsonQuestion['answerD'], jsonQuestion['correctAnswer']);
-    QuestionDAO_1.QuestionDAO.createQuestion(question).then((resolve) => {
-        res.json(JSON.parse(resolve.toString()));
-    });
-});
 router.put('/openquestion/create', function (req, res) {
     var jsonQuestion = JSON.parse(JSON.stringify(req.body));
-    var question = new Questions_1.Questions(jsonQuestion['id'], jsonQuestion['category'], jsonQuestion['isMcq'], jsonQuestion['question'], jsonQuestion['answerA'], jsonQuestion['answerB'], jsonQuestion['answerC'], jsonQuestion['answerD'], jsonQuestion['correctAnswer']);
+    var question = new Question_1.Question(jsonQuestion['id'], jsonQuestion['category'], jsonQuestion['isMcq'], jsonQuestion['question'], jsonQuestion['answerA'], jsonQuestion['answerB'], jsonQuestion['answerC'], jsonQuestion['answerD'], jsonQuestion['correctAnswer']);
     QuestionDAO_1.QuestionDAO.createOpenQuestion(question).then((resolve) => {
         res.json(JSON.parse(resolve.toString()));
     });
 });
 router.put('/multiplechoicequestion/create', function (req, res) {
     var jsonQuestion = JSON.parse(JSON.stringify(req.body));
-    var question = new Questions_1.Questions(jsonQuestion['id'], jsonQuestion['category'], jsonQuestion['isMcq'], jsonQuestion['question'], jsonQuestion['answerA'], jsonQuestion['answerB'], jsonQuestion['answerC'], jsonQuestion['answerD'], jsonQuestion['correctAnswer']);
+    var question = new Question_1.Question(jsonQuestion['id'], jsonQuestion['category'], jsonQuestion['isMcq'], jsonQuestion['question'], jsonQuestion['answerA'], jsonQuestion['answerB'], jsonQuestion['answerC'], jsonQuestion['answerD'], jsonQuestion['correctAnswer']);
     QuestionDAO_1.QuestionDAO.createMultipleChoiceQuestion(question).then((resolve) => {
+        res.json(JSON.parse(resolve.toString()));
+    });
+});
+router.post('/question/change', function (req, res) {
+    var jsonQuestion = JSON.parse(JSON.stringify(req.body));
+    var question = new Question_1.Question(jsonQuestion['id'], jsonQuestion['category'], jsonQuestion['isMcq'], jsonQuestion['question'], jsonQuestion['answerA'], jsonQuestion['answerB'], jsonQuestion['answerC'], jsonQuestion['answerD'], jsonQuestion['correctAnswer']);
+    QuestionDAO_1.QuestionDAO.updateQuestion(question).then((resolve) => {
         res.json(JSON.parse(resolve.toString()));
     });
 });

@@ -41,16 +41,14 @@ class UserDAO {
         var isUserNameOk = "false";
         var isPasswordOk = "false";
         var isTeacher = false;
-        var query2 = "SELECT * FROM Users WHERE username = '" + checkUser.getUserName + "'" + "AND password = '" + checkUser.getUserPassword + "' ;";
+        var query = "SELECT * FROM Users WHERE username = '" + checkUser.getUserName + "'" + "AND password = '" + checkUser.getUserPassword + "' ;";
         var user = new Array();
-        this.uds.getUserDataBase().all(query2, function (err, rows) {
+        this.uds.getUserDataBase().all(query, function (err, rows) {
             for (var row of rows) {
                 var u1 = new User_1.User(row['id'], row['username'], row['password'], row['isTeacher']);
                 user.push(u1);
             }
-            console.log("row: " + u1);
-            if (row != null) {
-                console.log("3:" + isUserNameOk);
+            if (row = 1) {
                 isUserNameOk = "true";
                 isPasswordOk = "true";
                 isTeacher = row['isTeacher'];
@@ -59,7 +57,6 @@ class UserDAO {
             console.log(loginResult);
             callback(loginResult);
         });
-        console.log("4: " + isUserNameOk);
     }
 }
 UserDAO.uds = UserDataSource_1.UserDataSource.getInstance();

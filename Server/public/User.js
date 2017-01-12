@@ -6,12 +6,8 @@ class User {
         this.password = password;
         this.isTeacher = isTeacher;
     }
-    ;
     get getUserID() {
         return this.id;
-    }
-    set setUserID(newID) {
-        this.id = newID;
     }
     get getUserName() {
         return this.username;

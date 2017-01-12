@@ -6,10 +6,17 @@ import { UserDataSource } from './UserDataSource';
 import { User } from './User';
 import { LoginResult } from './LoginResult';
 
+/**
+ * This class is the connection between the REST-api and the user database
+ *
+ * @author Fernando Francisco Pfennig
+ */
 export class UserDAO {
 
+    // Sets the datasource uds to the available instance of a user database
     private static uds: UserDataSource = UserDataSource.getInstance();
 
+    // Lists all users
     public static getUsers(callback) {
         var users: Array<User> = new Array<User>();
         this.uds.getUserDataBase().all("SELECT username,isTeacher FROM Users;", function(err, rows) {
@@ -50,32 +57,17 @@ export class UserDAO {
         var isPasswordOk: string = "false";
         var isTeacher: boolean = false;
 
-
-        /*var query1: string = "SELECT * FROM Users WHERE username = '" + checkUser.getUserName + "';";
+        var query: string = "SELECT * FROM Users WHERE username = '" + checkUser.getUserName + "'" + "AND password = '" + checkUser.getUserPassword + "' ;";
         var user: Array<User> = new Array<User>();
-        this.uds.getUserDataBase().all(query1, function(err, rows) {
+        this.uds.getUserDataBase().all(query, function(err, rows) {
             for (var row of rows) {
                 var u1 = new User(row['id'], row['username'], row['password'], row['isTeacher']);
                 user.push(u1);
             }
-            console.log("row: " + u1);
-            if (row != null) {
-                isUserNameOk = "true";
-                console.log("1 " + isUserNameOk);
-            }
-        });
-        console.log("2: " + isUserNameOk);
-        */
-        var query2: string = "SELECT * FROM Users WHERE username = '" + checkUser.getUserName + "'" + "AND password = '" + checkUser.getUserPassword + "' ;";
-        var user: Array<User> = new Array<User>();
-        this.uds.getUserDataBase().all(query2, function(err, rows) {
-            for (var row of rows) {
-                var u1 = new User(row['id'], row['username'], row['password'], row['isTeacher']);
-                user.push(u1);
-            }
-            console.log("row: " + u1);
-            if (row != null) {
-                console.log("3:" + isUserNameOk);
+            // If there is a user who uses the given username and password there will always be one row
+            // since every username has to be unique, meaning that if the given combination exists in
+            // the database the row will be set to 1
+            if (row = 1) {
                 isUserNameOk = "true";
                 isPasswordOk = "true";
                 isTeacher = row['isTeacher'];
@@ -84,8 +76,5 @@ export class UserDAO {
             console.log(loginResult);
             callback(loginResult);
         });
-        console.log("4: " + isUserNameOk);
-
-
     }
 }

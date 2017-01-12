@@ -1,7 +1,9 @@
 "use strict";
 class Question {
-    constructor(id, question, answerA, answerB, answerC, answerD, correctAnswer) {
+    constructor(id, category, isMcq, question, answerA, answerB, answerC, answerD, correctAnswer) {
         this.id = id;
+        this.category = category;
+        this.isMcq = isMcq;
         this.question = question;
         this.answerA = answerA;
         this.answerB = answerB;
@@ -9,11 +11,17 @@ class Question {
         this.answerD = answerD;
         this.correctAnswer = correctAnswer;
     }
+    get getID() {
+        return this.id;
+    }
+    get getCategory() {
+        return this.category;
+    }
+    get getType() {
+        return this.isMcq;
+    }
     get getQuestion() {
         return this.question;
-    }
-    get getId() {
-        return this.id;
     }
     get getAnswerA() {
         return this.answerA;
