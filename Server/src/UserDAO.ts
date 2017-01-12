@@ -67,7 +67,7 @@ export class UserDAO {
             // If there is a user who uses the given username and password there will always be one row
             // since every username has to be unique, meaning that if the given combination exists in
             // the database the row will be set to 1
-            if (row = 1) {
+            if (row != 0) {
                 isUserNameOk = "true";
                 isPasswordOk = "true";
                 isTeacher = row['isTeacher'];

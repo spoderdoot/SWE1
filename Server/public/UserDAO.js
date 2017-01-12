@@ -48,7 +48,7 @@ class UserDAO {
                 var u1 = new User_1.User(row['id'], row['username'], row['password'], row['isTeacher']);
                 user.push(u1);
             }
-            if (row = 1) {
+            if (row != 0) {
                 isUserNameOk = "true";
                 isPasswordOk = "true";
                 isTeacher = row['isTeacher'];
