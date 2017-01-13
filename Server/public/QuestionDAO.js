@@ -122,5 +122,5 @@ class QuestionDAO {
         });
     }
 }
-exports.QuestionDAO = QuestionDAO;
 QuestionDAO.qds = QuestionDataSource_1.QuestionDataSource.getInstance();
+exports.QuestionDAO = QuestionDAO;

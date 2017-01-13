@@ -61,9 +61,10 @@ router.put('/listQuizQuestions', function (req, res) {
 });
 router.get('/question/getQuestionByID', function (req, res) {
     var jsonID = JSON.parse(JSON.stringify(req.body));
-    console.log(jsonID);
     var arrayID = new Array(jsonID['id']);
+    console.log(arrayID);
     var id = arrayID[0];
+    console.log(id);
     var callback = function (question) {
         var response = JSON.stringify(question);
         res.json(JSON.parse(response));
@@ -72,8 +73,8 @@ router.get('/question/getQuestionByID', function (req, res) {
 });
 router.get('/question/listCategory', function (req, res) {
     var jsonCategory = JSON.parse(JSON.stringify(req.body));
-    console.log(jsonCategory);
     var category = new Category_1.Category(jsonCategory['category']);
+    console.log(category);
     var callback = function (rows) {
         var response = JSON.stringify(rows);
         console.log("callback executed " + rows);
@@ -84,6 +85,7 @@ router.get('/question/listCategory', function (req, res) {
 router.put('/openquestion/create', function (req, res) {
     var jsonQuestion = JSON.parse(JSON.stringify(req.body));
     var question = new Question_1.Question(jsonQuestion['id'], jsonQuestion['category'], jsonQuestion['isMcq'], jsonQuestion['question'], jsonQuestion['answerA'], jsonQuestion['answerB'], jsonQuestion['answerC'], jsonQuestion['answerD'], jsonQuestion['correctAnswer']);
+    console.log(question);
     QuestionDAO_1.QuestionDAO.createOpenQuestion(question).then((resolve) => {
         res.json(JSON.parse(resolve.toString()));
     });
@@ -91,6 +93,7 @@ router.put('/openquestion/create', function (req, res) {
 router.put('/multiplechoicequestion/create', function (req, res) {
     var jsonQuestion = JSON.parse(JSON.stringify(req.body));
     var question = new Question_1.Question(jsonQuestion['id'], jsonQuestion['category'], jsonQuestion['isMcq'], jsonQuestion['question'], jsonQuestion['answerA'], jsonQuestion['answerB'], jsonQuestion['answerC'], jsonQuestion['answerD'], jsonQuestion['correctAnswer']);
+    console.log(question);
     QuestionDAO_1.QuestionDAO.createMultipleChoiceQuestion(question).then((resolve) => {
         res.json(JSON.parse(resolve.toString()));
     });
@@ -98,6 +101,7 @@ router.put('/multiplechoicequestion/create', function (req, res) {
 router.put('/multiplechoicequestion/edit', function (req, res) {
     var jsonQuestion = JSON.parse(JSON.stringify(req.body));
     var question = new Question_1.Question(jsonQuestion['id'], jsonQuestion['category'], jsonQuestion['isMcq'], jsonQuestion['question'], jsonQuestion['answerA'], jsonQuestion['answerB'], jsonQuestion['answerC'], jsonQuestion['answerD'], jsonQuestion['correctAnswer']);
+    console.log(question);
     QuestionDAO_1.QuestionDAO.updateQuestion(question).then((resolve) => {
         res.json(JSON.parse(resolve.toString()));
     });
@@ -105,6 +109,7 @@ router.put('/multiplechoicequestion/edit', function (req, res) {
 router.put('/openquestion/edit', function (req, res) {
     var jsonQuestion = JSON.parse(JSON.stringify(req.body));
     var question = new Question_1.Question(jsonQuestion['id'], jsonQuestion['category'], jsonQuestion['isMcq'], jsonQuestion['question'], jsonQuestion['answerA'], jsonQuestion['answerB'], jsonQuestion['answerC'], jsonQuestion['answerD'], jsonQuestion['correctAnswer']);
+    console.log(question);
     QuestionDAO_1.QuestionDAO.updateQuestion(question).then((resolve) => {
         res.json(JSON.parse(resolve.toString()));
     });
@@ -112,7 +117,6 @@ router.put('/openquestion/edit', function (req, res) {
 router.put('/user/create', function (req, res) {
     console.log("Register User: ");
     var jsonUser = JSON.parse(JSON.stringify(req.body));
-    console.log(jsonUser);
     var user = new User_1.User(jsonUser['id'], jsonUser['username'], jsonUser['password'], jsonUser['isTeacher']);
     console.log(user);
     UserDAO_1.UserDAO.createUser(user).then((resolve) => {
@@ -129,7 +133,6 @@ router.get('/user/listUsers', function (req, res) {
 });
 router.post('/user/login/', function (req, res) {
     var jsonUser = JSON.parse(JSON.stringify(req.body));
-    console.log(jsonUser);
     var user = new User_1.User(jsonUser['id'], jsonUser['username'], jsonUser['password'], jsonUser['isTeacher']);
     console.log(user);
     var callback = function (rows) {
